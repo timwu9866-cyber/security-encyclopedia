@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<script>(function(){var t;try{t=localStorage.getItem('sec-theme')}catch(e){}if(t!=='light'&&t!=='dark'){try{t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}catch(e){t='dark'}}document.documentElement.setAttribute('data-theme',t)})();</script>
+<title>网络安全事件大全 · 3D 动效百科</title>
+<link rel="stylesheet" href="css/app.css?v=db5f9332">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">◈ 网络安全事件大全 <small>3D 动效百科 · 防御教育</small></div>
+    <div class="hstat" id="total"></div>
+    <div class="grow"></div>
+    <a class="navbtn" id="bGraph" href="graph.html" title="打开知识图谱:事件、攻击链、防守措施之间的关系">✦ 知识图谱</a>
+    <button id="bAll" title="按列表顺序连续演示所有(筛选后的)事件">▶ 全部演示</button>
+    <button id="bCat" title="连续播放当前所在分类的全部事件">▶ 连续播放当前分类</button>
+    <button id="bTheme" type="button" title="当前夜间,点击切换到日间" aria-pressed="false">☾ 夜间</button>
+    <label class="bl" title="全局辉光强度,默认 20%">辉光 <input id="bloom" autocomplete="off" type="range" min="0" max="100" step="1" value="20"><span id="bloomV">20%</span></label>
+    <button id="bHome" title="恢复默认视角(镜头角度固定,可平移/缩放)">⌂ 视角</button>
+  </header>
+  <main>
+    <aside id="left">
+      <input id="q" type="search" placeholder="搜索:名称 / 英文 / 关键词…" autocomplete="off">
+      <div id="sevs" class="chips"></div>
+      <div id="cnt"></div>
+      <div id="list"></div>
+    </aside>
+    <section id="center">
+      <div id="stage"><canvas id="cv"></canvas>
+        <div id="title"></div><div id="legend"><span><i class="atk"></i>攻击/恶意</span><span><i class="def"></i>防御</span><span><i class="ok"></i>正常流量</span><span><i class="warn"></i>风险/数据</span></div>
+        <div id="hint">拖拽=平移 · 滚轮/双指=缩放 · 镜头角度固定</div><div id="cap"></div><div id="nodata"></div><div id="stnote"></div></div>
+      <div id="ctl">
+        <button id="bPrev" title="上一个事件 ([)">⏮</button>
+        <button id="bPlay">❚❚ 暂停</button>
+        <button id="bReplay">↻ 重播</button>
+        <button id="bNext" title="下一个事件 (])">⏭</button>
+        <div id="scrubWrap"><input id="scrub" autocomplete="off" type="range" min="0" max="1000" step="1" value="0"><div id="ticks"></div></div>
+        <div id="tm">0.0 / 0.0 秒</div>
+        <label class="bl">速度 <select id="speed" autocomplete="off"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="3">3×</option></select></label>
+        <div id="mode"></div>
+      </div>
+    </section>
+    <aside id="detail"></aside>
+  </main>
+</div>
+<script src="lib/three.bundle.js?v=ebfe9ba7"></script>
+<script src="js/core.js?v=109ca2f6"></script>
+<script src="js/prims.js?v=3e8d2f68"></script>
+<script src="js/stage.js?v=00cfe2a3"></script>
+<script src="data/cats.js?v=8409915d"></script>
+<script src="data/schemes.js?v=8aa00a9e"></script>
+<script src="data/schemes2.js?v=593a21cf"></script>
+<script src="data/events-web.js?v=61dd27e4"></script>
+<script src="data/events-net.js?v=aa576f40"></script>
+<script src="data/events-host.js?v=6bc7ca82"></script>
+<script src="data/events-iam.js?v=bb058e12"></script>
+<script src="data/events-data.js?v=ba1b6ab3"></script>
+<script src="data/events-cloud.js?v=4bb254eb"></script>
+<script src="data/events-supply.js?v=dc6a4a79"></script>
+<script src="data/events-mal.js?v=3850a72c"></script>
+<script src="data/events-social.js?v=c982fb71"></script>
+<script src="data/events-phys.js?v=ed2d6506"></script>
+<script src="data/events-ext.js?v=c9924ac1"></script>
+<script src="data/events-def.js?v=f7b6187c"></script>
+<!--NEWEVENTS-->
+<script src="data/events-new-ai.js?v=abe1772a"></script>
+<script src="data/events-new-ai2.js?v=0f9c3b27"></script>
+<script src="data/events-new-cloud.js?v=a2f6a455"></script>
+<script src="data/events-new-cloud2.js?v=32ab3d2d"></script>
+<script src="data/events-new-data.js?v=3c5e7b96"></script>
+<script src="data/events-new-def.js?v=eb27bd5a"></script>
+<script src="data/events-new-def2.js?v=16a28c69"></script>
+<script src="data/events-new-ext.js?v=43191d41"></script>
+<script src="data/events-new-fin.js?v=cb1f6fd4"></script>
+<script src="data/events-new-fin2.js?v=125f478d"></script>
+<script src="data/events-new-host.js?v=8c5f0060"></script>
+<script src="data/events-new-host2.js?v=2a9ceafb"></script>
+<script src="data/events-new-iam.js?v=e54e8b39"></script>
+<script src="data/events-new-mal.js?v=7ca8ab10"></script>
+<script src="data/events-new-net.js?v=44b6d0bb"></script>
+<script src="data/events-new-net2.js?v=8e50277e"></script>
+<script src="data/events-new-phys2.js?v=c5d9fb3d"></script>
+<script src="data/events-new-social.js?v=131e1871"></script>
+<script src="data/events-new-supply.js?v=2919c8de"></script>
+<script src="data/events-new-web.js?v=e443692b"></script>
+<script src="data/events-new-web2.js?v=45ce0a40"></script>
+<script src="js/theme.js?v=69e90e94"></script>
+<script src="js/app.js?v=1e4d242b"></script>
+</body>
+</html>

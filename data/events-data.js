@@ -1,0 +1,72 @@
+(function(E){
+const U=[0,0,5.2], UT=[0,2.5,5.2], AT=[0,0,-5.5], ATT=[0,2.5,-5.5], X=[10.5,0,-6.5], XT=[10.5,2.5,-6.5];
+const C='client', S='server', D='db', N='net', CL='cloud';
+const L=(c,e)=>['link',0.4,e,{col:c||'ok'}];
+E.push(
+{ id:'leak', cat:'data', name:'数据泄露', en:'Data Breach / Leak', sev:'critical', stage:'数据外泄 / 影响',
+ src:{n:'外部访问者',k:C,c:'warn',d:'任何能访问到该数据的互联网用户'}, dst:{n:'业务数据库',k:D,c:'ok',d:'本应受保护、却因配置或漏洞而外露的数据'},
+ principle:'数据因为配置错误、漏洞、误操作或内部疏忽而暴露在不该被访问的地方。数据被陆续拉走或公开,往往要等到被第三方发现、通报才察觉。',
+ impact:'个人隐私/商业机密外泄,合规处罚、赔偿与声誉损失。',
+ defense:['数据分类分级与最小暴露','加密存储与传输、脱敏与访问审计','定期配置检查和暴露面扫描','泄露监测与应急响应预案'],
+ refs:['OWASP Top 10:A01 / A05','MITRE ATT&CK T1530 / T1213','CWE-200'], kw:'泄漏 暴露 隐私 外泄',
+ dur:15, ph:[[0,'数据库本应只对内部开放','ok'],[2.5,'配置失误让它对外暴露了一个入口','warn'],[5,'外部访问者发现并开始读取','atk'],[8,'大量记录被陆续拉走','atk'],[11,'数据出现在公开网络上','atk'],[13.5,'直到被发现通报,泄露已经发生','warn']],
+ fx:[L('warn',14.6),['relay',7,15,{id:'x',at:X,kind:CL,col:'atk',label:'公开网络',scale:.45}],['glyph',2.5,15,{name:'unlock',at:'dst',dy:8.3,col:'warn',size:1,anim:'pop'}],
+  ['records',4.5,15,{at:'dst',cols:6,rows:3,mode:'drain',col:'ok',col2:'warn',to:XT}],['packet',5,9,{wp:['srcT','dstT'],col:'warn',shape:'mail',size:.3,n:5,gap:.6,d:1.4}],
+  ['stream',6,13,{wp:['dstT',XT],col:'warn',rate:16,life:1.8,spread:[.6,.6,.6],size:.22,arc:3}],['@tint',7,10,{who:'dst',col:'warn',k:.5}],['glyph',11,15,{name:'eye',at:X,dy:5,col:'atk',size:1,anim:'float'}]]},
+
+{ id:'exfil', cat:'data', name:'数据窃取外泄', en:'Data Exfiltration', sev:'critical', stage:'数据外泄',
+ src:{n:'失陷内部主机',k:C,c:'atk',d:'攻击者在内网的工作据点'}, dst:{n:'内部数据服务器',k:D,c:'ok',d:'存放核心资料的内部系统'},
+ principle:'攻击者先把数据集中收集到据点,再压缩、加密打包,然后分批、低速地通过看似正常的出站通道(如 HTTPS、云盘)送出去,避开流量阈值与内容检测。这种“低慢小”的方式让外泄行为混在日常流量里。',
+ impact:'核心资料被悄悄转走,企业往往事后很久才发现。',
+ defense:['出站流量基线与 DLP(数据防泄漏)','关键数据访问审计与大批量读取告警','网络出口代理与分层管控','端点管控:限制外发与可移动介质'],
+ refs:['MITRE ATT&CK T1041 / T1048 / T1567','CWE-201'], kw:'外传 打包 压缩 加密通道 dlp',
+ dur:16, ph:[[0,'攻击者在内网据点,盯上数据服务器','atk'],[2.5,'把数据分批收集到据点','atk'],[6,'压缩并加密打包,看不出内容','atk'],[8.5,'选择看似正常的出站通道','warn'],[10.5,'低速、分批外送,避开告警阈值','atk'],[14,'数据已经在攻击者手里','atk']],
+ fx:[L('atk',15.6),['relay',8,16,{id:'x',at:X,kind:CL,col:'atk',label:'外部服务器',scale:.45}],['records',2.5,7,{at:'dst',cols:5,rows:3,mode:'hop',seq:[1,3,5,7,9,11],col:'ok',col2:'warn',to:'srcT'}],
+  ['packet',3,7,{wp:['dstT','srcT'],col:'warn',shape:'doc',n:5,gap:.6,size:.38,arc:3}],['glyph',6,10,{name:'lock',at:'src',dy:6.2,col:'warn',size:1,anim:'pop'}],['@pulse',6,8,{at:'srcF',col:'warn',n:2}],
+  ['link',8.5,15.6,{wp:['srcT',XT],col:'warn',dash:1,arc:3,r:.04}],['packet',10,15,{wp:['srcT',XT],col:'warn',shape:'lock',size:.4,n:5,gap:.9,d:2.6,arc:3}],['glyph',13.8,16,{name:'check',at:X,dy:5,col:'atk',size:1,anim:'pop'}]]},
+
+{ id:'dbdump', cat:'data', name:'数据库拖库', en:'Database Dump', sev:'critical', stage:'收集 / 数据外泄',
+ src:{n:'攻击者',k:C,c:'atk',d:'已取得数据库访问能力的一方'}, dst:{n:'数据库服务器',k:D,c:'ok',d:'存有大量用户记录的数据库'},
+ principle:'攻击者通过漏洞或窃取的凭据拿到数据库访问权后,不再逐条查询,而是把整张表甚至整个库批量导出,压缩后一次性拉走。批量导出的特征(查询量大、时间异常)往往是发现它的线索。',
+ impact:'全量用户数据泄露,后续引发撞库、诈骗和勒索。',
+ defense:['数据库访问白名单与堡垒机','敏感字段加密/脱敏,最小授权','大批量导出审计与速率告警','定期审计账户和网络暴露面'],
+ refs:['MITRE ATT&CK T1005 / T1213','OWASP Top 10:A01','CWE-200'], kw:'导出 全表 批量 脱库',
+ dur:15, ph:[[0,'攻击者已拿到数据库访问权','atk'],[2,'列出所有库表,选定高价值目标','atk'],[4,'发起整表批量导出','atk'],[7,'记录成批流出数据库','atk'],[10.5,'导出进度逼近 100%','atk'],[13,'全量用户数据落入攻击者手中','atk']],
+ fx:[L('atk',14.6),['records',2,15,{at:'dst',dy:6.3,cols:7,rows:5,sz:.34,mode:'drain',col:'ok',col2:'atk',to:'srcT'}],['sweep',2,4,{mode:'radar',at:'dst',col:'atk',r:3}],
+  ['stream',4.5,12,{wp:['dstT','srcT'],col:'warn',rate:30,life:1.7,spread:[.8,.8,.8],size:.24,arc:3}],['meter',4,15,{at:'dst',lv:[[4,.05],[11,1]]}],['nodefx',0,0,{who:'dst',dim:[[8,1],[13,.55]],lift:[[8,0],[13,.6]],tint:'atk',k:[[5,0],[13,.6]]}],
+  ['glyph',12.5,15,{name:'check',at:'src',dy:6.2,col:'atk',size:1.1,anim:'pop'}]]},
+
+{ id:'ransomenc', cat:'data', name:'勒索加密', en:'Data Encrypted for Impact', sev:'critical', stage:'影响',
+ src:{n:'勒索者',k:C,c:'atk',d:'持有解密密钥、索要赎金的一方'}, dst:{n:'文件服务器',k:S,c:'ok',d:'保存业务文件、被加密的系统'},
+ principle:'攻击者入侵系统后,使用强加密算法把业务文件批量加密,删除或破坏原件,只留下勒索说明。没有密钥无法解密,攻击者借此要求付款。',
+ impact:'业务停摆、数据不可用;支付赎金也不保证恢复。',
+ defense:['离线/不可变备份并定期演练恢复','最小权限与网络分段,阻断横向扩散','EDR 检测批量加密行为','应急响应与恢复预案'],
+ refs:['MITRE ATT&CK T1486 / T1490','CWE-693(保护机制失效相关)'], kw:'赎金 加密 文件 锁定',
+ dur:16, ph:[[0,'文件服务器正常运行,文件完好','ok'],[2.5,'攻击者开始批量加密文件','atk'],[5.5,'文件逐个被锁定,颜色改变','atk'],[9,'系统上的文件几乎全部不可用','atk'],[11.5,'留下勒索说明,倒计时开始','warn'],[14,'业务停摆,等待付款或恢复','atk']],
+ fx:[L('atk',15.6),['records',0,16,{at:'dst',cols:7,rows:3,sz:.36,mode:'fill',col:'ok',col2:'vio'}],['sweep',2.5,9,{mode:'radar',at:'dst',col:'vio',r:3.6}],
+  ['nodefx',0,0,{who:'dst',tint:'vio',k:[[3,0],[9,.85]],shake:[[3,9,.03]]}],['orbit',4,16,{at:'dst',n:7,shape:'lock',col:'vio',rad:2.7,h:2.2,size:.6,grow:4}],
+  ['packet',2.5,5,{col:'atk',shape:'dart',size:.4,n:2,gap:.6}],['glyph',11,16,{name:'dollar',at:'src',dy:6.4,col:'warn',size:1.1,anim:'throb'}],['timer',11,16,{at:'dst',dy:8.4,col:'warn',done:15.5}]]},
+
+{ id:'infoexpo', cat:'data', name:'敏感信息暴露', en:'Sensitive Data Exposure', sev:'medium', stage:'收集',
+ src:{n:'任意访问者',k:C,c:'warn',d:'发起普通请求的访问者(甚至自动爬取)'}, dst:{n:'Web 应用',k:S,c:'ok',d:'在响应、调试页或日志中带出过多内部信息的应用'},
+ principle:'应用在错误页面、调试信息、前端源码、日志或接口响应里多返回了不该给外界看的信息(如内部地址、密钥、用户数据)。访问者不需要任何“攻击”就能读到。',
+ impact:'暴露内部结构、凭据、个人数据,为后续攻击提供捷径。',
+ defense:['生产环境关闭调试和详细错误','响应字段最小化、前端不放密钥','日志脱敏与访问控制','持续扫描敏感信息暴露'],
+ refs:['OWASP Top 10:A02 / A05','CWE-200 / CWE-209 / CWE-532'], kw:'调试 日志 密钥泄露 错误信息',
+ dur:14, ph:[[0,'访问者发出一个普通请求','ok'],[2,'应用返回了响应','ok'],[4.5,'响应里多带了内部信息(调试/密钥/用户数据)','warn'],[8,'访问者(或爬虫)读到这些信息','warn'],[10.5,'这些信息被用来规划后续攻击','atk']],
+ fx:[L('ok',13.6),['packet',1.2,3.2,{col:'ok',shape:'mail',size:.38}],['packet',2.5,5,{wp:['dstT','srcT'],col:'ok',shape:'doc',size:.42,arc:3}],
+  ['packet',3.5,6,{wp:['dstT','srcT'],col:'warn',shape:'key',size:.42,arc:3.4}],['packet',4,6.5,{wp:['dstT','srcT'],col:'warn',shape:'user',size:.42,arc:3.8}],['glyph',4.5,13,{name:'warn',at:'dst',dy:6,col:'warn',size:.9,anim:'blink'}],
+  ['glyph',7.5,13.6,{name:'eye',at:'src',dy:6.2,col:'warn',size:1.1,anim:'float'}],['panel',6,13.6,{at:'srcT',dy:2.8,size:[2.6,1.8],col:'info',mark:{t:6.5,x:.2,y:-.1,w:1.3,h:.28,col:'warn'}}]]},
+
+{ id:'backupdel', cat:'data', name:'备份被删除 / 破坏', en:'Backup Destruction', sev:'critical', stage:'影响 / 防御规避',
+ src:{n:'攻击者',k:C,c:'atk',d:'提前清除恢复手段的入侵者'}, dst:{n:'生产系统',k:S,c:'ok',d:'业务运行并依赖备份恢复的系统'},
+ principle:'有经验的攻击者会在发起破坏或勒索之前,先找到备份系统并删除、加密或破坏它们。备份没了,企业失去最重要的退路。',
+ impact:'遭遇破坏后无法恢复,被迫接受勒索或长时间停业。',
+ defense:['3-2-1 备份:离线/异地/不可变副本','备份系统独立认证,与生产网络隔离','备份删除需多人审批','定期恢复演练'],
+ refs:['MITRE ATT&CK T1490 / T1485','CWE-693'], kw:'备份 删除 快照 恢复',
+ dur:15, ph:[[0,'生产系统与备份库各司其职','ok'],[2.5,'攻击者先找到备份库','atk'],[5,'登录备份库并删除/加密备份','atk'],[8,'备份失效,退路消失','atk'],[10.5,'随后对生产系统发动破坏/加密','atk'],[13,'无备份可恢复,业务损失扩大','atk']],
+ fx:[L('atk',14.6),['relay',0,15,{id:'v',at:AT,kind:D,col:'def',label:'备份库',scale:.5,tint:'atk',k:[[6,0],[8,.9]]}],['records',0,15,{at:AT,dy:3.6,cols:5,rows:2,sz:.34,mode:'fill',col:'def',col2:'dim'}],
+  ['link',3,15,{wp:['srcT',ATT],col:'atk',dash:1,arc:2}],['packet',3.2,6,{wp:['srcT',ATT],col:'atk',shape:'dart',size:.4,arc:2}],['@hit',6.2,7,{who:'v',col:'atk',n:22,r:1.6}],['nodefx',0,0,{who:'v',dim:[[7.4,1],[9,.4]]}],
+  ['glyph',8,15,{name:'cross',at:AT,dy:4.4,col:'atk',size:1,anim:'pop'}],['packet',10.4,12.4,{col:'atk',shape:'dart',size:.42,n:3,gap:.4}],['@hit',12.4,13.2,{who:'dst',col:'atk',n:30,shards:6}],['@tint',12.4,13.6,{who:'dst',col:'vio',k:.85}]]}
+);
+})(window.SEC_EVENTS);

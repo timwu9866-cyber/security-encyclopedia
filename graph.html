@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<script>(function(){var t;try{t=localStorage.getItem('sec-theme')}catch(e){}if(t!=='light'&&t!=='dark'){try{t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}catch(e){t='dark'}}document.documentElement.setAttribute('data-theme',t)})();</script>
+<title>网络安全知识图谱 · 事件 / 攻击链 / 防守</title>
+<link rel="stylesheet" href="css/app.css?v=db5f9332">
+<link rel="stylesheet" href="css/graph.css?v=69243f3b">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">✦ 网络安全知识图谱 <small>事件 · 攻击链 · 防守措施 · 防御教育</small></div>
+    <div class="hstat" id="gstat"></div>
+    <div class="grow"></div>
+    <a class="navbtn" id="bIndex" href="index.html" title="返回 3D 事件大全">◈ 事件大全</a>
+    <button id="bLayout" title="切换布局:力导向 / 按攻击链阶段分层">布局:力导向</button>
+    <button id="bReset" title="重置筛选、选择和视角,并重新布局">⟲ 重置</button>
+    <button id="bFit" title="缩放以显示全部可见节点">⤢ 适应</button>
+    <button id="bPanel" class="only-narrow" title="显示/隐藏筛选面板">☰ 筛选</button>
+    <button id="bTheme" type="button" title="当前夜间,点击切换到日间" aria-pressed="false">☾ 夜间</button>
+    <label class="bl" title="选中/悬停节点的辉光强度,默认 20%">辉光 <input id="glow" autocomplete="off" type="range" min="0" max="100" step="1" value="20"><span id="glowV">20%</span></label>
+  </header>
+  <main>
+    <aside id="gleft">
+      <input id="gq" type="search" placeholder="搜索节点:名称 / 英文 / 关键词(回车定位)" autocomplete="off">
+      <div id="gqres" class="note"></div>
+      <h4>节点类型</h4><div id="fType" class="chips"></div>
+      <h4>关系类型</h4><div id="fEdge" class="chips"></div>
+      <h4>事件分类</h4><select id="fCat" autocomplete="off"></select>
+      <h4>严重程度</h4><div id="fSev" class="chips"></div>
+      <h4>覆盖情况</h4><div id="fGap" class="chips"></div>
+      <h4>图例</h4><div id="legendG"></div>
+      <div class="note tips">单击=选中并高亮邻居 · 双击=展开/收起隐藏的邻居(措施、参考、资产等) · 拖动节点=移动 · 拖动空白=平移 · 滚轮/双指=缩放</div>
+    </aside>
+    <section id="gcenter"><canvas id="gcv"></canvas><div id="gtip"></div><div id="gempty">没有符合筛选条件的节点</div></section>
+    <aside id="gdetail"><div class="note" id="dEmpty">点击图中的节点查看详情。<br>事件 / 防守节点可一键跳转到 3D 动画演示。</div><div id="dBody"></div></aside>
+  </main>
+</div>
+<script src="data/cats.js?v=8409915d"></script>
+<script src="data/schemes.js?v=8aa00a9e"></script>
+<script src="data/schemes2.js?v=593a21cf"></script>
+<script src="data/events-web.js?v=61dd27e4"></script>
+<script src="data/events-net.js?v=aa576f40"></script>
+<script src="data/events-host.js?v=6bc7ca82"></script>
+<script src="data/events-iam.js?v=bb058e12"></script>
+<script src="data/events-data.js?v=ba1b6ab3"></script>
+<script src="data/events-cloud.js?v=4bb254eb"></script>
+<script src="data/events-supply.js?v=dc6a4a79"></script>
+<script src="data/events-mal.js?v=3850a72c"></script>
+<script src="data/events-social.js?v=c982fb71"></script>
+<script src="data/events-phys.js?v=ed2d6506"></script>
+<script src="data/events-ext.js?v=c9924ac1"></script>
+<script src="data/events-def.js?v=f7b6187c"></script>
+<!--NEWEVENTS-->
+<script src="data/events-new-ai.js?v=abe1772a"></script>
+<script src="data/events-new-ai2.js?v=0f9c3b27"></script>
+<script src="data/events-new-cloud.js?v=a2f6a455"></script>
+<script src="data/events-new-cloud2.js?v=32ab3d2d"></script>
+<script src="data/events-new-data.js?v=3c5e7b96"></script>
+<script src="data/events-new-def.js?v=eb27bd5a"></script>
+<script src="data/events-new-def2.js?v=16a28c69"></script>
+<script src="data/events-new-ext.js?v=43191d41"></script>
+<script src="data/events-new-fin.js?v=cb1f6fd4"></script>
+<script src="data/events-new-fin2.js?v=125f478d"></script>
+<script src="data/events-new-host.js?v=8c5f0060"></script>
+<script src="data/events-new-host2.js?v=2a9ceafb"></script>
+<script src="data/events-new-iam.js?v=e54e8b39"></script>
+<script src="data/events-new-mal.js?v=7ca8ab10"></script>
+<script src="data/events-new-net.js?v=44b6d0bb"></script>
+<script src="data/events-new-net2.js?v=8e50277e"></script>
+<script src="data/events-new-phys2.js?v=c5d9fb3d"></script>
+<script src="data/events-new-social.js?v=131e1871"></script>
+<script src="data/events-new-supply.js?v=2919c8de"></script>
+<script src="data/events-new-web.js?v=e443692b"></script>
+<script src="data/events-new-web2.js?v=45ce0a40"></script>
+<script src="data/graph.js?v=28a5899b"></script>
+<script src="js/theme.js?v=69e90e94"></script>
+<script src="js/graph.js?v=b7ca1381"></script>
+</body>
+</html>

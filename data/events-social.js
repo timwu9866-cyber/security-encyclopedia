@@ -1,0 +1,72 @@
+(function(E){
+const U=[0,0,5.2], UT=[0,2.5,5.2], AT=[0,0,-5.5], ATT=[0,2.5,-5.5], X=[10.5,0,-6.5], XT=[10.5,2.5,-6.5];
+const C='client', S='server', D='db', N='net', CL='cloud';
+const L=(c,e)=>['link',0.4,e,{col:c||'ok'}];
+E.push(
+{ id:'phishmail', cat:'social', name:'钓鱼邮件', en:'Phishing Email', sev:'high', stage:'初始访问 / 凭据访问',
+ src:{n:'攻击者',k:C,c:'atk',d:'群发伪装成可信机构的邮件'}, dst:{n:'员工',k:C,c:'ok',d:'收到邮件的普通用户'},
+ principle:'攻击者伪装成银行、快递或公司 IT 部门,群发带有“紧急”措辞和链接的邮件。只要有人点击并在仿冒页面输入账号密码,凭据就落入攻击者手中。',
+ impact:'账号被盗、恶意软件落地、成为进一步入侵的入口。',
+ defense:['邮件网关:SPF/DKIM/DMARC、链接与附件沙箱','安全意识培训与钓鱼演练','多因素认证与密码管理器','员工一键举报机制'],
+ refs:['MITRE ATT&CK T1566','CWE-451'], kw:'邮件 仿冒 链接 凭据',
+ dur:15, ph:[[0,'攻击者编写伪装成可信机构的邮件','atk'],[2,'向大量员工群发','atk'],[5,'有一位员工信以为真,点击链接','warn'],[7.5,'进入仿冒的登录页面','atk'],[10,'输入账号密码','warn'],[12.5,'凭据被攻击者收走','atk']],
+ fx:[['relay',6,15,{id:'x',at:X,kind:CL,col:'atk',label:'仿冒页面',scale:.42}],['packet',2,5,{col:'atk',shape:'mail',size:.4,n:6,gap:.3,d:2.2}],['glyph',5.2,8,{name:'hook',at:'dst',dy:6.2,col:'warn',size:.9,anim:'pop'}],
+  ['packet',6,8.4,{wp:['dstT',XT],col:'warn',shape:'orb',size:.34,arc:2.8}],['panel',8,15,{at:XT,dy:2.4,size:[2.6,1.8],style:'login',col:'atk'}],['packet',10,12.5,{wp:['dstT',XT],col:'warn',shape:'key',size:.4,arc:2.8}],
+  ['packet',12,14.5,{wp:[XT,'srcT'],col:'warn',shape:'key',size:.4,arc:3.6}],['@tint',12.5,14,{who:'dst',col:'atk',k:.5}]]},
+
+{ id:'spearphish', cat:'social', name:'鱼叉式钓鱼', en:'Spear Phishing', sev:'high', stage:'初始访问',
+ src:{n:'攻击者',k:C,c:'atk',d:'事先调查目标并定制内容'}, dst:{n:'特定高价值目标',k:C,c:'ok',d:'财务、管理员或高管等'},
+ principle:'与群发不同,鱼叉式钓鱼针对特定的人。攻击者先收集目标的职务、同事、项目等公开信息,再编写高度贴合工作情境的邮件和附件,可信度远高于普通钓鱼。',
+ impact:'成功率高,常用于高价值入侵(APT)的第一步。',
+ defense:['对高风险岗位额外的邮件防护与沙箱','限制公开信息暴露','附件宏默认禁用、文件来源核验','关键请求通过第二渠道确认'],
+ refs:['MITRE ATT&CK T1566.001 / T1566.002','CWE-451'], kw:'定向 apt 附件 社工',
+ dur:15, ph:[[0,'攻击者锁定一个具体目标','atk'],[2.5,'收集目标的职务、同事、项目等信息','atk'],[5,'据此写出高度贴合的定制邮件和附件','atk'],[8,'目标认为是同事发来的正常工作邮件','warn'],[10.5,'打开附件,恶意程序被执行','atk'],[13,'攻击者获得内网入口','atk']],
+ fx:[['glyph',0.5,5,{name:'reticle',at:'dst',dy:3.2,col:'atk',size:1.7,anim:'blink'}],['records',2.5,15,{at:'src',dy:6.6,cols:4,rows:2,mode:'hop',seq:[0,3,6,2],col:'dim',col2:'warn',to:'srcT'}],
+  ['glyph',2.8,15,{name:'eye',at:'src',dy:8.4,col:'atk',size:1,anim:'float'}],['packet',5.5,8.5,{col:'atk',shape:'mail',size:.5}],['packet',8,10.4,{col:'ok',colTo:'atk',tAt:.5,shape:'doc',size:.44}],['@hit',10.5,11.3,{who:'dst',col:'atk',n:22}],
+  ['@tint',10.5,12,{who:'dst',col:'atk',k:.7}],['link',11.5,15,{wp:['dstT','srcT'],col:'atk',dash:1,arc:2.8}],['orbit',11,15,{at:'dst',n:3,shape:'bug',col:'atk',rad:2.2,h:2.6,size:.5}]]},
+
+{ id:'bec', cat:'social', name:'商务邮件欺诈 (BEC)', en:'Business Email Compromise', sev:'critical', stage:'初始访问 / 影响',
+ src:{n:'冒充者',k:C,c:'atk',d:'冒充高管或供应商发邮件'}, dst:{n:'财务人员',k:C,c:'ok',d:'负责付款的内部人员'},
+ principle:'攻击者伪造或入侵高管/供应商邮箱,以紧急口吻要求财务变更收款账户或立即转账。邮件里没有恶意程序,靠的是权威和时间压力,所以很难被技术手段拦截。',
+ impact:'资金被转入攻击者账户,损失常达数十万到数百万。',
+ defense:['付款变更必须通过第二渠道电话核实','大额转账多人审批','邮件域名防伪(DMARC)与外部发件人提示','财务人员专项培训'],
+ refs:['MITRE ATT&CK T1566','FBI IC3 BEC 年度报告'], kw:'冒充 ceo 转账 财务 发票',
+ dur:15, ph:[[0,'财务人员负责公司的付款工作','ok'],[2.5,'攻击者冒充高管/供应商的邮箱','atk'],[5,'发来紧急邮件:要求变更收款账户并尽快付款','atk'],[8,'财务出于权威与时间压力照办','warn'],[10.5,'资金转入攻击者控制的账户','atk'],[13,'发现时钱款早已转走','atk']],
+ fx:[L('atk',14.6),['relay',1.5,15,{id:'c',at:AT,kind:C,col:'warn',label:'高管 / 供应商',scale:.45}],['glyph',2.5,6,{name:'mask',at:AT,dy:3.5,col:'atk',size:.9,anim:'float'}],
+  ['packet',5,7.5,{col:'atk',shape:'mail',size:.5}],['bar',6,9.5,{at:'dstT',dy:2.6,cells:6,mode:'swap',idx:[3,4],tIn:7.4,col:'ok',bad:'atk',sz:.5}],['glyph',7,10,{name:'bell',at:'dst',dy:6.2,col:'warn',size:.9,anim:'blink'}],
+  ['packet',10,13.5,{wp:['dstT','srcT'],col:'warn',shape:'coin',size:.46,n:3,gap:.5,arc:3.4}],['@hit',13.4,14.2,{who:'src',col:'warn',n:24,r:2.2}],['glyph',12,15,{name:'dollar',at:'src',dy:6.4,col:'warn',size:1.1,anim:'throb'}]]},
+
+{ id:'waterhole', cat:'social', name:'水坑攻击', en:'Watering Hole Attack', sev:'high', stage:'初始访问',
+ src:{n:'攻击者',k:C,c:'atk',d:'入侵目标人群常访问的网站'}, dst:{n:'目标组织员工',k:C,c:'ok',d:'习惯性访问该网站的人群'},
+ principle:'攻击者不直接攻击难以突破的目标,而是入侵他们常去的网站(行业论坛、供应商站点),在页面里埋入恶意内容。目标人群照常访问时被悄悄感染,如同动物到水坑饮水时被伏击。',
+ impact:'目标人群被精准感染,且来自“可信站点”,难以防范。',
+ defense:['浏览器与插件及时更新','网络出口隔离浏览/远程浏览器隔离','EDR 与网页内容过滤','供应商/常用站点的入侵告警共享'],
+ refs:['MITRE ATT&CK T1189','CWE-829'], kw:'挂马 常用网站 感染 精准',
+ dur:16, ph:[[0,'目标人群常访问某个行业网站','ok'],[2.5,'攻击者入侵该网站,埋入恶意内容','atk'],[5.5,'员工像往常一样访问该网站','ok'],[8,'页面悄悄向访客发起攻击','atk'],[10.5,'易受影响的访客被感染','atk'],[13.5,'感染终端回连攻击者','atk']],
+ fx:[['relay',0,16,{id:'w',at:AT,kind:CL,col:'ok',label:'常访问的网站',scale:.5,tint:'atk',k:[[3,0],[4.5,.85]]}],['link',2.5,6,{wp:['srcT',ATT],col:'atk',arc:2.4}],['packet',2.5,4.5,{wp:['srcT',ATT],col:'atk',shape:'dart',size:.4,arc:2.4}],['@hit',4.5,5.3,{who:'w',col:'atk',n:18,r:1.6}],
+  ['hosts',5.5,16,{n:3,layout:'row',z:5.2,x:[-3.5,3.5],kind:C,col:'atk',inf:[10,10.8,11.6],lab:['访客','访客','员工'],links:false,scale:.38}],['packet',5.5,8,{wp:[[-3.5,2.2,5.2],ATT],col:'ok',shape:'question',size:.34,arc:3,n:2,gap:.5}],
+  ['packet',8,10.8,{wp:[ATT,'dstT'],col:'atk',shape:'capsule',size:.4,arc:2.6}],['@hit',10.8,11.6,{who:'dst',col:'atk',n:24}],['@tint',10.8,12,{who:'dst',col:'atk',k:.8}],['packet',12.5,15,{wp:['dstT','srcT'],col:'atk',shape:'orb',size:.34,n:3,gap:.5,arc:3}]]},
+
+{ id:'smishing', cat:'social', name:'短信钓鱼', en:'Smishing', sev:'medium', stage:'初始访问 / 凭据访问',
+ src:{n:'攻击者',k:C,c:'atk',d:'群发伪装成银行/快递的短信'}, dst:{n:'用户手机',k:'phone',c:'ok',d:'收到短信并可能点击链接的手机'},
+ principle:'攻击者通过短信群发“包裹异常”“账户冻结”等消息,附带短链接。手机屏幕小、链接难辨真伪,用户一点就进入仿冒页面,输入信息或验证码就被收走。',
+ impact:'账号、银行卡、验证码被盗;手机被植入恶意应用。',
+ defense:['不点陌生短信链接,通过官方 App 核实','运营商/手机的垃圾短信拦截','验证码不告知任何人','企业移动设备管理与链接过滤'],
+ refs:['MITRE ATT&CK T1566(钓鱼)','CWE-451'], kw:'短信 短链接 验证码 诈骗',
+ dur:14, ph:[[0,'攻击者准备伪装成银行/快递的短信','atk'],[2,'群发给大量手机号','atk'],[4.5,'用户收到“账户异常”的短信','warn'],[7,'点击短链接,进入仿冒页面','warn'],[9.5,'输入账号信息与验证码','warn'],[12,'信息被攻击者收走','atk']],
+ fx:[['relay',6,14,{id:'x',at:X,kind:CL,col:'atk',label:'仿冒页面',scale:.42}],['packet',2,4.8,{col:'atk',shape:'phone',size:.4,n:6,gap:.3,d:1.6}],['glyph',4.6,14,{name:'bell',at:'dst',dy:6.2,col:'warn',size:.9,anim:'blink'}],
+  ['packet',6.5,8.2,{wp:['dstT',XT],col:'warn',shape:'orb',size:.34,arc:2.8}],['panel',7.5,14,{at:XT,dy:2.4,size:[2.4,1.8],style:'login',col:'atk'}],['packet',9.5,11.6,{wp:['dstT',XT],col:'warn',shape:'key',size:.4,arc:2.8,n:2,gap:.6}],
+  ['packet',11.5,13.6,{wp:[XT,'srcT'],col:'warn',shape:'key',size:.4,arc:3.8,n:2,gap:.6}]]},
+
+{ id:'vishing', cat:'social', name:'语音钓鱼', en:'Vishing (Voice Phishing)', sev:'high', stage:'初始访问 / 凭据访问',
+ src:{n:'冒充者(电话)',k:'phone',c:'atk',d:'冒充客服/公检法/IT 的来电者'}, dst:{n:'受害者',k:'phone',c:'ok',d:'接到电话的个人或员工'},
+ principle:'攻击者通过电话冒充银行客服、公检法或公司 IT,制造紧迫感(“账户被盗”“涉嫌违法”),诱使对方说出验证码、转账或安装远程协助软件。靠话术而非技术取得信任。',
+ impact:'资金被骗、验证码泄露、设备被远程控制。',
+ defense:['来电身份核验:挂断后通过官方电话回拨','任何机构不会索要验证码或要求转入“安全账户”','不安装来历不明的远程协助软件','企业建立工单化的 IT 求助流程'],
+ refs:['MITRE ATT&CK T1566.004','国家反诈中心提示'], kw:'电话 诈骗 客服 验证码 话术',
+ dur:14, ph:[[0,'来电者伪装成可信的客服/公检法','atk'],[2.5,'以“账户被盗”制造紧迫感','atk'],[5,'受害者紧张,按对方指引操作','warn'],[7.5,'说出验证码 / 安装远程协助','warn'],[10,'信息被对方掌握','atk'],[12,'资金被转走','atk']],
+ fx:[L('atk',13.6),['glyph',0.5,14,{name:'mask',at:'src',dy:6.4,col:'atk',size:1,anim:'float'}],['ring',1.5,6.5,{at:'srcT',axis:'c',arc:1.9,col:'atk',r:[.4,2.6],n:6,gap:.7,life:1.6,a:.6}],['ring',2.5,6.5,{at:'dstT',axis:'c',arc:1.9,col:'warn',r:[.4,2],n:4,gap:.9,life:1.4,a:.5}],
+  ['glyph',3,7,{name:'warn',at:'dst',dy:6.2,col:'warn',size:.9,anim:'blink'}],['packet',7.5,10,{wp:['dstT','srcT'],col:'warn',shape:'key',size:.42,n:3,gap:.5,arc:3.2}],['@hit',10,10.8,{who:'src',col:'warn',n:20}],
+  ['packet',10.5,13,{wp:['dstT','srcT'],col:'warn',shape:'coin',size:.44,n:3,gap:.5,arc:3.6}]]}
+);
+})(window.SEC_EVENTS);
