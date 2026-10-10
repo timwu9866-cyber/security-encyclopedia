@@ -16,7 +16,7 @@
    "color": {
     "dark": "#1fd65a",
     "light": "#0c7a32",
-    "albedo": "#22f06a"
+    "albedo": "#1fe85a"
    }
   },
   "office": {
@@ -24,8 +24,8 @@
    "en": "Office / Endpoint",
    "color": {
     "dark": "#2f8fff",
-    "light": "#1360c8",
-    "albedo": "#4aa8ff"
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
    }
   },
   "sec": {
@@ -33,8 +33,8 @@
    "en": "Security",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    }
   },
   "srv": {
@@ -42,8 +42,8 @@
    "en": "Server / Cloud",
    "color": {
     "dark": "#c9a0ff",
-    "light": "#6b3ab8",
-    "albedo": "#d4b0ff"
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
    }
   },
   "iot": {
@@ -51,8 +51,8 @@
    "en": "IoT / ICS",
    "color": {
     "dark": "#ff6bcb",
-    "light": "#b0188a",
-    "albedo": "#ff7ad5"
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
    }
   },
   "ext": {
@@ -60,8 +60,8 @@
    "en": "Threat / External",
    "color": {
     "dark": "#ff3b4e",
-    "light": "#b01030",
-    "albedo": "#ff4558"
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
    }
   }
  },
@@ -124,8 +124,8 @@
   "halfSize": "max(1, 节点半宽+0.35)",
   "colors": {
    "dark": {
-    "normal": "#00ff55",
-    "selected": "#6dff9a",
+    "normal": "#1aff60",
+    "selected": "#7dffaa",
     "outline": "#ffffff",
     "attacked": "#ff2040",
     "protected": "#00e8ff",
@@ -188,7 +188,7 @@
    "color": {
     "dark": "#1fd65a",
     "light": "#0c7a32",
-    "albedo": "#22f06a"
+    "albedo": "#1fe85a"
    },
    "roles": [
     "路径",
@@ -370,7 +370,7 @@
    "color": {
     "dark": "#1fd65a",
     "light": "#0c7a32",
-    "albedo": "#22f06a"
+    "albedo": "#1fe85a"
    },
    "roles": [
     "路径",
@@ -797,7 +797,7 @@
    "color": {
     "dark": "#1fd65a",
     "light": "#0c7a32",
-    "albedo": "#22f06a"
+    "albedo": "#1fe85a"
    },
    "roles": [
     "路径",
@@ -1017,7 +1017,7 @@
    "color": {
     "dark": "#1fd65a",
     "light": "#0c7a32",
-    "albedo": "#22f06a"
+    "albedo": "#1fe85a"
    },
    "roles": [
     "路径",
@@ -1123,7 +1123,7 @@
    "color": {
     "dark": "#1fd65a",
     "light": "#0c7a32",
-    "albedo": "#22f06a"
+    "albedo": "#1fe85a"
    },
    "roles": [
     "路径",
@@ -1322,7 +1322,7 @@
    "color": {
     "dark": "#1fd65a",
     "light": "#0c7a32",
-    "albedo": "#22f06a"
+    "albedo": "#1fe85a"
    },
    "roles": [
     "目标",
@@ -1407,8 +1407,8 @@
    "abbr": "PC",
    "color": {
     "dark": "#2f8fff",
-    "light": "#1360c8",
-    "albedo": "#4aa8ff"
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
    },
    "roles": [
     "目标",
@@ -1511,8 +1511,8 @@
    "abbr": "NB",
    "color": {
     "dark": "#2f8fff",
-    "light": "#1360c8",
-    "albedo": "#4aa8ff"
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
    },
    "roles": [
     "目标",
@@ -1596,8 +1596,8 @@
    "abbr": "PR",
    "color": {
     "dark": "#2f8fff",
-    "light": "#1360c8",
-    "albedo": "#4aa8ff"
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
    },
    "roles": [
     "目标"
@@ -1680,8 +1680,8 @@
    "abbr": "MB",
    "color": {
     "dark": "#2f8fff",
-    "light": "#1360c8",
-    "albedo": "#4aa8ff"
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
    },
    "roles": [
     "目标",
@@ -1765,8 +1765,8 @@
    "abbr": "TB",
    "color": {
     "dark": "#2f8fff",
-    "light": "#1360c8",
-    "albedo": "#4aa8ff"
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
    },
    "roles": [
     "目标"
@@ -1849,8 +1849,8 @@
    "abbr": "VP",
    "color": {
     "dark": "#2f8fff",
-    "light": "#1360c8",
-    "albedo": "#4aa8ff"
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
    },
    "roles": [
     "目标"
@@ -1953,8 +1953,8 @@
    "abbr": "FW",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    },
    "roles": [
     "防护"
@@ -2170,8 +2170,8 @@
    "abbr": "WAF",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    },
    "roles": [
     "防护"
@@ -2274,8 +2274,8 @@
    "abbr": "IPS",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    },
    "roles": [
     "防护"
@@ -2379,8 +2379,8 @@
    "abbr": "BH",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    },
    "roles": [
     "防护"
@@ -2539,8 +2539,8 @@
    "abbr": "HP",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    },
    "roles": [
     "防护",
@@ -2629,8 +2629,8 @@
    "abbr": "SOC",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    },
    "roles": [
     "防护"
@@ -2770,8 +2770,8 @@
    "abbr": "VPN",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    },
    "roles": [
     "防护",
@@ -2855,8 +2855,8 @@
    "abbr": "SWG",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    },
    "roles": [
     "防护"
@@ -2940,8 +2940,8 @@
    "abbr": "SBX",
    "color": {
     "dark": "#f5c518",
-    "light": "#a07a00",
-    "albedo": "#ffd428"
+    "light": "#c9a010",
+    "albedo": "#f5c518"
    },
    "roles": [
     "防护"
@@ -3119,8 +3119,8 @@
    "abbr": "WEB",
    "color": {
     "dark": "#c9a0ff",
-    "light": "#6b3ab8",
-    "albedo": "#d4b0ff"
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
    },
    "roles": [
     "目标"
@@ -3279,8 +3279,8 @@
    "abbr": "DB",
    "color": {
     "dark": "#c9a0ff",
-    "light": "#6b3ab8",
-    "albedo": "#d4b0ff"
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
    },
    "roles": [
     "目标"
@@ -3366,8 +3366,8 @@
    "abbr": "NAS",
    "color": {
     "dark": "#c9a0ff",
-    "light": "#6b3ab8",
-    "albedo": "#d4b0ff"
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
    },
    "roles": [
     "目标"
@@ -3526,8 +3526,8 @@
    "abbr": "CLD",
    "color": {
     "dark": "#c9a0ff",
-    "light": "#6b3ab8",
-    "albedo": "#d4b0ff"
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
    },
    "roles": [
     "目标",
@@ -3630,8 +3630,8 @@
    "abbr": "K8",
    "color": {
     "dark": "#c9a0ff",
-    "light": "#6b3ab8",
-    "albedo": "#d4b0ff"
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
    },
    "roles": [
     "目标"
@@ -3737,8 +3737,8 @@
    "abbr": "MX",
    "color": {
     "dark": "#c9a0ff",
-    "light": "#6b3ab8",
-    "albedo": "#d4b0ff"
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
    },
    "roles": [
     "目标",
@@ -3844,8 +3844,8 @@
    "abbr": "CAM",
    "color": {
     "dark": "#ff6bcb",
-    "light": "#b0188a",
-    "albedo": "#ff7ad5"
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
    },
    "roles": [
     "目标",
@@ -3949,8 +3949,8 @@
    "abbr": "PLC",
    "color": {
     "dark": "#ff6bcb",
-    "light": "#b0188a",
-    "albedo": "#ff7ad5"
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
    },
    "roles": [
     "目标"
@@ -4090,8 +4090,8 @@
    "abbr": "SN",
    "color": {
     "dark": "#ff6bcb",
-    "light": "#b0188a",
-    "albedo": "#ff7ad5"
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
    },
    "roles": [
     "目标",
@@ -4193,8 +4193,8 @@
    "abbr": "HMI",
    "color": {
     "dark": "#ff6bcb",
-    "light": "#b0188a",
-    "albedo": "#ff7ad5"
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
    },
    "roles": [
     "目标"
@@ -4318,8 +4318,8 @@
    "abbr": "POS",
    "color": {
     "dark": "#ff6bcb",
-    "light": "#b0188a",
-    "albedo": "#ff7ad5"
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
    },
    "roles": [
     "目标"
@@ -4403,8 +4403,8 @@
    "abbr": "ATK",
    "color": {
     "dark": "#ff3b4e",
-    "light": "#b01030",
-    "albedo": "#ff4558"
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
    },
    "roles": [
     "源"
@@ -4506,8 +4506,8 @@
    "abbr": "BOT",
    "color": {
     "dark": "#ff3b4e",
-    "light": "#b01030",
-    "albedo": "#ff4558"
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
    },
    "roles": [
     "源"
@@ -4673,8 +4673,8 @@
    "abbr": "C2",
    "color": {
     "dark": "#ff3b4e",
-    "light": "#b01030",
-    "albedo": "#ff4558"
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
    },
    "roles": [
     "源"
@@ -4795,8 +4795,8 @@
    "abbr": "NET",
    "color": {
     "dark": "#ff3b4e",
-    "light": "#b01030",
-    "albedo": "#ff4558"
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
    },
    "roles": [
     "路径",
@@ -4880,8 +4880,8 @@
    "abbr": "INS",
    "color": {
     "dark": "#ff3b4e",
-    "light": "#b01030",
-    "albedo": "#ff4558"
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
    },
    "roles": [
     "源"

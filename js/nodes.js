@@ -2,6 +2,7 @@
 (function () {
 'use strict';
 const T = window.THREE, L = window.NODELIB, $ = id => document.getElementById(id);
+try { if (T.ColorManagement) T.ColorManagement.enabled = false; } catch (e) {}
 const AZ = 24 * Math.PI / 180, EL = 32 * Math.PI / 180; // 与事件大全相同的固定等距镜头
 const ST = { cat: 'all', sel: null, state: 'normal', quad: false, theme: 'dark' };
 const curTheme = () => document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
@@ -31,16 +32,16 @@ function frameFor(node, asp) {
 function newScene(theme, n) { const sc = new T.Scene(); sc.background = new T.Color(L.STATE_COL[theme].bg); sc.add(gridFor(theme, n)); L.addLights(sc, theme); return sc; }
 function thumbLights(theme) {
   const day = theme === 'light', g = new T.Group();
-  g.add(new T.HemisphereLight(day ? 0xffffff : 0xa8b8d8, day ? 0x8896a8 : 0x05080f, day ? .7 : .15));
-  const d = new T.DirectionalLight(0xffffff, day ? 2.4 : 3.2); d.position.set(4, 14, 3); g.add(d);
-  const f = new T.DirectionalLight(day ? 0x90a8d0 : 0x4060b0, day ? .35 : .55); f.position.set(-10, 2, -4); g.add(f);
+  g.add(new T.HemisphereLight(day ? 0xffffff : 0xa8b8d8, day ? 0x8896a8 : 0x05080f, day ? .3 : .05));
+  const d = new T.DirectionalLight(0xffffff, day ? 1.25 : 1.1); d.position.set(4, 14, 3); g.add(d);
+  const f = new T.DirectionalLight(day ? 0x90a8d0 : 0x4060b0, day ? .3 : .5); f.position.set(-10, 2, -4); g.add(f);
   return g;
 }
 
 /* ---------- 缩略图(一个离屏渲染器画到每个格子的 2D canvas) ---------- */
 const TW = 300, TH = 250;
 const off = new T.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
-off.setPixelRatio(1); off.setSize(TW, TH, false);
+L.prepareRenderer(off); off.setPixelRatio(1); off.setSize(TW, TH, false);
 function renderThumb(type, cv, theme, state, t) {
   const sc = new T.Scene(); sc.background = new T.Color(L.STATE_COL[theme].bg); sc.add(gridFor(theme, 5)); sc.add(thumbLights(theme));
   const n = L.createNode(type, { theme }); n.setState(state || 'normal'); n.update(t == null ? 1.3 : t); sc.add(n.group);
@@ -80,7 +81,7 @@ function buildGallery() {
 
 /* ---------- 预览 ---------- */
 const pcv = $('pvcv');
-let pr = null; try { pr = new T.WebGLRenderer({ canvas: pcv, antialias: true, preserveDrawingBuffer: true }); pr.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); } catch (e) { console.error(e); }
+let pr = null; try { pr = new T.WebGLRenderer({ canvas: pcv, antialias: true, preserveDrawingBuffer: true }); L.prepareRenderer(pr); pr.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); } catch (e) { console.error(e); }
 let pv = null; // { scenes:[{scene,node,cam}] }
 function disposePv() { if (pv) pv.items.forEach(it => it.node.dispose()); pv = null; }
 function buildPv() {
@@ -137,8 +138,8 @@ function detail() {
 
 
 /* ---------- 组合示例:2 大区套子区,约 60 节点,选择性辉光 ---------- */
-const cbcv = $('cbcv'); let cr = null; try { cr = new T.WebGLRenderer({ canvas: cbcv, antialias: true, preserveDrawingBuffer: true }); cr.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); cr.toneMapping = T.NoToneMapping; } catch (e) { console.error(e); }
-const CB = { on: false, scene: null, nodes: [], links: [], zones: [], tgt: new T.Vector3(1.2, 0, 0.5), dist: 18, pick: [], bloom: null };
+const cbcv = $('cbcv'); let cr = null; try { cr = new T.WebGLRenderer({ canvas: cbcv, antialias: true, preserveDrawingBuffer: true }); L.prepareRenderer(cr); cr.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); } catch (e) { console.error(e); }
+const CB = { on: false, scene: null, nodes: [], links: [], zones: [], tgt: new T.Vector3(3.5, 0, 0.2), dist: 19, pick: [], bloom: null };
 /* 2 个大区,每区 5~6 子区,合计约 60 节点 */
 const MAJOR = [
   { title: '办公与研发区', cx: -7.5, cz: 0, w: 16.5, d: 14.5, color: 'violet',
