@@ -1,4 +1,4 @@
-/* nodelib.js v5 — 通用网络安全节点模型库(实心低多边形 + 统一立方体归一化 + 分区底板;概念造型,程序化生成,无外部模型/商标)
+/* nodelib.js v6 — 通用网络安全节点模型库(实心低多边形 + 统一立方体归一化 + 分区底板;概念造型,程序化生成,无外部模型/商标)
    用法: NODELIB.addLights(scene, theme); const n = NODELIB.createNode('firewall', { theme:'dark', size:1 });
          const z = NODELIB.createZone({ title:'安全管理区', w:8, d:6, color:'violet' }); NODELIB.createLink(p1, p2);
          scene.add(n.group); n.setState('attacked'); 每帧 n.update(t);  n.dispose()
@@ -26,7 +26,7 @@ const STATE_COL = {
 const CUBE = 1;
 const SIZES = { S: 1, M: 1, L: 1, XL: 1 }; /* 兼容旧调用;实际一律按 1,不再分档 */
 const STATES = {
-  normal:    { name: '普通',   desc: 'MeshStandard 主体 + 细部(屏幕/支架/刻线),无地面底座' },
+  normal:    { name: '普通',   desc: '分层机身 + 面板/接口/指示灯/散热孔,朗伯+边缘光着色,无地面底座' },
   selected:  { name: '选中',   desc: '模型叠加白色细描边(EdgesGeometry)' },
   attacked:  { name: '被攻击', desc: '模型闪红 + 红色细描边,轻微抖动' },
   protected: { name: '已防护', desc: '青色细描边 + 薄半透明护罩' },
@@ -288,6 +288,164 @@ function markBloom(obj, on) {
   obj.traverse(o => { if (on) o.layers.enable(1); else o.layers.disable(1); });
 }
 
+/* ---------- v6 规格化细节模型(借鉴“原子 → 归一化 → 角色合并”做法;单位立方体坐标) ----------
+   原子坐标: x/z ∈ [-.5,.5], y = 底面高度, 正面 = +Z。角色: base/body/face/port/led/detail */
+const ROLES = ['base', 'body', 'face', 'port', 'led', 'detail'];
+const A = (s, r, o) => Object.assign({ s, r }, o);
+const B = (r, x, y, z, w, h, d, rot) => A('box', r, { x, y, z, w, h, d, rot });
+const C = (r, x, y, z, rt, h, seg, rb, rot) => A('cyl', r, { x, y, z, rt, rb: rb == null ? rt : rb, h, seg: seg || 14, rot });
+const S = (r, x, y, z, rad, rot) => A('sph', r, { x, y, z, rad, rot });
+const K = (r, x, y, z, rad, h, seg, rot) => A('cone', r, { x, y, z, rad, h, seg: seg || 12, rot });
+const TO = (r, x, y, z, R, t, arc, rot) => A('tor', r, { x, y, z, R, t, arc: arc == null ? 2 * PI : arc, rot });
+const O = (r, x, y, z, rad, rot) => A('oct', r, { x, y, z, rad, rot });
+/* n 个等距排列 */
+const ROW = (n, x0, x1, f) => Array.from({ length: n }, (_, i) => f(n === 1 ? (x0 + x1) / 2 : x0 + (x1 - x0) * i / (n - 1), i));
+/* 机架通用:底座 + 机身 + 面板 */
+const rack = (w, h, d, fh) => [B('base', 0, 0, 0, w + .04, .05, d + .04), B('body', 0, .05, 0, w, h, d), B('face', 0, .05 + (h - fh) / 2, d / 2 + .01, w - .06, fh, .02)];
+/* 散热孔:一排细横条 */
+const vents = (n, x0, x1, y, z, w = .035, h = .012) => ROW(n, x0, x1, x => B('port', x, y, z, w, h, .015));
+const leds = (n, x0, x1, y, z, s = .03) => ROW(n, x0, x1, x => B('led', x, y, z, s, s, .015));
+const RSPEC = {
+  /* ===== 网络(绿) ===== */
+  router: [...rack(.9, .22, .6, .16), ...ROW(4, -.3, .06, x => B('port', x, .09, .315, .07, .05, .02)), ...leds(4, .16, .34, .14, .315),
+    ...vents(6, -.3, .3, .29, -.05, .07, .014).map(a => (a.y = .275, a.z = 0, a.d = .4, a)),
+    C('detail', -.36, .27, -.22, .018, .55, 6), C('detail', .36, .27, -.22, .018, .55, 6), S('led', -.36, .83, -.22, .03), S('led', .36, .83, -.22, .03)],
+  switch: [...rack(1, .14, .5, .1), ...ROW(12, -.42, .2, x => B('port', x, .1, .265, .04, .03, .02)), ...ROW(12, -.42, .2, x => B('port', x, .06, .265, .04, .03, .02)),
+    ...ROW(4, .28, .42, x => B('port', x, .08, .265, .03, .05, .02)), ...leds(6, -.42, -.1, .14, .265, .016), B('detail', 0, .19, 0, .8, .012, .4)],
+  coreswitch: [...rack(.86, .78, .66, .7), ...ROW(6, -.32, .32, x => B('detail', x, .14, .345, .1, .56, .02)),
+    ...ROW(6, -.32, .32, x => B('port', x, .3, .36, .06, .2, .015)), ...ROW(6, -.32, .32, x => B('led', x, .62, .36, .03, .025, .015)),
+    B('detail', 0, .83, 0, .6, .04, .5), ...ROW(3, -.2, .2, x => C('port', x, .87, 0, .07, .01, 14))],
+  ap: [C('base', 0, 0, 0, .14, .04, 12), C('detail', 0, .04, 0, .03, .44, 8), C('body', 0, .48, 0, .44, .1, 24, .48), C('face', 0, .58, 0, .36, .03, 24),
+    S('led', 0, .62, 0, .05), TO('detail', 0, .72, 0, .2, .015, PI, [0, 0, 0]), TO('detail', 0, .72, 0, .32, .015, PI, [0, 0, 0]), ...leds(3, -.1, .1, .52, .47, .025)],
+  lb: [C('base', -.2, 0, 0, .2, .04, 16), C('body', -.2, .04, 0, .15, .55, 12), C('face', -.2, .3, 0, .155, .04, 12), C('face', -.2, .45, 0, .155, .04, 12), S('led', -.2, .64, 0, .05),
+    ...[-1, 0, 1].flatMap(k => [B('detail', .08, .3, k * .14, .4, .04, .04, [0, -k * .55, 0]), B('body', .34, .2, k * .3, .14, .22, .14), B('face', .34, .25, k * .3 + .072, .1, .1, .01), B('led', .34, .44, k * .3, .04, .03, .04)])],
+  dns: [B('base', 0, 0, 0, .44, .05, .44), B('body', 0, .05, 0, .3, .16, .3), B('face', 0, .08, .155, .24, .1, .02), ...leds(3, -.08, .08, .17, .165, .025),
+    C('detail', 0, .21, 0, .03, .26, 8), S('body', 0, .72, 0, .25), TO('face', 0, .72, 0, .26, .012, 2 * PI, [PI / 2, 0, 0]), TO('face', 0, .72, 0, .26, .012, 2 * PI, [0, 0, 0]), TO('face', 0, .72, 0, .26, .012, 2 * PI, [0, PI / 2, 0])],
+  /* ===== 办公(蓝) ===== */
+  pc: [B('base', -.3, 0, .05, .3, .03, .22), B('body', -.3, .03, 0, .26, .62, .5), B('face', -.3, .45, .255, .2, .16, .015), ...vents(4, -.39, -.21, .2, .255, .03, .012),
+    B('led', -.3, .52, .262, .03, .03, .01), B('base', .2, 0, .02, .34, .025, .2), C('detail', .2, .025, .02, .025, .22, 8),
+    B('body', .2, .24, 0, .56, .38, .05), B('face', .2, .265, .03, .5, .32, .015), B('led', .43, .255, .036, .02, .015, .01), B('port', .2, .025, .22, .4, .02, .1)],
+  laptop: [B('body', 0, 0, .1, .9, .05, .6), B('face', 0, .05, .14, .76, .008, .32), ...ROW(6, -.3, .3, x => B('port', x, .056, .02, .1, .006, .06)), B('port', 0, .05, .36, .24, .006, .14),
+    B('body', 0, .05, -.22, .9, .62, .04, [-.32, 0, 0]), B('face', 0, .09, -.195, .8, .52, .01, [-.32, 0, 0]), B('led', 0, .64, -.37, .03, .02, .01)],
+  printer: [B('base', 0, 0, 0, .9, .05, .7), B('body', 0, .05, 0, .84, .4, .64), B('face', 0, .3, .325, .78, .1, .02), B('port', 0, .14, .33, .6, .05, .02),
+    B('detail', 0, .17, .42, .56, .02, .22), B('detail', 0, .45, -.16, .6, .02, .3, [.45, 0, 0]), B('face', .3, .38, .331, .14, .07, .01), ...leds(2, .24, .36, .3, .335, .025)],
+  mobile: [B('base', 0, 0, .05, .4, .04, .3), B('body', 0, .03, 0, .4, .9, .05, [-.18, 0, 0]), B('face', 0, .1, .03, .34, .74, .01, [-.18, 0, 0]),
+    B('port', 0, .87, -.13, .12, .015, .01, [-.18, 0, 0]), S('led', .1, .86, -.13, .015), C('port', 0, .07, .04, .03, .006, 10, null, [PI / 2 - .18, 0, 0])],
+  tablet: [B('base', 0, 0, .1, .7, .04, .3), B('detail', 0, .04, -.12, .06, .4, .04, [.5, 0, 0]), B('body', 0, .08, 0, 1, .66, .05, [-.42, 0, 0]),
+    B('face', 0, .12, .03, .9, .56, .01, [-.42, 0, 0]), S('led', 0, .66, -.22, .015), ...ROW(3, -.25, .25, x => B('detail', x, .25, .055, .2, .14, .006, [-.42, 0, 0]))],
+  voip: [B('base', 0, 0, 0, .8, .06, .7), B('body', 0, .06, 0, .74, .26, .64, [-.25, 0, 0]), B('face', .12, .2, .12, .36, .2, .02, [-.25, 0, 0]),
+    ...[0, 1, 2].flatMap(r => ROW(3, -.34, -.14, x => B('port', x, .12 + r * .065, .18 - r * .06, .05, .035, .015, [-.25, 0, 0]))),
+    B('detail', 0, .38, -.1, .62, .07, .14), C('body', -.31, .36, -.1, .08, .12, 12), C('body', .31, .36, -.1, .08, .12, 12), B('led', .34, .33, .26, .03, .03, .01)],
+  /* ===== 安全(黄) ===== */
+  firewall: [B('base', 0, 0, 0, 1, .05, .5),
+    ...[0, 1, 2, 3].flatMap(r => ROW(r % 2 ? 4 : 3, r % 2 ? -.36 : -.3, r % 2 ? .36 : .3, x => B(r % 2 ? 'face' : 'body', x, .05 + r * .2, 0, r % 2 ? .22 : .3, .18, .4))),
+    ...leds(3, -.3, .3, .9, .205, .03), B('detail', 0, .86, -.21, .9, .02, .02)],
+  waf: [B('base', 0, 0, .05, .7, .05, .5), C('body', 0, .05, -.05, .44, .9, 6, null, [PI / 2, 0, 0]).y === 0 ? null : null,
+    B('body', 0, .05, -.12, .78, .84, .1), B('face', 0, .12, -.06, .66, .7, .02), B('detail', 0, .58, .02, .5, .3, .02), B('port', 0, .82, .03, .5, .05, .02),
+    ...leds(3, -.2, -.1, .84, .045, .025), ...ROW(3, -.18, .18, x => B('port', x, .2, .02, .1, .2, .02)), B('led', 0, .45, .02, .36, .02, .01)].filter(Boolean),
+  idsips: [B('base', 0, 0, 0, .5, .06, .5), B('body', 0, .06, 0, .36, .22, .36), B('face', 0, .1, .185, .28, .14, .02), ...leds(3, -.08, .08, .2, .195, .025),
+    C('detail', 0, .28, 0, .04, .22, 8), C('body', 0, .5, 0, .48, .12, 24, .08), C('face', 0, .6, 0, .42, .02, 24), C('detail', 0, .62, 0, .015, .28, 6), S('led', 0, .92, 0, .04),
+    TO('detail', 0, .6, 0, .3, .01, 2 * PI, [PI / 2, 0, 0])],
+  bastion: [B('base', 0, 0, 0, 1, .12, .8), B('face', 0, .02, .405, .9, .08, .02), B('port', 0, .12, .29, .2, .26, .03), B('body', 0, .12, 0, .62, .62, .56),
+    B('face', 0, .3, .285, .5, .26, .02), ...ROW(3, -.16, .16, x => B('port', x, .52, .29, .08, .1, .02)),
+    ...[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([a, b]) => B('detail', a * .26, .74, b * .23, .1, .12, .1)), ...leds(2, -.12, .12, .62, .292, .03)],
+  honeypot: [C('base', 0, 0, 0, .34, .05, 20), C('body', 0, .05, 0, .38, .48, 20, .32), TO('face', 0, .53, 0, .38, .03, 2 * PI, [PI / 2, 0, 0]),
+    C('face', 0, .2, 0, .395, .06, 20), C('detail', .2, .55, 0, .025, .5, 6, null, [0, 0, -.7]), S('detail', .38, .72, 0, .05), ...leds(3, -.12, .12, .36, .375, .03)],
+  soc: [B('base', 0, 0, .15, 1, .04, .4), B('body', 0, .04, .15, .9, .24, .34), B('face', 0, .1, .325, .8, .1, .02),
+    ...[-1, 0, 1].flatMap(k => [B('body', k * .32, .32, -.1 + Math.abs(k) * .06, .32, .26, .04, [0, -k * .35, 0]), B('face', k * .32, .34, -.075 + Math.abs(k) * .06, .28, .22, .01, [0, -k * .35, 0])]),
+    ...ROW(3, -.32, .32, x => C('detail', x, .28, -.08, .015, .06, 6)), ...leds(5, -.3, .3, .2, .336, .025)],
+  vpngw: [...rack(1, .2, .6, .14), ...ROW(4, -.38, -.08, x => B('port', x, .1, .315, .06, .05, .02)), ...leds(3, .2, .38, .14, .315),
+    TO('body', 0, .25, 0, .3, .07, PI, [0, 0, 0]), TO('face', 0, .25, .06, .3, .02, PI, [0, 0, 0]), B('detail', 0, .25, 0, .44, .03, .3), S('led', 0, .58, 0, .04)],
+  behavior: [B('base', 0, 0, 0, .4, .05, .4), C('detail', 0, .05, 0, .05, .3, 10), C('body', 0, .35, 0, .46, .5, 24, .08), C('face', 0, .82, 0, .47, .04, 24),
+    TO('detail', 0, .6, 0, .3, .015, 2 * PI, [PI / 2, 0, 0]), ...ROW(4, -.15, .15, x => S('led', x, .75, .3, .025))],
+  sandbox: [B('base', 0, 0, 0, 1, .05, 1), ...[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([a, b]) => B('body', a * .45, .05, b * .45, .08, .8, .08)),
+    ...[-1, 1].flatMap(k => [B('body', 0, .82, k * .45, .98, .06, .08), B('body', k * .45, .82, 0, .08, .06, .98)]),
+    B('face', 0, .05, 0, .8, .03, .8), S('led', 0, .45, 0, .14), TO('detail', 0, .45, 0, .22, .012, 2 * PI, [PI / 2, 0, 0]), ...leds(3, -.2, .2, .1, .495, .03)],
+  /* ===== 服务器 / 云(紫) ===== */
+  websrv: [B('base', 0, 0, 0, .5, .04, .5), B('body', 0, .04, 0, .44, .92, .46), ...ROW(7, .1, .82, (y, i) => B('face', 0, y, .235, .38, .09, .02)),
+    ...ROW(7, .14, .86, y => B('led', .14, y, .248, .025, .02, .01)), ...ROW(7, .14, .86, y => B('port', -.08, y - .005, .248, .16, .012, .01))],
+  dbsrv: [C('base', 0, 0, 0, .46, .04, 24), ...[0, 1, 2].flatMap(i => [C('body', 0, .05 + i * .3, 0, .42, .24, 24), C('face', 0, .29 + i * .3, 0, .43, .04, 24), B('led', 0, .17 + i * .3, .42, .1, .025, .02)]),
+    C('detail', 0, .95, 0, .2, .03, 18)],
+  storage: [B('base', 0, 0, 0, 1, .05, .8), ...[[-.25, -.18], [.25, -.18], [-.25, .18], [.25, .18]].flatMap(([x, z]) => [B('body', x, .05, z, .44, .3, .32), B('face', x, .1, z + .162, .38, .2, .015),
+    ...ROW(3, .12, .28, y => B('port', x - .05, y, z + .172, .22, .025, .01)), B('led', x + .14, .25, z + .172, .025, .025, .01)]), B('detail', 0, .4, 0, .9, .06, .08), ...ROW(4, -.3, .3, x => B('detail', x, .35, 0, .04, .05, .04))],
+  cloud: [B('base', 0, 0, 0, .9, .06, .5), B('face', 0, .06, .2, .8, .04, .06), S('body', -.25, .32, 0, .2), S('body', .25, .3, 0, .18), S('body', 0, .45, 0, .28), S('face', .1, .55, .15, .1),
+    ...leds(4, -.3, .3, .03, .255, .025)],
+  container: [...[[-.24, 0, 0], [.24, 0, 0], [0, 0, -.38], [0, .3, -.12]].flatMap(([x, y, z]) => [C('body', x, y, z, .26, .28, 6), C('face', x, y + .26, z, .265, .025, 6), B('led', x, y + .14, z + .23, .06, .025, .01)]),
+    ...[[-.24, 0], [.24, 0]].map(([x, z]) => B('port', x, .08, z + .225, .14, .08, .01))],
+  mailsrv: [B('base', 0, 0, 0, .7, .05, .6), B('body', 0, .05, 0, .6, .44, .5), C('body', 0, .49, 0, .3, .5, 18, null, [PI / 2, 0, 0]),
+    B('face', 0, .2, .255, .48, .02, .02), B('port', 0, .36, .257, .3, .03, .015), B('face', 0, .1, .255, .5, .3, .01), C('detail', .4, .05, 0, .02, .7, 6), B('led', .48, .62, 0, .14, .1, .02)],
+  /* ===== IoT(粉) ===== */
+  ipcam: [B('base', 0, 0, -.35, .24, .5, .06), B('detail', 0, .4, -.24, .06, .06, .2), B('body', 0, .32, .05, .3, .26, .7), C('face', 0, .45, .42, .11, .04, 18, null, [PI / 2, 0, 0]),
+    S('port', 0, .45, .45, .07), B('detail', 0, .58, .12, .36, .03, .76), S('led', .1, .52, .41, .02)],
+  plc: [B('base', 0, 0, 0, 1, .08, .4), B('detail', 0, .08, -.05, 1, .05, .1), ...ROW(6, -.4, .4, (x, i) => [B('body', x, .1, 0, .13, .4 + (i % 3) * .12, .34), B('face', x, .2, .175, .1, .2, .01), B('led', x, .44 + (i % 3) * .12, .176, .03, .03, .01), B('port', x, .14, .176, .08, .04, .01)]).flat()],
+  sensor: [C('base', 0, 0, 0, .3, .05, 18), C('detail', 0, .05, 0, .04, .4, 8), C('body', 0, .45, 0, .28, .1, 18), S('face', 0, .55, 0, .26), S('led', 0, .62, .22, .04),
+    TO('detail', 0, .6, 0, .38, .015, PI * .6, [0, 0, PI * .2]), TO('detail', 0, .6, 0, .48, .015, PI * .6, [0, 0, PI * .2])],
+  hmi: [B('base', 0, 0, 0, .7, .05, .6), B('body', 0, .05, 0, .6, .5, .5), B('body', 0, .55, -.02, .6, .4, .3, [-.5, 0, 0]), B('face', 0, .6, .07, .5, .3, .015, [-.5, 0, 0]),
+    ...[0, 1].flatMap(r => ROW(4, -.2, .2, x => B(r ? 'led' : 'port', x, .25 + r * .12, .255, .07, .06, .015))), B('detail', 0, .1, .255, .5, .06, .015)],
+  pos: [B('base', 0, 0, 0, .9, .06, .7), B('body', 0, .06, 0, .8, .18, .6), ...ROW(4, -.3, .0, x => B('port', x, .24, .1, .06, .02, .06)), C('detail', .25, .24, -.2, .1, .3, 14, null, [0, 0, PI / 2]),
+    C('detail', 0, .24, -.05, .03, .2, 8), B('body', 0, .42, .02, .5, .36, .04, [-.35, 0, 0]), B('face', 0, .45, .045, .44, .3, .01, [-.35, 0, 0]), B('led', .35, .24, .3, .04, .02, .01)],
+  /* ===== 外部 / 威胁(红) ===== */
+  attacker: [C('base', 0, 0, 0, .32, .04, 18), K('body', 0, .04, 0, .3, .6, 14), S('body', 0, .7, 0, .14), C('detail', 0, .64, -.02, .18, .2, 14, .16), S('port', 0, .7, .06, .1),
+    B('detail', 0, .3, .32, .34, .22, .03, [-.3, 0, 0]), B('face', 0, .32, .335, .3, .18, .01, [-.3, 0, 0]), S('led', -.05, .72, .14, .02), S('led', .05, .72, .14, .02)],
+  botnet: [S('body', 0, .45, 0, .18), TO('detail', 0, .45, 0, .36, .01, 2 * PI, [PI / 2, 0, 0]), ...ROW(6, 0, 5, (i) => O('face', Math.cos(i * PI / 3) * .38, .38, Math.sin(i * PI / 3) * .38, .09)),
+    ...ROW(6, 0, 5, (i) => B('detail', Math.cos(i * PI / 3) * .2, .44, Math.sin(i * PI / 3) * .2, .2, .01, .01, [0, -i * PI / 3, 0])), S('led', 0, .64, 0, .04), C('base', 0, 0, 0, .1, .27, 8)],
+  c2: [B('base', 0, 0, 0, .6, .04, .6), ...[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([a, b]) => C('body', a * .13, .04, b * .13, .015, .78, 6, null, [b * .3, 0, -a * .3])),
+    ...[.25, .5].flatMap(y => [B('detail', 0, y, .2 - y * .25, .5 - y * .5, .02, .02), B('detail', 0, y, -.2 + y * .25, .5 - y * .5, .02, .02)]), S('face', 0, .85, 0, .08), S('led', 0, .85, 0, .05),
+    TO('detail', 0, .85, 0, .16, .012, PI, [0, 0, 0]), TO('detail', 0, .85, 0, .26, .012, PI, [0, 0, 0])],
+  internet: [C('base', 0, 0, 0, .2, .04, 14), C('detail', 0, .04, 0, .03, .1, 8), S('body', 0, .5, 0, .36), TO('face', 0, .5, 0, .37, .012, 2 * PI, [PI / 2, 0, 0]), TO('face', 0, .5, 0, .37, .012, 2 * PI, [0, 0, 0]),
+    TO('face', 0, .5, 0, .37, .012, 2 * PI, [0, PI / 2, 0]), TO('detail', 0, .5, 0, .48, .015, 2 * PI, [PI / 2 + .4, 0, .3]), S('led', .44, .62, .1, .03)],
+  insider: [C('base', 0, 0, 0, .28, .04, 18), C('body', 0, .04, 0, .18, .5, 16, .22), S('body', 0, .7, 0, .14), B('face', .06, .34, .2, .12, .14, .02), B('led', .06, .44, .21, .04, .02, .01),
+    C('detail', -.24, .2, 0, .045, .3, 8), C('detail', .24, .2, 0, .045, .3, 8), B('port', 0, .54, .17, .1, .05, .02)],
+};
+
+/* 原子 → 几何(中心构造、旋转、再平移) */
+function atomGeo(T, a) {
+  let g, cy;
+  if (a.s === 'box') { g = new T.BoxGeometry(a.w, a.h, a.d); cy = a.y + a.h / 2; }
+  else if (a.s === 'cyl') { g = new T.CylinderGeometry(a.rt, a.rb, a.h, a.seg, 1); cy = a.y + a.h / 2; }
+  else if (a.s === 'cone') { g = new T.ConeGeometry(a.rad, a.h, a.seg); cy = a.y + a.h / 2; }
+  else if (a.s === 'tor') { g = new T.TorusGeometry(a.R, a.t, 6, 28, a.arc); cy = a.y; }
+  else if (a.s === 'oct') { g = new T.OctahedronGeometry(a.rad); cy = a.y; }
+  else { g = new T.SphereGeometry(a.rad, 16, 11); cy = a.y; }
+  if (a.rot) { const e = new T.Euler(a.rot[0], a.rot[1], a.rot[2]); g.applyMatrix4(new T.Matrix4().makeRotationFromEuler(e)); }
+  g.translate(a.x, cy, a.z);
+  return g.index ? g.toNonIndexed() : g;
+}
+function mergeGeos(T, list) {
+  let n = 0; list.forEach(g => n += g.attributes.position.count);
+  const pos = new Float32Array(n * 3), nor = new Float32Array(n * 3); let o = 0;
+  list.forEach(g => { pos.set(g.attributes.position.array, o * 3); nor.set(g.attributes.normal.array, o * 3); o += g.attributes.position.count; g.dispose(); });
+  const m = new T.BufferGeometry(); m.setAttribute('position', new T.BufferAttribute(pos, 3)); m.setAttribute('normal', new T.BufferAttribute(nor, 3)); return m;
+}
+const GCACHE = {};
+/* 构建并归一化到 CUBE 立方体(最长边=CUBE,底面 y=0,水平居中),按角色合并 */
+function buildModel(T, type) {
+  if (GCACHE[type]) return GCACHE[type];
+  const atoms = RSPEC[type].flat(), geos = atoms.map(a => ({ r: a.r, g: atomGeo(T, a) }));
+  const bb = new T.Box3(); geos.forEach(x => { x.g.computeBoundingBox(); bb.union(x.g.boundingBox); });
+  const raw = bb.getSize(new T.Vector3()), k = CUBE / Math.max(raw.x, raw.y, raw.z);
+  const cx = (bb.min.x + bb.max.x) / 2, cz = (bb.min.z + bb.max.z) / 2, y0 = bb.min.y;
+  geos.forEach(x => { x.g.translate(-cx, -y0, -cz); x.g.scale(k, k, k); });
+  const parts = [];
+  ROLES.forEach(role => { const L = geos.filter(x => x.r === role).map(x => x.g); if (!L.length) return; const g = mergeGeos(T, L); g.computeBoundingBox(); g.computeBoundingSphere(); parts.push({ role, name: role + '_' + String(parts.length).padStart(2, '0'), geo: g }); });
+  const box = new T.Box3(); parts.forEach(p => box.union(p.geo.boundingBox));
+  return (GCACHE[type] = { parts, box, norm: k, raw: { x: +raw.x.toFixed(4), y: +raw.y.toFixed(4), z: +raw.z.toFixed(4) }, atoms: atoms.length, tris: parts.reduce((t, p) => t + p.geo.attributes.position.count / 3, 0) });
+}
+/* 设备着色器:朗伯近似 + 大类色边缘光(fresnel);led 不受光照。颜色按线性值直写(ColorManagement 关闭) */
+const VS_DEV = 'varying vec3 vN;void main(){vN=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}';
+const FS_DEV = 'uniform vec3 uColor,uRim;uniform float uRimK,uLam,uAmb;varying vec3 vN;void main(){vec3 N=normalize(vN);float d=max(dot(N,normalize(vec3(.35,.85,.45))),0.);float lam=mix(1.,uAmb+(1.-uAmb)*d,uLam);float fr=pow(1.-abs(N.z),2.2);gl_FragColor=vec4(uColor*lam+uRim*fr*uRimK,1.);}';
+/* 角色色:body=主色×kb,face=主色×kf,led=亮色,base/port/detail 固定灰 */
+const ROLE_FIX = { dark: { base: '#2E3742', port: '#151B24', detail: '#7C8B9E' }, light: { base: '#5a6676', port: '#1e2632', detail: '#9aa8ba' } };
+const ROLE_K = { dark: { body: .62, face: 1.0, rim: { body: .55, face: .35, base: .2, port: .1, led: 0, detail: .3 } }, light: { body: .78, face: 1.0, rim: { body: .3, face: .2, base: .1, port: .05, led: 0, detail: .15 } } };
+function roleColor(T, main, role, theme) {
+  const F = ROLE_FIX[theme]; if (F[role]) return new T.Color(F[role]);
+  if (role === 'led') return main.clone().lerp(new T.Color('#ffffff'), .55);
+  return main.clone().multiplyScalar(ROLE_K[theme][role]);
+}
+function devMat(T, main, role, theme) {
+  const c = roleColor(T, main, role, theme);
+  return new T.ShaderMaterial({ uniforms: { uColor: { value: c.clone() }, uRim: { value: main.clone() }, uRimK: { value: ROLE_K[theme].rim[role] }, uLam: { value: role === 'led' ? 0 : 1 }, uAmb: { value: theme === 'light' ? .5 : .38 } }, vertexShader: VS_DEV, fragmentShader: FS_DEV });
+}
 /**
  * createNode(type, opts) — 接口兼容 v1/v2
  * opts: theme, size, badge/label, ring/frame, mask, color
@@ -305,45 +463,25 @@ function createNode(type, opts) {
   if (sp.squash) body.scale.set(sp.squash[0], sp.squash[1], sp.squash[2]);
   const mats = [], disp = []; const mk = m => { mats.push(m); return m; };
   const bodyC = new T.Color(day ? cat.light : cat.dark);
-  const lightC = new T.Color(day ? '#f4f7fb' : '#eef2f8'), darkC = new T.Color(day ? '#1a2438' : '#0e1422');
-  /* MeshStandard + 少量 emissive; ColorManagement 已关,颜色不被二次编码 */
-  const emI = day ? 0.1 : 0.12;
-  const matFor = {
-    body: mk(new T.MeshStandardMaterial({ color: bodyC, roughness: .42, metalness: .12, flatShading: true, emissive: bodyC.clone(), emissiveIntensity: emI })),
-    light: mk(new T.MeshStandardMaterial({ color: lightC, roughness: .35, metalness: .05, flatShading: true, emissive: lightC.clone(), emissiveIntensity: day ? .04 : .06 })),
-    dark: mk(new T.MeshStandardMaterial({ color: darkC, roughness: .3, metalness: .18, flatShading: true })),
-    glow: mk(new T.MeshStandardMaterial({ color: bodyC.clone().lerp(new T.Color('#fff'), .12), roughness: .45, metalness: .08, flatShading: true, emissive: bodyC.clone(), emissiveIntensity: emI + .05 })),
-  };
-  const maskMat = o.mask ? mk(new T.MeshBasicMaterial({ color: 0xffffff })) : null;
-  const bodyMeshes = [];
-  sp.parts.forEach(pt => {
-    const g = geo(T, pt[0], pt[1]); disp.push(g);
-    const tone = toneOf(pt);
-    const m = new T.Mesh(g, maskMat || matFor[tone] || matFor.body);
-    m.position.set(pt[2][0], pt[2][1], pt[2][2]); m.rotation.set(pt[3][0], pt[3][1], pt[3][2]); body.add(m);
-    if (!o.mask && (tone === 'body' || tone === 'glow')) bodyMeshes.push(m);
+  const emI = 0; /* v6:无 emissive;朗伯 + 边缘光 */
+  const M = buildModel(T, type);
+  const roleMats = {}; const bodyMeshes = [];
+  M.parts.forEach(pt => {
+    const mat = o.mask ? mk(new T.MeshBasicMaterial({ color: 0xffffff })) : (roleMats[pt.role] = mk(devMat(T, bodyC, pt.role, theme)));
+    const m = new T.Mesh(pt.geo, mat); m.name = pt.name; body.add(m);
+    if (!o.mask && (pt.role === 'body' || pt.role === 'face')) bodyMeshes.push(m);
   });
-  /* 归一化到 CUBE×CUBE×CUBE:按最长边等比缩放,底面贴 y=0,水平居中 */
-  body.updateMatrixWorld(true);
-  let box = new T.Box3().setFromObject(body); const raw = new T.Vector3(); box.getSize(raw);
-  const longest = Math.max(raw.x, raw.y, raw.z) || 1;
-  const norm = CUBE / longest;
-  const cx = (box.min.x + box.max.x) / 2, cz = (box.min.z + box.max.z) / 2;
-  body.position.set(-cx * norm, -box.min.y * norm, -cz * norm);
-  body.scale.multiplyScalar(norm);
-  body.updateMatrixWorld(true);
-  box = new T.Box3().setFromObject(body); const size = new T.Vector3(); box.getSize(size);
-  /* 整体 size 倍数作用在 group 上,归一化后的 body 保持单位立方体内 */
+  const box = M.box.clone(); const size = box.getSize(new T.Vector3()); const norm = M.norm, raw = M.raw;
   group.scale.setScalar(scale);
   const radius = Math.max(size.x, size.z) * .5 * scale;
-  const out = { group, type, spec: sp, cat: sp.cat, color, theme, scale, norm, rawSize: { x: +raw.x.toFixed(4), y: +raw.y.toFixed(4), z: +raw.z.toFixed(4) }, bounds: { height: box.max.y * scale, radius, cube: CUBE * scale, size: { x: +(size.x * scale).toFixed(4), y: +(size.y * scale).toFixed(4), z: +(size.z * scale).toFixed(4) } }, state: 'normal' };
-  if (o.mask) { out.update = () => { }; out.setState = () => { }; out.setLabel = () => { }; out.dispose = () => { disp.forEach(g => g.dispose()); mats.forEach(m => m.dispose()); }; return out; }
+  const out = { group, type, spec: sp, cat: sp.cat, color, theme, scale, norm, rawSize: raw, roles: M.parts.map(p => p.name), tris: M.tris, bounds: { height: box.max.y * scale, radius, cube: CUBE * scale, size: { x: +(size.x * scale).toFixed(4), y: +(size.y * scale).toFixed(4), z: +(size.z * scale).toFixed(4) } }, state: 'normal' };
+  if (o.mask) { out.update = () => { }; out.setState = () => { }; out.setLabel = () => { }; out.dispose = () => { mats.forEach(m => m.dispose()); }; return out; }
 
   /* 状态描边:EdgesGeometry 合集,默认隐藏;选中白 / 被攻击红 / 已防护青 */
   const edgeGroup = new T.Group(); edgeGroup.visible = false; body.add(edgeGroup);
   const edgeMat = mk(new T.LineBasicMaterial({ color: new T.Color(fr.outline), transparent: true, opacity: 0.95, depthTest: true }));
   bodyMeshes.forEach(m => {
-    const eg = new T.EdgesGeometry(m.geometry, 28); disp.push(eg);
+    const eg = new T.EdgesGeometry(m.geometry, 25); disp.push(eg);
     const ls = new T.LineSegments(eg, edgeMat);
     ls.position.copy(m.position); ls.rotation.copy(m.rotation); ls.scale.copy(m.scale);
     edgeGroup.add(ls);
@@ -360,7 +498,7 @@ function createNode(type, opts) {
   if (showTag) out.setLabel(tagText);
 
   const cSel = new T.Color(fr.outline), cAtk = new T.Color(fr.attacked), cDef = new T.Color(fr.protected);
-  const baseBody = bodyC.clone(), baseEm = emI;
+  
   out.setState = s => { out.state = STATES[s] ? s : 'normal'; };
   out.update = t => {
     const s = out.state, sel = s === 'selected', atk = s === 'attacked', pro = s === 'protected';
@@ -371,13 +509,9 @@ function createNode(type, opts) {
     else if (pro) edgeMat.color.copy(cDef);
     edgeMat.opacity = atk ? (.5 + .5 * flash) : .95;
     dome.visible = pro; domeMat.opacity = pro ? (day ? .14 : .18) : 0;
-    /* 被攻击:主体短暂偏红 */
-    if (atk) {
-      const c = baseBody.clone().lerp(cAtk, .35 + .4 * flash);
-      matFor.body.color.copy(c); matFor.body.emissive.copy(c); matFor.body.emissiveIntensity = baseEm + .15 * flash;
-    } else {
-      matFor.body.color.copy(baseBody); matFor.body.emissive.copy(baseBody); matFor.body.emissiveIntensity = baseEm * (sel ? 1.35 : 1);
-    }
+    /* 被攻击:主体与面板偏红 */
+    ['body', 'face'].forEach(r => { const mm = roleMats[r]; if (!mm) return; const base = roleColor(T, bodyC, r, theme);
+      mm.uniforms.uColor.value.copy(atk ? base.lerp(cAtk, .35 + .4 * flash) : base); mm.uniforms.uRimK.value = ROLE_K[theme].rim[r] * (sel ? 1.5 : 1); });
     body.position.x = atk ? Math.sin(t * 38) * .02 : 0;
   };
   out.dispose = () => { disp.forEach(g => g.dispose && g.dispose()); mats.forEach(m => m.dispose()); if (tag) tag.material.dispose(); };
@@ -527,7 +661,7 @@ function setupBloom(renderer, opts) {
   } catch (e) { console.error('setupBloom', e); return null; }
 }
 
-const api = { version: 5, CATS, SPEC, CUBE, SIZES, STATES, STATE_COL, FRAME, ZONE, createNode, createZone, createZoneLabel, createLink, fitLabels, addLights, setupBloom, markBloom, prepareRenderer, setTheme, get theme() { return THEME; }, types: () => Object.keys(SPEC), byCat: c => Object.keys(SPEC).filter(k => SPEC[k].cat === c) };
+const api = { version: 6, CATS, SPEC, RSPEC, ROLES, buildModel, CUBE, SIZES, STATES, STATE_COL, FRAME, ZONE, createNode, createZone, createZoneLabel, createLink, fitLabels, addLights, setupBloom, markBloom, prepareRenderer, setTheme, get theme() { return THEME; }, types: () => Object.keys(SPEC), byCat: c => Object.keys(SPEC).filter(k => SPEC[k].cat === c) };
 root.NODELIB = api;
 if (typeof module !== 'undefined') module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

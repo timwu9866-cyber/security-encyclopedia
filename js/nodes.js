@@ -124,12 +124,12 @@ function detail() {
   const D = $('detail');
   if (!ST.sel) {
     const rows = Object.keys(L.CATS).map(k => { const c = L.CATS[k]; return '<div><span class="sw" style="background:' + c[ST.theme] + '"></span>' + c.name + ' <span style="color:var(--dim)">夜 ' + c.dark + ' · 日 ' + c.light + '</span></div>'; }).join('');
-    D.innerHTML = '<h2>节点模型库</h2><div class="en">Generic security node models</div><h3>说明</h3><p>每种节点是程序化生成的实心低多边形(MeshStandard 明暗面 + 少量自发光),上方有小标签牌;轮廓区分种类,颜色区分类别。状态用模型描边表示:选中=白边、被攻击=闪红+红边、已防护=青边+薄护罩。无地面发光底座。全部为概念造型,不对应任何真实产品或商标。</p><h3>类别色</h3><div style="display:flex;flex-direction:column;gap:6px;font-size:13px">' + rows + '</div><h3>复用</h3><p><code>NODELIB.createNode(type, { theme, size, badge })</code> 返回 <code>{ group, setState, update, dispose }</code>;另有 <code>createZone({title,w,d,color})</code> 分区底板、<code>createZoneLabel(text)</code> 区域标签、<code>createLink(a,b)</code> 绿色虚线箭头、<code>addLights(scene)</code>。</p>';
+    D.innerHTML = '<h2>节点模型库</h2><div class="en">Generic security node models</div><h3>说明</h3><p>每种节点是程序化生成的实心低多边形(分层机身/面板/接口/指示灯,朗伯 + 大类色边缘光),上方有小标签牌;轮廓区分种类,颜色区分类别。状态用模型描边表示:选中=白边、被攻击=闪红+红边、已防护=青边+薄护罩。无地面发光底座。全部为概念造型,不对应任何真实产品或商标。</p><h3>类别色</h3><div style="display:flex;flex-direction:column;gap:6px;font-size:13px">' + rows + '</div><h3>复用</h3><p><code>NODELIB.createNode(type, { theme, size, badge })</code> 返回 <code>{ group, setState, update, dispose }</code>;另有 <code>createZone({title,w,d,color})</code> 分区底板、<code>createZoneLabel(text)</code> 区域标签、<code>createLink(a,b)</code> 绿色虚线箭头、<code>addLights(scene)</code>。</p>';
     return;
   }
   const sp = L.SPEC[ST.sel], c = L.CATS[sp.cat];
   D.innerHTML = '<h2>' + esc(sp.name) + '</h2><div class="en">' + esc(sp.en) + ' · <code>' + sp.type + '</code></div>' +
-    '<div class="kv"><b>类别</b><span><span class="sw" style="background:' + c[ST.theme] + '"></span>' + c.name + '</span><b>尺寸</b><span>' + sp.size + '(×' + L.SIZES[sp.size] + ')</span><b>缩写</b><span>' + sp.abbr + '</span><b>色值</b><span>夜 ' + c.dark + ' / 日 ' + c.light + '</span></div>' +
+    '<div class="kv"><b>类别</b><span><span class="sw" style="background:' + c[ST.theme] + '"></span>' + c.name + '</span><b>尺寸</b><span>1×1×1 立方体</span><b>缩写</b><span>' + sp.abbr + '</span><b>色值</b><span>夜 ' + c.dark + ' / 日 ' + c.light + '</span></div>' +
     '<h3>用途</h3><p>' + esc(sp.use) + '</p><h3>造型要点</h3><p>' + esc(sp.look) + '</p>' +
     '<h3>事件中的角色</h3><div>' + sp.role.map(r => '<span class="role">' + r + '</span>').join('') + '</div>' +
     '<h3>状态</h3><div class="sts">' + Object.keys(L.STATES).map(s => '<button class="stbtn' + (!ST.quad && ST.state === s ? ' on' : '') + '" data-s="' + s + '">' + L.STATES[s].name + '</button>').join('') + '</div><p style="margin-top:6px">' + esc(L.STATES[ST.quad ? 'normal' : ST.state].desc) + '</p>';
