@@ -45,6 +45,8 @@ with sync_playwright() as p:
     views=None; per,CW,CH=9,250,215
     if '--views3' in sys.argv:
         views=[['正俯视',0,1.56],['斜俯60°',0.6,1.047],['仰视',0.4,-0.35]]; per,CW,CH=5,420,400
+    if '--attacker5' in sys.argv:
+        views=[['正俯视',0,1.56,1.3],['斜俯60°',0.6,1.047,1.3],['正面',0,.15,1.3],['侧面(+X)',1.5708,.15,1.3],['Tim 截图角度',-1.3,1.25,1.3]]; per,CW,CH=1,560,560
     if '--attacker-top' in sys.argv:
         views=[['俯视(同 Tim 截图角度)',-1.3,1.25,1.5]]; per,CW,CH=1,820,720
     if views: pg.evaluate('v=>window.__VIEWS__=v',views)

@@ -2182,7 +2182,7 @@
     "源"
    ],
    "use": "外部恶意行为者的抽象,事件中的发起方。",
-   "look": "坐姿兜帽黑客:八棱台躯干+圆肩、细臂与掌指搭在键盘上、兜帽深色内腔里两点红眼;笔记本屏幕朝人发红光。",
+   "look": "坐姿兜帽黑客:八棱台躯干+圆肩,胸前口袋与抽绳、两侧褶皱条贴合躯干;兜帽前沿半环+暗边、深色内腔里两点红眼与面罩条;细臂掌指搭在键盘上,笔记本屏幕朝人发红光。",
    "core": [
     0,
     1.55,
@@ -2728,10 +2728,10 @@
    }
   },
   "current": {
-   "sum": 21980,
-   "avg": 414.7,
-   "max": 1040,
-   "note": "v12 detached/pierce fixes"
+   "sum": 22236,
+   "avg": 419.5,
+   "max": 1144,
+   "note": "v13 attacker decorations restored & surface-fitted"
   }
  },
  "meshcheck": {
@@ -2903,6 +2903,20 @@
    "pierceWL": {
     "plc": "DIN 导轨"
    }
+  },
+  "v13": {
+   "after": {
+    "floating": 0,
+    "buried": 0,
+    "offset": 0,
+    "coplanar": 0,
+    "orient": 0,
+    "range": 0,
+    "sym": 0,
+    "detached": 0,
+    "pierce": 0
+   },
+   "principle": "只修位置,不删细节(除非 Tim 明确要求删除)"
   }
  }
 }

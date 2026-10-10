@@ -1,0 +1,865 @@
+{
+ "totals": {
+  "floating": 0,
+  "buried": 0,
+  "offset": 0,
+  "coplanar": 0,
+  "orient": 0,
+  "range": 0,
+  "sym": 0,
+  "detached": 0,
+  "pierce": 0
+ },
+ "models": {
+  "router": {
+   "atoms": 21,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "switch": {
+   "atoms": 38,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "coreswitch": {
+   "atoms": 25,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "ap": {
+   "atoms": 10,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": [
+    {
+     "i": 5,
+     "role": "detail",
+     "s": "tor",
+     "why": "无线信号弧"
+    },
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "tor",
+     "why": "无线信号弧"
+    },
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "tor",
+     "why": "无线信号弧",
+     "check": "detached"
+    }
+   ]
+  },
+  "lb": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "dns": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "pc": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "laptop": {
+   "atoms": 12,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "printer": {
+   "atoms": 9,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": [
+    {
+     "i": 4,
+     "role": "detail",
+     "s": "box",
+     "why": "出纸托盘:悬臂结构,一边插入机身前面板",
+     "check": "detached"
+    }
+   ]
+  },
+  "mobile": {
+   "atoms": 18,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "tablet": {
+   "atoms": 16,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "voip": {
+   "atoms": 16,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "firewall": {
+   "atoms": 19,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "waf": {
+   "atoms": 12,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "idsips": {
+   "atoms": 12,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "bastion": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "honeypot": {
+   "atoms": 9,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "soc": {
+   "atoms": 17,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "vpngw": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "behavior": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "sandbox": {
+   "atoms": 15,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": [
+    {
+     "i": 10,
+     "role": "led",
+     "s": "sph",
+     "why": "被隔离样本:故意悬浮在沙箱笼中央,表达\"隔离/不接触\""
+    },
+    {
+     "i": 11,
+     "role": "detail",
+     "s": "tor",
+     "why": "样本外的隔离光环"
+    },
+    {
+     "i": 11,
+     "role": "detail",
+     "s": "tor",
+     "why": "样本外的隔离光环",
+     "check": "detached"
+    }
+   ]
+  },
+  "websrv": {
+   "atoms": 23,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "dbsrv": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "storage": {
+   "atoms": 30,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "cloud": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "container": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "mailsrv": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": [
+    {
+     "i": 7,
+     "role": "led",
+     "s": "box",
+     "why": "信箱旗:只有一边与旗杆相连",
+     "check": "detached"
+    }
+   ]
+  },
+  "ipcam": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "plc": {
+   "atoms": 26,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": [
+    {
+     "i": 1,
+     "role": "detail",
+     "s": "box",
+     "why": "DIN 导轨:横贯各模块背部,两端伸出属设计",
+     "check": "pierce"
+    }
+   ]
+  },
+  "sensor": {
+   "atoms": 7,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": [
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "tor",
+     "why": "信号弧",
+     "check": "detached"
+    }
+   ]
+  },
+  "hmi": {
+   "atoms": 13,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "pos": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "attacker": {
+   "atoms": 33,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "botnet": {
+   "atoms": 23,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": [
+    {
+     "i": 3,
+     "role": "detail",
+     "s": "tor",
+     "why": "环形链路示意",
+     "check": "detached"
+    }
+   ]
+  },
+  "c2": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": [
+    {
+     "i": 17,
+     "role": "detail",
+     "s": "tor",
+     "why": "发射弧:信号示意,故意悬在天线上方"
+    },
+    {
+     "i": 18,
+     "role": "detail",
+     "s": "tor",
+     "why": "发射弧:信号示意,故意悬在天线上方"
+    },
+    {
+     "i": 19,
+     "role": "detail",
+     "s": "tor",
+     "why": "发射弧:信号示意,故意悬在天线上方"
+    },
+    {
+     "i": 14,
+     "role": "detail",
+     "s": "cyl",
+     "why": "天线桅杆:单端固定",
+     "check": "detached"
+    }
+   ]
+  },
+  "internet": {
+   "atoms": 9,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "insider": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "aggswitch": {
+   "atoms": 29,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "nta": {
+   "atoms": 15,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": [
+    {
+     "i": 13,
+     "role": "detail",
+     "s": "tor",
+     "why": "探测环",
+     "check": "detached"
+    }
+   ]
+  },
+  "hids": {
+   "atoms": 15,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "appsrv": {
+   "atoms": 25,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "cache": {
+   "atoms": 10,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "objstore": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "mq": {
+   "atoms": 22,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "k8smaster": {
+   "atoms": 19,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "k8snode": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "registry": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "cnapp": {
+   "atoms": 26,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "workstation": {
+   "atoms": 17,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "opsterm": {
+   "atoms": 17,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "kiosk": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "term3p": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  },
+  "iotgw": {
+   "atoms": 19,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "detached": [],
+   "pierce": [],
+   "whitelisted": []
+  }
+ },
+ "whitelist": {
+  "c2": {
+   "tor": "发射弧:信号示意,故意悬在天线上方"
+  },
+  "internet": {
+   "tor": "轨道环/经纬环:环绕地球,允许与球面不接触",
+   "sph:led": "轨道上的卫星指示灯,随轨道悬浮"
+  },
+  "botnet": {
+   "tor": "环形链路示意",
+   "oct": "被控节点沿环悬浮",
+   "sph:led": "节点指示灯悬浮",
+   "box:detail": "辐条连线"
+  },
+  "ap": {
+   "tor": "无线信号弧"
+  },
+  "idsips": {
+   "tor": "探测波纹"
+  },
+  "honeypot": {
+   "tor": "诱捕环"
+  },
+  "sandbox": {
+   "sph:led": "被隔离样本:故意悬浮在沙箱笼中央,表达\"隔离/不接触\"",
+   "tor": "样本外的隔离光环"
+  },
+  "nta": {
+   "tor": "探测环"
+  },
+  "hids": {
+   "tor": "主机防护环"
+  },
+  "sensor": {
+   "tor": "信号弧"
+  },
+  "ipcam": {
+   "tor": "视野/信号弧"
+  },
+  "behavior": {
+   "tor": "轨迹环"
+  },
+  "vpngw": {
+   "tor": "隧道环"
+  },
+  "c2_": {}
+ }
+}
