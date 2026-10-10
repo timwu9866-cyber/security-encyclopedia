@@ -1,5 +1,6 @@
-/* nodelib.js — 通用网络安全节点模型库(概念造型,程序化生成,不依赖外部模型/商标)
-   用法: const n = NODELIB.createNode('firewall', { theme:'dark', size:1, label:true });
+/* nodelib.js v2 — 通用网络安全节点模型库(实心低多边形 + 发光方形底框 + 分区底板;概念造型,程序化生成,无外部模型/商标)
+   用法: NODELIB.addLights(scene, theme); const n = NODELIB.createNode('firewall', { theme:'dark', size:1 });
+         const z = NODELIB.createZone({ title:'安全管理区', w:8, d:6, color:'violet' }); NODELIB.createLink(p1, p2);
          scene.add(n.group); n.setState('attacked'); 每帧 n.update(t);  n.dispose()
    规范数据: NODELIB.SPEC / NODELIB.CATS / NODELIB.SIZES / NODELIB.STATES
    依赖: window.THREE(仅在 createNode 时需要;SPEC 可在无 THREE 的环境读取,用于导出 JSON) */
@@ -22,16 +23,16 @@ const STATE_COL = {
 };
 const SIZES = { S: 0.8, M: 1.0, L: 1.25, XL: 1.5 };
 const STATES = {
-  normal:    { name: '普通',   desc: '常亮线框 + 慢速呼吸核心 + 单层底环' },
-  selected:  { name: '选中',   desc: '线框提亮、四角取景框、底环外加旋转虚线环' },
-  attacked:  { name: '被攻击', desc: '线框与核心闪红、轻微抖动、红色告警脉冲环' },
-  protected: { name: '已防护', desc: '青色半球护罩线框 + 底环转青、核心稳定' },
+  normal:    { name: '普通',   desc: '绿色发光方形底框,轻微呼吸' },
+  selected:  { name: '选中',   desc: '底框更亮更宽,外加白色描边(日间为深色描边),模型自发光略增' },
+  attacked:  { name: '被攻击', desc: '底框变红并闪烁(约 2 Hz),模型轻微抖动' },
+  protected: { name: '已防护', desc: '底框变青色,常亮' },
 };
 
 /* ---------- 造型 DSL ----------
    每个部件: [形状, 参数, 位置[x,y,z], 旋转[rx,ry,rz]?]
    形状: box[w,h,d] cyl[rt,rb,h,seg] sph[r,ws,hs] cone[r,h,seg] tor[R,r,arc] oct[r] hemi[r] */
-const P = (s, a, p, r) => [s, a, p || [0, 0, 0], r || [0, 0, 0]];
+const P = (s, a, p, r, tone) => tone ? [s, a, p || [0, 0, 0], r || [0, 0, 0], tone] : [s, a, p || [0, 0, 0], r || [0, 0, 0]];
 const PI = Math.PI;
 
 const SPEC = {
@@ -71,11 +72,11 @@ const SPEC = {
   laptop: { cat: 'office', name: '笔记本', en: 'Laptop', size: 'S', abbr: 'NB', role: ['目标', '源'],
     use: '移动办公终端,常在外部网络与内网之间切换。',
     look: '薄底座 + 后仰张开的屏幕,呈打开的书本角度。',
-    parts: [P('box', [1.7, .1, 1.15], [0, .1, .1]), P('box', [1.7, 1.05, .06], [0, .62, -.6], [-.3, 0, 0]), P('box', [1.3, .02, .6], [0, .16, .2])], core: [0, .7, -.3] },
+    parts: [P('box', [1.7, .1, 1.15], [0, .1, .1]), P('box', [1.7, 1.05, .06], [0, .62, -.6], [-.3, 0, 0]), P('box', [1.3, .02, .6], [0, .16, .2], [0, 0, 0], 'dark')], core: [0, .7, -.3] },
   printer: { cat: 'office', name: '打印机', en: 'Printer', size: 'M', abbr: 'PR', role: ['目标'],
     use: '共享打印/扫描设备,常被忽视的联网资产。',
     look: '矮胖方机身 + 前伸出纸托盘 + 顶部斜插纸张。',
-    parts: [P('box', [1.6, .7, 1.2], [0, .4, 0]), P('box', [1.2, .05, .7], [0, .2, .9]), P('box', [1.1, .9, .03], [0, 1.1, -.35], [-.35, 0, 0])], core: [0, .95, .3] },
+    parts: [P('box', [1.6, .7, 1.2], [0, .4, 0]), P('box', [1.2, .05, .7], [0, .2, .9]), P('box', [1.1, .9, .03], [0, 1.1, -.35], [-.35, 0, 0], 'light')], core: [0, .95, .3] },
   mobile: { cat: 'office', name: '手机', en: 'Mobile Phone', size: 'S', abbr: 'MB', role: ['目标', '源'],
     use: '移动终端,承载短信验证码、企业 IM 与邮件。',
     look: '直立的细长薄片,略向后倾,顶部听筒缝。',
@@ -200,137 +201,211 @@ const SPEC = {
 };
 Object.keys(SPEC).forEach(k => { SPEC[k].type = k; });
 
-/* ---------- 构造 ---------- */
+/* ---------- 构造(v2:实心低多边形 + 发光方形底框 + 标签牌) ---------- */
 let THEME = 'dark';
 function setTheme(t) { THEME = t === 'light' ? 'light' : 'dark'; }
-const glyphCache = {};
-
+const texCache = {};
+const segCap = (n, d) => Math.min(n || d, d);
 function geo(T, s, a) {
   switch (s) {
     case 'box': return new T.BoxGeometry(a[0], a[1], a[2]);
-    case 'cyl': return new T.CylinderGeometry(a[0], a[1], a[2], a[3] || 12, 1, !!a[4], 0, a[4] ? PI : 2 * PI);
-    case 'sph': return new T.SphereGeometry(a[0], a[1] || 12, a[2] || 8);
-    case 'cone': return new T.ConeGeometry(a[0], a[1], a[2] || 12);
-    case 'tor': return new T.TorusGeometry(a[0], a[1], 4, 32, a[2] == null ? 2 * PI : a[2]);
+    case 'cyl': return new T.CylinderGeometry(a[0], a[1], a[2], segCap(a[3], 10), 1, !!a[4], 0, a[4] ? PI : 2 * PI);
+    case 'sph': return new T.SphereGeometry(a[0], segCap(a[1], 10), segCap(a[2], 7));
+    case 'cone': return new T.ConeGeometry(a[0], a[1], segCap(a[2], 10));
+    case 'tor': return new T.TorusGeometry(a[0], Math.max(a[1], .035), 4, 20, a[2] == null ? 2 * PI : a[2]);
     case 'oct': return new T.OctahedronGeometry(a[0]);
-    case 'hemi': return new T.SphereGeometry(a[0], 14, 6, 0, 2 * PI, 0, PI / 2);
+    case 'hemi': return new T.SphereGeometry(a[0], 10, 4, 0, 2 * PI, 0, PI / 2);
   }
   throw new Error('未知形状 ' + s);
 }
-
-function badge(T, text, color, theme) {
-  const key = text + color + theme; if (glyphCache[key]) return glyphCache[key];
-  const c = document.createElement('canvas'); c.width = 128; c.height = 64; const x = c.getContext('2d');
-  const day = theme === 'light';
-  x.fillStyle = day ? 'rgba(255,255,255,.88)' : 'rgba(8,12,26,.75)'; x.strokeStyle = color; x.lineWidth = 4;
-  const r = 12; x.beginPath(); x.moveTo(r + 4, 4); x.arcTo(124, 4, 124, 60, r); x.arcTo(124, 60, 4, 60, r); x.arcTo(4, 60, 4, 4, r); x.arcTo(4, 4, 124, 4, r); x.closePath(); x.fill(); x.stroke();
-  x.fillStyle = color; x.font = 'bold 30px "Segoe UI",Arial,sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, 64, 34);
-  const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace || tex.colorSpace; tex.anisotropy = 4;
-  return (glyphCache[key] = tex);
+/* 部件色调: 显式 p[4] 优先;否则细杆/刻线/天线/支架(最小尺寸<0.13 且次小<0.32)用浅色,其余用类别主色 */
+function toneOf(p) {
+  if (p[4]) return p[4];
+  const s = p[0], a = p[1]; let d;
+  if (s === 'box') d = a.slice(0, 3); else if (s === 'cyl') d = [Math.max(a[0], a[1]) * 2, Math.max(a[0], a[1]) * 2, a[2]]; else if (s === 'tor') d = [a[1] * 2, a[1] * 2, a[0]]; else return 'body';
+  d = d.slice().sort((x, y) => x - y);
+  return d[0] < .13 && d[1] < .32 ? 'light' : 'body';
+}
+/* 底框/状态色(夜间亮、日间深一档) */
+const FRAME = {
+  dark:  { normal: '#1fe85a', selected: '#7dff9e', outline: '#ffffff', attacked: '#ff2a3c', protected: '#22e6ff', label: 'rgba(10,14,24,.82)', labelTxt: '#e8f1ff', labelLine: 'rgba(200,215,240,.55)' },
+  light: { normal: '#0f8a36', selected: '#16b048', outline: '#0d1626', attacked: '#c4001c', protected: '#007f9e', label: 'rgba(255,255,255,.94)', labelTxt: '#152033', labelLine: 'rgba(40,60,90,.45)' },
+};
+function canvasTex(T, key, w, h, draw) {
+  if (texCache[key]) return texCache[key];
+  const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h);
+  const t = new T.CanvasTexture(c); if (T.SRGBColorSpace) t.colorSpace = T.SRGBColorSpace; t.anisotropy = 8; return (texCache[key] = t);
+}
+/* 小标签牌(悬在节点上方) */
+function labelPlate(T, text, theme, accent) {
+  const fr = FRAME[theme]; const fs = 40, padX = 22;
+  const mw = (() => { const c = document.createElement('canvas').getContext('2d'); c.font = 'bold ' + fs + 'px "Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif'; return Math.ceil(c.measureText(text).width); })();
+  const w = Math.max(96, mw + padX * 2), h = 64;
+  const tex = canvasTex(T, 'lp|' + text + theme + accent, w, h, (x) => {
+    x.fillStyle = fr.label; x.fillRect(2, 2, w - 4, h - 4); x.strokeStyle = fr.labelLine; x.lineWidth = 3; x.strokeRect(2, 2, w - 4, h - 4);
+    x.fillStyle = accent; x.fillRect(2, h - 8, w - 4, 6);
+    x.fillStyle = fr.labelTxt; x.font = 'bold ' + fs + 'px "Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, w / 2, h / 2 - 2);
+  });
+  const m = new T.SpriteMaterial({ map: tex, transparent: true, depthWrite: false }); const s = new T.Sprite(m);
+  const sh = .38; s.scale.set(sh * w / h, sh, 1); s.renderOrder = 10; return s;
+}
+/* 场景灯光(与节点材质配套) */
+function addLights(scene, theme) {
+  const T = root.THREE, day = theme === 'light', g = new T.Group(); g.name = 'nodelib-lights';
+  g.add(new T.HemisphereLight(day ? 0xffffff : 0xcfe0ff, day ? 0x8a96a8 : 0x1a2233, day ? 1.5 : .95));
+  const d = new T.DirectionalLight(0xffffff, day ? 1.5 : 1.6); d.position.set(5, 12, 8); g.add(d);
+  const f = new T.DirectionalLight(day ? 0xdde8ff : 0x88a8ff, day ? .45 : .5); f.position.set(-8, 6, -4); g.add(f);
+  scene.add(g); return g;
 }
 
 /**
- * createNode(type, opts) -> { group, type, spec, color, setState(s), update(t), setHover(b), dispose(), bounds }
- * opts: theme 'dark'|'light'(默认用 NODELIB.setTheme 设置的), size 覆盖尺寸系数, badge 是否显示缩写徽标,
- *       ring 是否画底环, mask true 时全部纯白不透明(用于轮廓比对), color 覆盖类别色
+ * createNode(type, opts) -> { group, type, spec, cat, color, theme, scale, state, bounds, setState(s), update(t), dispose(), setLabel(text) }
+ * opts: theme 'dark'|'light'; size 尺寸系数; badge/label: false 隐藏标签牌,字符串=自定义标签文字(默认缩写);
+ *       ring/frame: false 隐藏底框; mask: true 纯白不透明剪影(轮廓比对用); color 覆盖类别色
+ * 场景需要灯光:NODELIB.addLights(scene, theme)
  */
 function createNode(type, opts) {
   const T = root.THREE; if (!T) throw new Error('需要 THREE');
   const o = opts || {}; const sp = SPEC[type]; if (!sp) throw new Error('未知节点类型 ' + type);
   const theme = o.theme === 'light' || o.theme === 'dark' ? o.theme : THEME, day = theme === 'light';
-  const cat = CATS[sp.cat], st = STATE_COL[theme];
+  const cat = CATS[sp.cat], fr = FRAME[theme];
   const color = new T.Color(o.color || cat[theme]);
   const scale = (o.size != null ? o.size : SIZES[sp.size]) || 1;
-  const blend = o.mask ? T.NormalBlending : (day ? T.NormalBlending : T.AdditiveBlending);
   const group = new T.Group(); group.name = 'node:' + type;
   const body = new T.Group(); body.scale.setScalar(scale); group.add(body);
   if (sp.squash) body.scale.set(scale * sp.squash[0], scale * sp.squash[1], scale * sp.squash[2]);
-  const mats = [], disp = [];
-  const mk = (m) => { mats.push(m); return m; };
-  const edgeMat = mk(new T.LineBasicMaterial({ color: color.clone(), transparent: true, opacity: o.mask ? 1 : (day ? 1 : .95), blending: blend, depthWrite: false }));
-  const innerMat = mk(new T.LineBasicMaterial({ color: color.clone(), transparent: true, opacity: day ? .32 : .28, blending: blend, depthWrite: false }));
-  const faceMat = mk(new T.MeshBasicMaterial({ color: o.mask ? 0xffffff : color.clone(), transparent: !o.mask, opacity: o.mask ? 1 : (day ? .2 : .1), blending: blend, depthWrite: !!o.mask, side: T.DoubleSide }));
-  // L1 外轮廓线框 + 面填充;L2 内缩 0.9 的淡线框(体积感)
+  const mats = [], disp = []; const mk = m => { mats.push(m); return m; };
+  const bodyC = new T.Color(cat.dark).lerp(new T.Color(cat.light), day ? .45 : .22); // 实体色:主色略压暗,保持饱和
+  const lightC = new T.Color(day ? '#f4f7fb' : '#e9eef6'), darkC = new T.Color(day ? '#25324a' : '#1a2438');
+  const matFor = {
+    body: mk(new T.MeshStandardMaterial({ color: bodyC, roughness: .42, metalness: .12, flatShading: true, emissive: bodyC.clone(), emissiveIntensity: day ? .05 : .1 })),
+    light: mk(new T.MeshStandardMaterial({ color: lightC, roughness: .35, metalness: .05, flatShading: true, emissive: lightC.clone(), emissiveIntensity: day ? .04 : .12 })),
+    dark: mk(new T.MeshStandardMaterial({ color: darkC, roughness: .3, metalness: .2, flatShading: true })),
+    glow: mk(new T.MeshStandardMaterial({ color: bodyC.clone().lerp(new T.Color('#fff'), .4), emissive: bodyC.clone(), emissiveIntensity: day ? .5 : 1.1, roughness: .5, flatShading: true })),
+  };
+  const maskMat = o.mask ? mk(new T.MeshBasicMaterial({ color: 0xffffff })) : null;
   sp.parts.forEach(pt => {
     const g = geo(T, pt[0], pt[1]); disp.push(g);
-    const pos = pt[2], rot = pt[3];
-    const m = new T.Mesh(g, faceMat); m.position.set(pos[0], pos[1], pos[2]); m.rotation.set(rot[0], rot[1], rot[2]); body.add(m);
-    if (!o.mask) {
-      const eg = new T.EdgesGeometry(g, 25); disp.push(eg);
-      const l = new T.LineSegments(eg, edgeMat); l.position.copy(m.position); l.rotation.copy(m.rotation); body.add(l);
-      const l2 = new T.LineSegments(eg, innerMat); l2.position.copy(m.position); l2.rotation.copy(m.rotation); l2.scale.setScalar(.9); body.add(l2);
-    }
+    const m = new T.Mesh(g, maskMat || matFor[toneOf(pt)] || matFor.body);
+    m.position.set(pt[2][0], pt[2][1], pt[2][2]); m.rotation.set(pt[3][0], pt[3][1], pt[3][2]); body.add(m);
   });
   const box = new T.Box3().setFromObject(body); const size = new T.Vector3(); box.getSize(size);
   const radius = Math.max(size.x, size.z) * .5;
   const out = { group, type, spec: sp, cat: sp.cat, color, theme, scale, state: 'normal', bounds: { height: box.max.y, radius } };
-  if (o.mask) { out.update = () => { }; out.setState = () => { }; out.dispose = () => { disp.forEach(g => g.dispose()); mats.forEach(m => m.dispose()); }; return out; }
+  if (o.mask) { out.update = () => { }; out.setState = () => { }; out.setLabel = () => { }; out.dispose = () => { disp.forEach(g => g.dispose()); mats.forEach(m => m.dispose()); }; return out; }
 
-  // 发光核心
-  const coreMat = mk(new T.MeshBasicMaterial({ color: color.clone(), transparent: true, opacity: day ? .9 : 1, blending: blend, depthWrite: false }));
-  const core = new T.Mesh(new T.OctahedronGeometry(.16), coreMat); disp.push(core.geometry);
-  const cp = sp.core || [0, box.max.y / scale + .3, 0]; core.position.set(cp[0], cp[1], cp[2]); body.add(core);
-  const haloMat = mk(new T.MeshBasicMaterial({ color: color.clone(), transparent: true, opacity: day ? .18 : .22, blending: blend, depthWrite: false }));
-  const halo = new T.Mesh(new T.SphereGeometry(.32, 12, 8), haloMat); disp.push(halo.geometry); halo.position.copy(core.position); body.add(halo);
+  // 发光方形底框:外框 4 条 + 内淡底 + 选中白描边
+  const hw = Math.max(1.0, Math.max(size.x, size.z) * .5 + .35);
+  const frameG = new T.Group(); group.add(frameG);
+  const frameMat = mk(new T.MeshBasicMaterial({ color: new T.Color(fr.normal), transparent: true, opacity: .95, depthWrite: false }));
+  const glowMat = mk(new T.MeshBasicMaterial({ color: new T.Color(fr.normal), transparent: true, opacity: day ? .22 : .28, depthWrite: false, blending: day ? T.NormalBlending : T.AdditiveBlending }));
+  const fillMat = mk(new T.MeshBasicMaterial({ color: new T.Color(fr.normal), transparent: true, opacity: .1, depthWrite: false, side: T.DoubleSide }));
+  const outMat = mk(new T.MeshBasicMaterial({ color: new T.Color(fr.outline), transparent: true, opacity: 0, depthWrite: false }));
+  const sq = (half, th, mat, y) => { const g = new T.Group(); [[0, half, 2 * half + th, th], [0, -half, 2 * half + th, th], [half, 0, th, 2 * half - th], [-half, 0, th, 2 * half - th]].forEach(([x, z, w, d]) => { const pg = new T.PlaneGeometry(w, d); disp.push(pg); const m = new T.Mesh(pg, mat); m.rotation.x = -PI / 2; m.position.set(x, y, z); g.add(m); }); return g; };
+  frameG.add(sq(hw, .11, frameMat, .02), sq(hw, .42, glowMat, .015), sq(hw + .2, .05, outMat, .03));
+  const fillG = new T.PlaneGeometry(hw * 2, hw * 2); disp.push(fillG); const fill = new T.Mesh(fillG, fillMat); fill.rotation.x = -PI / 2; fill.position.y = .01; frameG.add(fill);
+  if (o.ring === false || o.frame === false) frameG.visible = false;
 
-  // 底座光环: 实线内环 + 3/4 外弧 + 淡色底盘
-  const R = Math.max(1.0, radius + .35);
-  const ringMat = mk(new T.MeshBasicMaterial({ color: color.clone(), transparent: true, opacity: day ? .85 : .6, blending: blend, depthWrite: false, side: T.DoubleSide }));
-  const diskMat = mk(new T.MeshBasicMaterial({ color: color.clone(), transparent: true, opacity: day ? .1 : .06, blending: blend, depthWrite: false, side: T.DoubleSide }));
-  const ringG = new T.Group(); group.add(ringG);
-  const r1 = new T.Mesh(new T.RingGeometry(R, R + .06, 64), ringMat); const r2 = new T.Mesh(new T.RingGeometry(R + .28, R + .31, 64, 1, 0, PI * 1.5), ringMat);
-  const dk = new T.Mesh(new T.CircleGeometry(R, 48), diskMat);
-  [r1, r2, dk].forEach(m => { m.rotation.x = -PI / 2; m.position.y = .01; ringG.add(m); disp.push(m.geometry); });
-  if (o.ring === false) ringG.visible = false;
+  // 标签牌
+  let tag = null; const tagText = typeof o.label === 'string' ? o.label : (typeof o.badge === 'string' ? o.badge : sp.abbr);
+  const showTag = o.badge !== false && o.label !== false;
+  const placeTag = () => { if (tag) tag.position.set(0, box.max.y + .55, 0); };
+  out.setLabel = text => { if (tag) { group.remove(tag); tag.material.dispose(); } tag = text ? labelPlate(T, text, theme, '#' + new T.Color(cat[theme]).getHexString()) : null; if (tag) { group.add(tag); placeTag(); } };
+  if (showTag) out.setLabel(tagText);
 
-  // 状态装饰
-  const selMat = mk(new T.MeshBasicMaterial({ color: new T.Color(st.sel), transparent: true, opacity: 0, blending: blend, depthWrite: false, side: T.DoubleSide }));
-  const selRing = new T.Mesh(new T.RingGeometry(R + .5, R + .56, 64, 1, 0, PI * .4), selMat); selRing.rotation.x = -PI / 2; selRing.position.y = .02; group.add(selRing); disp.push(selRing.geometry);
-  const selRing2 = selRing.clone(); selRing2.rotation.z = PI; group.add(selRing2);
-  const brMat = mk(new T.LineBasicMaterial({ color: new T.Color(st.sel), transparent: true, opacity: 0, blending: blend, depthWrite: false }));
-  const H = box.max.y + .25, W = R + .1, k = .35, bp = [];
-  [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([sx, sz]) => { [0, H].forEach(y => { const dy = y ? -k : k; bp.push(sx * W, y, sz * W, sx * W, y + dy, sz * W, sx * W, y, sz * W, sx * (W - k), y, sz * W, sx * W, y, sz * W, sx * W, y, sz * (W - k)); }); });
-  const bg = new T.BufferGeometry(); bg.setAttribute('position', new T.Float32BufferAttribute(bp, 3)); disp.push(bg);
-  const brackets = new T.LineSegments(bg, brMat); group.add(brackets);
-  const atkMat = mk(new T.MeshBasicMaterial({ color: new T.Color(st.atk), transparent: true, opacity: 0, blending: blend, depthWrite: false, side: T.DoubleSide }));
-  const atkRing = new T.Mesh(new T.RingGeometry(R + .05, R + .2, 64), atkMat); atkRing.rotation.x = -PI / 2; atkRing.position.y = .03; group.add(atkRing); disp.push(atkRing.geometry);
-  const domeMat = mk(new T.LineBasicMaterial({ color: new T.Color(st.def), transparent: true, opacity: 0, blending: blend, depthWrite: false }));
-  const domeG = new T.SphereGeometry(Math.max(R + .2, H * .78), 18, 8, 0, 2 * PI, 0, PI / 2); disp.push(domeG);
-  const domeE = new T.WireframeGeometry(domeG); disp.push(domeE);
-  const dome = new T.LineSegments(domeE, domeMat); dome.scale.y = Math.max(1, (H + .2) / Math.max(R + .2, H * .78)); group.add(dome);
-  const domeFillMat = mk(new T.MeshBasicMaterial({ color: new T.Color(st.def), transparent: true, opacity: 0, blending: blend, depthWrite: false, side: T.DoubleSide }));
-  const domeFill = new T.Mesh(domeG, domeFillMat); domeFill.scale.copy(dome.scale); group.add(domeFill);
-
-  // 缩写徽标
-  let tag = null;
-  if (o.badge !== false) {
-    const tm = mk(new T.SpriteMaterial({ map: badge(T, sp.abbr, '#' + color.getHexString(), theme), transparent: true, depthWrite: false, depthTest: false }));
-    tag = new T.Sprite(tm); tag.scale.set(.9, .45, 1); tag.position.set(0, box.max.y + .6, 0); tag.renderOrder = 10; group.add(tag);
-  }
-
-  const base = color.clone(), white = new T.Color(st.sel), red = new T.Color(st.atk), cyan = new T.Color(st.def), tmp = new T.Color();
+  const cN = new T.Color(fr.normal), cS = new T.Color(fr.selected), cA = new T.Color(fr.attacked), cP = new T.Color(fr.protected);
   out.setState = s => { out.state = STATES[s] ? s : 'normal'; };
   out.update = t => {
-    const s = out.state, sel = s === 'selected', atk = s === 'attacked', pro = s === 'protected';
-    const fl = atk ? (.5 + .5 * Math.sin(t * 14)) : 0;
-    tmp.copy(base); if (sel) tmp.lerp(white, day ? .25 : .35); if (atk) tmp.lerp(red, .35 + .5 * fl);
-    edgeMat.color.copy(tmp); innerMat.color.copy(tmp); faceMat.color.copy(tmp); coreMat.color.copy(atk ? red : (pro ? cyan : tmp));
-    edgeMat.opacity = sel ? 1 : (day ? .92 : .85); faceMat.opacity = (day ? .2 : .1) * (sel ? 1.6 : 1);
-    const br = .5 + .5 * Math.sin(t * 2.2);
-    haloMat.opacity = (day ? .14 : .18) + (day ? .08 : .14) * br + (sel ? .1 : 0) + fl * .2; haloMat.color.copy(coreMat.color);
-    core.rotation.y = t * 1.2; core.scale.setScalar(1 + .12 * br + (atk ? .25 * fl : 0));
-    ringMat.color.copy(pro ? cyan : (atk ? tmp : base)); r2.rotation.z = t * .4;
-    selMat.opacity = sel ? (day ? .95 : .9) : 0; selRing.rotation.z = t * 1.1; selRing2.rotation.z = t * 1.1 + PI; brMat.opacity = sel ? 1 : 0;
-    atkMat.opacity = atk ? (.25 + .6 * fl) : 0; atkRing.scale.setScalar(atk ? 1 + .15 * ((t * 1.6) % 1) : 1);
-    body.position.x = atk ? Math.sin(t * 41) * .03 : 0;
-    domeMat.opacity = pro ? (day ? .55 : .45) : 0; domeFillMat.opacity = pro ? (day ? .07 : .05) : 0; dome.rotation.y = t * .25;
+    const s = out.state; let c = cN, k = 1;
+    if (s === 'selected') { c = cS; k = 1.25; } else if (s === 'attacked') { c = cA; k = .45 + .75 * (.5 + .5 * Math.sin(t * 12)); } else if (s === 'protected') { c = cP; k = 1; }
+    const br = .9 + .1 * Math.sin(t * 2.2);
+    frameMat.color.copy(c); glowMat.color.copy(c); fillMat.color.copy(c);
+    frameMat.opacity = Math.min(1, .9 * k * br); glowMat.opacity = (day ? .2 : .16) * k * (s === 'selected' ? 1.6 : 1); fillMat.opacity = (day ? .09 : .08) * k * (s === 'selected' ? 1.6 : 1);
+    outMat.opacity = s === 'selected' ? 1 : 0;
+    matFor.body.emissiveIntensity = (day ? .05 : .1) * (s === 'selected' ? 2.2 : 1);
+    body.position.x = s === 'attacked' ? Math.sin(t * 41) * .02 : 0;
   };
-  out.dispose = () => { disp.forEach(g => g.dispose && g.dispose()); mats.forEach(m => m.dispose()); };
+  out.dispose = () => { disp.forEach(g => g.dispose && g.dispose()); mats.forEach(m => m.dispose()); if (tag) tag.material.dispose(); };
   out.update(0);
   return out;
 }
 
-const api = { CATS, SPEC, SIZES, STATES, STATE_COL, createNode, setTheme, get theme() { return THEME; }, types: () => Object.keys(SPEC), byCat: c => Object.keys(SPEC).filter(k => SPEC[k].cat === c) };
+/* ---------- 分区底板 + 区域标签 + 连线 ---------- */
+const ZONE = {
+  dark:  { violet: '#9a7cff', gray: '#8c96a8', green: '#2bff6a', blue: '#4d9dff', plate: '#141a2c', grid: '#3a4766', text: 'rgba(225,232,248,.88)' },
+  light: { violet: '#5a2fa8', gray: '#4f5a6c', green: '#0f8a36', blue: '#1d55b8', plate: '#f3f6fa', grid: '#8a96aa', text: 'rgba(30,42,64,.85)' },
+};
+/* 区域标签:平铺在地面上的大号文字 */
+function createZoneLabel(text, opts) {
+  const T = root.THREE, o = opts || {}, theme = o.theme === 'light' || o.theme === 'dark' ? o.theme : THEME, Z = ZONE[theme];
+  const fs = 96, c0 = document.createElement('canvas').getContext('2d'); c0.font = 'bold ' + fs + 'px "Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif';
+  const w = Math.ceil(c0.measureText(text).width) + 40, h = 132;
+  const tex = canvasTex(T, 'zl|' + text + theme + (o.color || ''), w, h, x => { x.fillStyle = o.color || Z.text; x.font = c0.font; x.textBaseline = 'middle'; x.fillText(text, 20, h / 2); });
+  const height = o.height || .9; const g = new T.PlaneGeometry(height * w / h, height);
+  const m = new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false });
+  const mesh = new T.Mesh(g, m); mesh.rotation.x = -PI / 2; mesh.position.y = .03; mesh.renderOrder = 2;
+  mesh.userData.width = height * w / h; mesh.userData.dispose = () => { g.dispose(); m.dispose(); };
+  return mesh;
+}
+/**
+ * createZone({ title, w, d, color:'violet'|'gray'|css色, theme, titleSize }) -> { group, w, d, slot(i,n,cols) , dispose() }
+ * 半透明底板 + 细网格 + 描边 + 前沿大号区域名
+ */
+function createZone(opts) {
+  const T = root.THREE, o = opts || {}, theme = o.theme === 'light' || o.theme === 'dark' ? o.theme : THEME, day = theme === 'light', Z = ZONE[theme];
+  const w = o.w || 8, d = o.d || 6, edge = new T.Color(Z[o.color] || o.color || Z.violet);
+  const g = new T.Group(); g.name = 'zone:' + (o.title || ''); const disp = [];
+  const pg = new T.PlaneGeometry(w, d); disp.push(pg);
+  const pm = new T.MeshBasicMaterial({ color: new T.Color(Z.plate), transparent: true, opacity: day ? .72 : .55, depthWrite: false }); disp.push(pm);
+  const plate = new T.Mesh(pg, pm); plate.rotation.x = -PI / 2; plate.position.y = .002; g.add(plate);
+  const gp = [], step = o.grid || .5;
+  for (let x = -w / 2 + step; x < w / 2 - 1e-6; x += step) gp.push(x, .006, -d / 2, x, .006, d / 2);
+  for (let z = -d / 2 + step; z < d / 2 - 1e-6; z += step) gp.push(-w / 2, .006, z, w / 2, .006, z);
+  const gg = new T.BufferGeometry(); gg.setAttribute('position', new T.Float32BufferAttribute(gp, 3)); disp.push(gg);
+  const gm = new T.LineBasicMaterial({ color: new T.Color(Z.grid), transparent: true, opacity: day ? .45 : .38, depthWrite: false }); disp.push(gm);
+  g.add(new T.LineSegments(gg, gm));
+  const bw = .06, bm = new T.MeshBasicMaterial({ color: edge, transparent: true, opacity: .95, depthWrite: false }); disp.push(bm);
+  [[0, -d / 2, w + bw, bw], [0, d / 2, w + bw, bw], [-w / 2, 0, bw, d], [w / 2, 0, bw, d]].forEach(([x, z, ww, dd]) => { const e = new T.PlaneGeometry(ww, dd); disp.push(e); const m = new T.Mesh(e, bm); m.rotation.x = -PI / 2; m.position.set(x, .01, z); g.add(m); });
+  // 外侧淡描边(双线)
+  const om = new T.MeshBasicMaterial({ color: edge, transparent: true, opacity: .35, depthWrite: false }); disp.push(om);
+  const ow = w + .5, od = d + .5;
+  [[0, -od / 2, ow, .025], [0, od / 2, ow, .025], [-ow / 2, 0, .025, od], [ow / 2, 0, .025, od]].forEach(([x, z, ww, dd]) => { const e = new T.PlaneGeometry(ww, dd); disp.push(e); const m = new T.Mesh(e, om); m.rotation.x = -PI / 2; m.position.set(x, .008, z); g.add(m); });
+  let label = null;
+  if (o.title) { label = createZoneLabel(o.title, { theme, height: o.titleSize || Math.min(1.1, d * .16) }); label.position.set(-w / 2 + .3 + label.userData.width / 2, .03, d / 2 - (o.titleSize || Math.min(1.1, d * .16)) * .75); g.add(label); }
+  return {
+    group: g, w, d, title: o.title || '',
+    /* 第 i 个槽位(n 个,cols 列)在分区局部坐标里的位置,前沿留出标题位置 */
+    slot(i, n, cols) { cols = cols || Math.ceil(Math.sqrt(n)); const rows = Math.ceil(n / cols), r = Math.floor(i / cols), c = i % cols; const top = -d / 2 + .9, bot = d / 2 - (o.title ? 1.6 : .9); return { x: -w / 2 + w * (c + .5) / cols, z: rows === 1 ? (top + bot) / 2 : top + (bot - top) * r / (rows - 1) }; },
+    dispose() { disp.forEach(x => x.dispose()); if (label) label.userData.dispose(); },
+  };
+}
+/**
+ * createLink(a, b, { theme, color, y, dash, gap, arrow }) -> { group, update(t), dispose() }
+ * a/b 为 Vector3 或 {x,y,z};绿色虚线(平面短条)+ 末端箭头,update(t) 让虚线向终点流动
+ */
+function createLink(a, b, opts) {
+  const T = root.THREE, o = opts || {}, theme = o.theme === 'light' || o.theme === 'dark' ? o.theme : THEME, day = theme === 'light';
+  const col = new T.Color(o.color || FRAME[theme].normal), y = o.y == null ? .05 : o.y;
+  const A = new T.Vector3(a.x, y, a.z), B = new T.Vector3(b.x, y, b.z), dir = B.clone().sub(A), len = dir.length(); dir.normalize();
+  const dash = o.dash || .32, gap = o.gap || .22, per = dash + gap, n = Math.max(1, Math.floor((len - .5) / per));
+  const g = new T.Group(); const disp = [];
+  const mat = new T.MeshBasicMaterial({ color: col, transparent: true, opacity: .95, depthWrite: false, blending: day ? T.NormalBlending : T.AdditiveBlending }); disp.push(mat);
+  const dg = new T.PlaneGeometry(dash, .07); disp.push(dg);
+  const ang = Math.atan2(dir.x, dir.z) - PI / 2; const dashes = [];
+  for (let i = 0; i < n; i++) { const m = new T.Mesh(dg, mat); m.rotation.set(-PI / 2, 0, ang); g.add(m); dashes.push(m); }
+  if (o.arrow !== false) {
+    const sh = new T.Shape(); sh.moveTo(0, .26); sh.lineTo(-.17, -.12); sh.lineTo(.17, -.12); sh.closePath();
+    const ag = new T.ShapeGeometry(sh); disp.push(ag); const ar = new T.Mesh(ag, mat);
+    ar.rotation.set(-PI / 2, 0, Math.atan2(dir.x, dir.z) - PI); ar.rotation.order = 'YXZ'; ar.rotation.set(-PI / 2, Math.atan2(dir.x, dir.z) + PI, 0);
+    const aq = new T.Group(); aq.add(ar); ar.rotation.set(-PI / 2, 0, 0); aq.rotation.y = Math.atan2(dir.x, dir.z) + PI; aq.position.copy(B).addScaledVector(dir, -.15); g.add(aq);
+  }
+  const usable = len - .45;
+  const update = t => { const off = ((t || 0) * .6) % per; dashes.forEach((m, i) => { const s = Math.min(usable, i * per + off + dash / 2); m.position.copy(A).addScaledVector(dir, s); }); };
+  update(0);
+  return { group: g, update, dispose() { disp.forEach(x => x.dispose()); } };
+}
+
+const api = { version: 2, CATS, SPEC, SIZES, STATES, STATE_COL, FRAME, ZONE, createNode, createZone, createZoneLabel, createLink, addLights, setTheme, get theme() { return THEME; }, types: () => Object.keys(SPEC), byCat: c => Object.keys(SPEC).filter(k => SPEC[k].cat === c) };
 root.NODELIB = api;
 if (typeof module !== 'undefined') module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
