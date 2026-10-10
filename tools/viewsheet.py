@@ -23,7 +23,7 @@ JS = r"""async ([theme, types, per, CW, CH, tag])=>{
    V.forEach((v,j)=>{
     const sc=new T.Scene(); sc.background=new T.Color(G.BG[day?'light':'dark']); const g=G.makeGrid(T); G.setDay(T,g,day); sc.add(g); L.addLights(sc,theme);
     sc.add(n.group);
-    const h=n.bounds.height, ty=h*.42, dist=2.3;
+    const h=n.bounds.height, ty=h*(v[4]!=null?v[4]:.42), dist=2.3;
     const cam=new T.PerspectiveCamera(30,CW/CH,.05,100);
     if(v[2]>1.4&&v[2]<1.5){cam.position.set(0.0001,ty+dist,0.12);} else if(v[2]>=1.5){cam.position.set(Math.sin(v[1])*0.001,ty+dist*1.0,Math.cos(v[1])*0.001+0.0001);} else cam.position.set(Math.sin(v[1])*Math.cos(v[2])*dist,ty+Math.sin(v[2])*dist,Math.cos(v[1])*Math.cos(v[2])*dist);
     cam.lookAt(0,ty*(v[2]>1.4?0:1),0); if(v[3]) cam.zoom=v[3], cam.updateProjectionMatrix();
@@ -49,6 +49,10 @@ with sync_playwright() as p:
         views=[['正俯视',0,1.56,1.3],['斜俯60°',0.6,1.047,1.3],['正面',0,.15,1.3],['侧面(+X)',1.5708,.15,1.3],['Tim 截图角度',-1.3,1.25,1.3]]; per,CW,CH=1,560,560
     if '--attacker-top' in sys.argv:
         views=[['俯视(同 Tim 截图角度)',-1.3,1.25,1.5]]; per,CW,CH=1,820,720
+    if '--insider6' in sys.argv:
+        views=[['正面',0,.15,.95],['斜前',0.6,.25,.95],['侧面(+X)',1.5708,.15,.95],['俯视',0.0,1.45,1.1],['背面',3.1416,.15,.95],['Tim 截图角度',-0.35,.38,.95]]; per,CW,CH=1,420,560
+    if '--chest' in sys.argv:
+        views=[['胸口特写',0,.1,3.2,.6],['胸口斜',0.5,.2,3.2,.6],['胸口俯',0.3,.9,3.2,.6]]; per,CW,CH=1,500,500
     if views: pg.evaluate('v=>window.__VIEWS__=v',views)
     themes=('dark',) if '--dark' in sys.argv else ('dark','light')
     for theme in themes:

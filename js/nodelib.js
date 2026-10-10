@@ -460,22 +460,37 @@ const RSPEC = {
     TO('detail', 0, .45, 0, .42, .012, 2 * PI, [PI / 2 + .4, .25, .2]),
     S('led', 0, .77, 0, .025), S('led', .38, .55, .1, .022)],
   /* 内部威胁 v10:站姿西装,头身比与攻击者一致;宽领+领带;工牌挂绳清楚;双手抱文件箱 */
-  insider: [C('base', 0, 0, 0, .28, .035, 10),
-    /* 裤腿 + 西装上身(略瘦) + 圆肩 */
-    B('port', -.06, .035, 0, .09, .32, .1), B('port', .06, .035, 0, .09, .32, .1),
-    C('body', 0, .35, 0, .15, .28, 8, .13), S('body', -.14, .58, 0, .065), S('body', .14, .58, 0, .065),
-    /* 衬衫三角领 + 领带 */
-    B('face', 0, .42, .12, .1, .14, .02, [.1, 0, 0]), B('detail', 0, .4, .135, .035, .16, .012, [.1, 0, 0]),
-    /* 工牌:挂绳 + 大号发光牌面(朝 +Z) */
-    B('detail', -.05, .55, .112, .01, .14, .01, [.2, 0, -.25]), B('led', -.08, .44, .115, .08, .09, .012),
-    B('face', -.08, .47, .124, .05, .035, .006),
-    /* 头:深发顶 + 脸 */
-    S('detail', 0, .74, 0, .09), S('port', 0, .78, -.01, .085), S('face', 0, .72, .02, .07),
-    /* 左臂自然垂/右臂抱箱;文件箱带盖与标签灯 */
-    C('body', -.18, .34, 0, .032, .26, 6, null, [0, 0, -.15]),
-    C('body', .16, .4, .06, .032, .18, 6, null, [1.15, 0, 0]),
-    B('face', .14, .34, .2, .2, .16, .14), B('detail', .14, .5, .2, .2, .025, .14),
-    B('led', .14, .4, .275, .14, .05, .01), B('port', .14, .36, .275, .11, .025, .008)],
+  /* 内部威胁 v13:友好白领。肤色脸+眼点+微笑线,短发露额;藏青西装+白衬衫+红领带;左胸红框工牌+贴身红挂绳;双手托住正前方文件箱(红标签) */
+  insider: [B('base', 0, 0, .02, .5, .035, .5),
+    TO('face', 0, .043, .02, .2, .008, 2 * PI, [PI / 2, 0, 0]),
+    Object.assign(B('body', -0.05, .05, 0, .08, .285, .1), { c: 'pant' }),
+    Object.assign(B('port', -0.05, .035, .02, .085, .03, .13), { c: 'ink' }),
+    Object.assign(B('body', 0.05, .05, 0, .08, .285, .1), { c: 'pant' }),
+    Object.assign(B('port', 0.05, .035, .02, .085, .03, .13), { c: 'ink' }),
+    Object.assign(C('body', 0, .335, 0, .16, .27, 8, .14, [0, PI / 8, 0]), { c: 'suit' }),
+    Object.assign(S('body', -0.15, .57, 0, .055), { c: 'suit' }),
+    Object.assign(S('body', 0.15, .57, 0, .055), { c: 'suit' }),
+    Object.assign(B('face', 0, .5, 0.1472, .05, .105, .008, [0.0683, 0, 0]), { c: 'shirt' }),
+    B('face', 0, .42, 0.1541, .024, .165, .008, [0.0683, 0, 0]),
+    B('face', .04, .468, 0.1423, .044, .054, .005, [0.0683, 0, 0]),
+    Object.assign(B('detail', .04, .473, 0.1468, .034, .044, .004, [0.0683, 0, 0]), { c: 'shirt' }),
+    B('face', 0.0260, 0.5217, 0.1508, .006, 0.0796, .004, [0.0683, 0, 0.2541]),
+    Object.assign(C('body', 0, .6, 0, .035, .05, 8), { c: 'skin' }),
+    Object.assign(S('body', 0, .72, 0, .085), { c: 'skin' }),
+    Object.assign(S('port', 0, .75, -.015, .082), { c: 'hair' }),
+    Object.assign(S('port', -0.028, .73, 0.0776, .009), { c: 'ink' }),
+    Object.assign(S('port', 0.028, .73, 0.0776, .009), { c: 'ink' }),
+    Object.assign(B('port', 0, .695, 0.0801, .03, .006, .006), { c: 'ink' }),
+    Object.assign(C('body', -0.1575, 0.3932, 0.0150, 0.03, 0.1886, 6, null, [2.8273, 0.9124, 0.1552]), { c: 'suit' }),
+    Object.assign(C('body', -0.1225, 0.2347, 0.1025, 0.028, 0.2156, 6, null, [1.8738, -0.7888, -0.5938]), { c: 'suit' }),
+    Object.assign(B('body', -0.075, .262, .205, .05, .025, .075), { c: 'skin' }),
+    Object.assign(C('body', 0.1575, 0.3932, 0.0150, 0.03, 0.1886, 6, null, [2.8273, -0.9124, -0.1552]), { c: 'suit' }),
+    Object.assign(C('body', 0.1225, 0.2347, 0.1025, 0.028, 0.2156, 6, null, [1.8738, 0.7888, 0.5938]), { c: 'suit' }),
+    Object.assign(B('body', 0.075, .262, .205, .05, .025, .075), { c: 'skin' }),
+    B('detail', 0, .287, .21, .18, .12, .12),
+    B('detail', 0, .407, .21, .19, .015, .13),
+    B('face', 0, .33, .2733, .08, .04, .006),
+    B('led', -.05, .305, .2722, .02, .012, .004)],
 
 
   /* ===== v7 新增 ===== */
@@ -580,19 +595,20 @@ const GCACHE = {};
 /* 构建并归一化到 CUBE 立方体(最长边=CUBE,底面 y=0,水平居中),按角色合并 */
 function buildModel(T, type) {
   if (GCACHE[type]) return GCACHE[type];
-  const atoms = RSPEC[type].flat().map(a => SPEC[type] && SPEC[type].cat === 'ext' ? Object.assign({ flat: true }, a) : a), geos = atoms.map(a => ({ r: a.r, g: atomGeo(T, a) }));
+  const atoms = RSPEC[type].flat().map(a => SPEC[type] && SPEC[type].cat === 'ext' ? Object.assign({ flat: true }, a) : a), geos = atoms.map(a => ({ r: a.r, c: a.c || '', g: atomGeo(T, a) }));
   const bb = new T.Box3(); geos.forEach(x => { x.g.computeBoundingBox(); bb.union(x.g.boundingBox); });
   const raw = bb.getSize(new T.Vector3()), k = CUBE / Math.max(raw.x, raw.y, raw.z);
   const cx = (bb.min.x + bb.max.x) / 2, cz = (bb.min.z + bb.max.z) / 2, y0 = bb.min.y;
   geos.forEach(x => { x.g.translate(-cx, -y0, -cz); x.g.scale(k, k, k); });
   const parts = [];
-  ROLES.forEach(role => {
-    const L = geos.filter(x => x.r === role).map(x => x.g); if (!L.length) return;
+  /* 按 角色 + 自定义色(a.c,可选,如肤色/白衬衫/西装)分组合并 */
+  ROLES.forEach(role => { [...new Set(geos.filter(x => x.r === role).map(x => x.c))].forEach(col => {
+    const L = geos.filter(x => x.r === role && x.c === col).map(x => x.g); if (!L.length) return;
     const g = mergeGeos(T, L); bakeAO(g, role); g.computeBoundingBox(); g.computeBoundingSphere();
     const tris = g.index ? g.index.count / 3 : g.attributes.position.count / 3;
     const verts = g.attributes.position.count;
-    parts.push({ role, name: role + '_' + String(parts.length).padStart(2, '0'), geo: g, tris, verts });
-  });
+    parts.push({ role, col: col || null, name: role + '_' + String(parts.length).padStart(2, '0'), geo: g, tris, verts });
+  }); });
   const box = new T.Box3(); parts.forEach(p => box.union(p.geo.boundingBox));
   const tris = parts.reduce((t, p) => t + p.tris, 0), verts = parts.reduce((t, p) => t + p.verts, 0);
   return (GCACHE[type] = { parts, box, norm: k, raw: { x: +raw.x.toFixed(4), y: +raw.y.toFixed(4), z: +raw.z.toFixed(4) }, atoms: atoms.length, tris, verts });
@@ -600,6 +616,8 @@ function buildModel(T, type) {
 /* 设备着色器:半球环境 + 朗伯 + 低光泽 Blinn-Phong + 收窄边缘光 + 顶点 AO;led 不受光照 */
 const VS_DEV = 'attribute float aAo;varying vec3 vN;varying vec3 vV;varying float vAo;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);vAo=aAo;gl_Position=projectionMatrix*mv;}';
 const FS_DEV = 'uniform vec3 uColor,uRim,uHemiSky,uHemiGnd;uniform float uRimK,uLam,uAmb,uSpec,uShin,uFill;varying vec3 vN;varying vec3 vV;varying float vAo;void main(){vec3 N=normalize(vN);vec3 V=normalize(vV);vec3 Ldir=normalize(vec3(.35,.85,.45));float ndl=max(dot(N,Ldir),0.);float hemi=.5+.5*N.y;vec3 ambCol=mix(uHemiGnd,uHemiSky,hemi);float ambL=dot(ambCol,vec3(.2126,.7152,.0722));float shade=mix(uFill,1.,smoothstep(0.,1.,ndl)*.85);float lit=shade*(.55+uAmb*ambL*.9);vec3 diff=uColor*lit;vec3 H=normalize(Ldir+V);float sp=pow(max(dot(N,H),0.),uShin)*uSpec*ndl;float fr=pow(1.-max(abs(dot(N,V)),0.),3.6);vec3 c=(diff+uRim*sp*.55+uRim*fr*uRimK*.85)*vAo;gl_FragColor=vec4(c,1.);}';
+/* 自定义部件色(仅人物类使用):肤色、白衬衫、藏青西装、深色头发/眼 */
+const CUSTOM_COL = { skin: { dark: '#e8c4a8', light: '#e8c4a8' }, shirt: { dark: '#eef1f5', light: '#f4f6f9' }, suit: { dark: '#2c3a52', light: '#34445f' }, hair: { dark: '#3a2c24', light: '#3f3027' }, ink: { dark: '#1c1a1a', light: '#1c1a1a' }, pant: { dark: '#252d3c', light: '#2c3546' } };
 const ROLE_FIX = { dark: { base: '#556578', port: '#3a4860', detail: '#a8b6c8' }, light: { base: '#7a8a9c', port: '#4a586c', detail: '#b0bec8' } };
 const ROLE_K = { dark: { body: .78, face: 1.0, rim: { body: .22, face: .14, base: .08, port: .04, led: 0, detail: .12 }, spec: { body: .18, face: .22, base: .06, port: .04, led: 0, detail: .12 }, shin: { body: 28, face: 36, base: 16, port: 20, led: 1, detail: 24 } }, light: { body: .88, face: 1.0, rim: { body: .12, face: .08, base: .04, port: .03, led: 0, detail: .07 }, spec: { body: .12, face: .14, base: .04, port: .03, led: 0, detail: .08 }, shin: { body: 32, face: 40, base: 18, port: 22, led: 1, detail: 28 } } };
 function roleColor(T, main, role, theme) {
@@ -610,8 +628,9 @@ function roleColor(T, main, role, theme) {
 function hemiColors(theme) {
   return theme === 'light' ? { sky: new root.THREE.Color('#ffffff'), gnd: new root.THREE.Color('#d8dee8') } : { sky: new root.THREE.Color('#e2eaf5'), gnd: new root.THREE.Color('#5a6880') };
 }
-function devMat(T, main, role, theme) {
-  const c = roleColor(T, main, role, theme), H = hemiColors(theme), K = ROLE_K[theme];
+function devMat(T, main, role, theme, col) {
+  /* col: 自定义色 {dark,light} 或单色;不随类别主色缩放 */
+  const c = col ? new T.Color(typeof col === 'string' ? col : col[theme]) : roleColor(T, main, role, theme), H = hemiColors(theme), K = ROLE_K[theme];
   return new T.ShaderMaterial({ uniforms: {
     uColor: { value: c.clone() }, uRim: { value: main.clone() }, uRimK: { value: K.rim[role] },
     uLam: { value: role === 'led' ? 0 : 1 },
@@ -661,7 +680,7 @@ function createNode(type, opts) {
   const M = buildModel(T, type);
   const roleMats = {}; const bodyMeshes = [];
   M.parts.forEach(pt => {
-    const mat = o.mask ? mk(new T.MeshBasicMaterial({ color: 0xffffff })) : (roleMats[pt.role] = mk(devMat(T, bodyC, pt.role, theme)));
+    const mat = o.mask ? mk(new T.MeshBasicMaterial({ color: 0xffffff })) : (pt.col ? mk(devMat(T, bodyC, pt.role, theme, CUSTOM_COL[pt.col] || pt.col)) : (roleMats[pt.role] = mk(devMat(T, bodyC, pt.role, theme))));
     const m = new T.Mesh(pt.geo, mat); m.name = pt.name; body.add(m);
     if (!o.mask && (pt.role === 'body' || pt.role === 'face')) bodyMeshes.push(m);
   });

@@ -1392,8 +1392,8 @@
    ],
    "squash": null,
    "parts": 5,
-   "tris": 456,
-   "verts": 1368
+   "tris": 528,
+   "verts": 1584
   },
   {
    "type": "dns",
@@ -1962,9 +1962,9 @@
     0.6
    ],
    "squash": null,
-   "parts": 4,
-   "tris": 552,
-   "verts": 1656
+   "parts": 5,
+   "tris": 576,
+   "verts": 1728
   },
   {
    "type": "container",
@@ -2295,16 +2295,16 @@
     "源"
    ],
    "use": "拥有合法权限但滥用权限的内部人员。",
-   "look": "站姿西装:领结领带、挂绳工牌发光牌面、双手抱带盖文件箱;与兜帽攻击者同积木语言但立姿白领可辨。",
+   "look": "友好的办公室白领:肤色脸+两个深色眼点+平直小嘴线,短发只盖头顶后脑、露前额;藏青西装+白衬衫+红领带贴胸;左胸红框工牌,红挂绳贴身从领口垂到工牌;双臂自然弯曲,双手在身前托住文件箱底部(箱前红色小标签);底座同攻击者方形底座+红色底座环。",
    "core": [
     0,
     1.55,
     0.35
    ],
    "squash": null,
-   "parts": 6,
-   "tris": 852,
-   "verts": 2556
+   "parts": 11,
+   "tris": 1148,
+   "verts": 3444
   },
   {
    "type": "aggswitch",
@@ -2728,10 +2728,10 @@
    }
   },
   "current": {
-   "sum": 22236,
-   "avg": 419.5,
-   "max": 1144,
-   "note": "v13 attacker decorations restored & surface-fitted"
+   "sum": 22532,
+   "avg": 425.1,
+   "max": 1148,
+   "note": "v14 insider redesigned as friendly office worker"
   }
  },
  "meshcheck": {
@@ -2917,6 +2917,10 @@
     "pierce": 0
    },
    "principle": "只修位置,不删细节(除非 Tim 明确要求删除)"
+  },
+  "v14": {
+   "insider": "重做为友好白领;新增部件自定义色(atom.c: skin/shirt/suit/hair/ink/pant);insider 朝向语义检查改为:头/眼点朝 +Z、文件箱在身体正前方",
+   "totals": "9 项全 0 / 53"
   }
  }
 }
