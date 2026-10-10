@@ -59,3 +59,9 @@
 | `mailsrv` | 168 | 144 | 88 | 6 |
 | `kiosk` | 132 | 132 | 88 | 6 |
 | `printer` | 108 | 108 | 72 | 6 |
+
+## 面错乱修复(2026-10-10)
+- 根因:自制 RB 倒角用 mergeGeos 拼接带 index 的 BoxGeometry 时只拷贝了 position 数组、丢了 index,顶点按错误顺序组成交叉斜三角;mergeGeos 末尾的量化焊接又跨原子按位置合并顶点并平均法线,把硬边弄糊。
+- 修复:rbox 改用 BoxGeometry 原始顶点(不倒角);同角色拼接前每个原子先 toNonIndexed,不跨原子焊接,保留硬边法线;剔除球/锥极点零面积三角;面板细部加 polygonOffset 防共面闪烁。
+- 检测:tools/meshcheck.py,修复前 51/53 模型有问题,修复后 0/53。
+- 面数:合计 20332,平均 384,最大 728(internet),最小 108(printer)。

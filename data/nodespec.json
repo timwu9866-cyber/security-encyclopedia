@@ -1277,7 +1277,7 @@
    "squash": null,
    "parts": 6,
    "tris": 492,
-   "verts": 288
+   "verts": 1476
   },
   {
    "type": "switch",
@@ -1306,7 +1306,7 @@
    "squash": null,
    "parts": 6,
    "tris": 456,
-   "verts": 304
+   "verts": 1368
   },
   {
    "type": "coreswitch",
@@ -1334,8 +1334,8 @@
    ],
    "squash": null,
    "parts": 6,
-   "tris": 540,
-   "verts": 298
+   "tris": 384,
+   "verts": 1152
   },
   {
    "type": "ap",
@@ -1364,7 +1364,7 @@
    "squash": null,
    "parts": 5,
    "tris": 620,
-   "verts": 338
+   "verts": 1860
   },
   {
    "type": "lb",
@@ -1393,7 +1393,7 @@
    "squash": null,
    "parts": 5,
    "tris": 456,
-   "verts": 262
+   "verts": 1368
   },
   {
    "type": "dns",
@@ -1422,7 +1422,7 @@
    "squash": null,
    "parts": 5,
    "tris": 656,
-   "verts": 332
+   "verts": 1968
   },
   {
    "type": "pc",
@@ -1450,8 +1450,8 @@
    ],
    "squash": null,
    "parts": 6,
-   "tris": 500,
-   "verts": 234
+   "tris": 188,
+   "verts": 564
   },
   {
    "type": "laptop",
@@ -1480,7 +1480,7 @@
    "squash": null,
    "parts": 4,
    "tris": 144,
-   "verts": 96
+   "verts": 432
   },
   {
    "type": "printer",
@@ -1508,7 +1508,7 @@
    "squash": null,
    "parts": 6,
    "tris": 108,
-   "verts": 72
+   "verts": 324
   },
   {
    "type": "mobile",
@@ -1537,7 +1537,7 @@
    "squash": null,
    "parts": 6,
    "tris": 312,
-   "verts": 192
+   "verts": 936
   },
   {
    "type": "tablet",
@@ -1565,7 +1565,7 @@
    "squash": null,
    "parts": 6,
    "tris": 260,
-   "verts": 162
+   "verts": 780
   },
   {
    "type": "voip",
@@ -1593,7 +1593,7 @@
    "squash": null,
    "parts": 6,
    "tris": 248,
-   "verts": 156
+   "verts": 744
   },
   {
    "type": "firewall",
@@ -1621,7 +1621,7 @@
    "squash": null,
    "parts": 5,
    "tris": 228,
-   "verts": 136
+   "verts": 684
   },
   {
    "type": "waf",
@@ -1649,7 +1649,7 @@
    "squash": null,
    "parts": 6,
    "tris": 144,
-   "verts": 96
+   "verts": 432
   },
   {
    "type": "idsips",
@@ -1677,7 +1677,7 @@
    "squash": null,
    "parts": 5,
    "tris": 488,
-   "verts": 266
+   "verts": 1464
   },
   {
    "type": "bastion",
@@ -1705,7 +1705,7 @@
    "squash": null,
    "parts": 6,
    "tris": 168,
-   "verts": 112
+   "verts": 504
   },
   {
    "type": "honeypot",
@@ -1738,7 +1738,7 @@
    ],
    "parts": 5,
    "tris": 468,
-   "verts": 250
+   "verts": 1404
   },
   {
    "type": "soc",
@@ -1766,7 +1766,7 @@
    "squash": null,
    "parts": 5,
    "tris": 240,
-   "verts": 154
+   "verts": 720
   },
   {
    "type": "vpngw",
@@ -1795,7 +1795,7 @@
    "squash": null,
    "parts": 6,
    "tris": 540,
-   "verts": 306
+   "verts": 1620
   },
   {
    "type": "behavior",
@@ -1823,7 +1823,7 @@
    "squash": null,
    "parts": 5,
    "tris": 524,
-   "verts": 276
+   "verts": 1572
   },
   {
    "type": "sandbox",
@@ -1851,7 +1851,7 @@
    "squash": null,
    "parts": 5,
    "tris": 420,
-   "verts": 230
+   "verts": 1260
   },
   {
    "type": "websrv",
@@ -1879,7 +1879,7 @@
    "squash": null,
    "parts": 5,
    "tris": 276,
-   "verts": 184
+   "verts": 828
   },
   {
    "type": "dbsrv",
@@ -1907,7 +1907,7 @@
    "squash": null,
    "parts": 5,
    "tris": 420,
-   "verts": 232
+   "verts": 1260
   },
   {
    "type": "storage",
@@ -1935,7 +1935,7 @@
    "squash": null,
    "parts": 6,
    "tris": 360,
-   "verts": 240
+   "verts": 1080
   },
   {
    "type": "cloud",
@@ -1964,7 +1964,7 @@
    "squash": null,
    "parts": 4,
    "tris": 552,
-   "verts": 296
+   "verts": 1656
   },
   {
    "type": "container",
@@ -1992,7 +1992,7 @@
    "squash": null,
    "parts": 4,
    "tris": 264,
-   "verts": 160
+   "verts": 792
   },
   {
    "type": "mailsrv",
@@ -2021,7 +2021,7 @@
    "squash": null,
    "parts": 6,
    "tris": 144,
-   "verts": 88
+   "verts": 432
   },
   {
    "type": "ipcam",
@@ -2050,7 +2050,7 @@
    "squash": null,
    "parts": 6,
    "tris": 576,
-   "verts": 328
+   "verts": 1728
   },
   {
    "type": "plc",
@@ -2078,7 +2078,7 @@
    "squash": null,
    "parts": 6,
    "tris": 312,
-   "verts": 208
+   "verts": 936
   },
   {
    "type": "sensor",
@@ -2107,7 +2107,7 @@
    "squash": null,
    "parts": 5,
    "tris": 656,
-   "verts": 350
+   "verts": 1968
   },
   {
    "type": "hmi",
@@ -2135,7 +2135,7 @@
    "squash": null,
    "parts": 6,
    "tris": 156,
-   "verts": 104
+   "verts": 468
   },
   {
    "type": "pos",
@@ -2163,7 +2163,7 @@
    "squash": null,
    "parts": 6,
    "tris": 188,
-   "verts": 116
+   "verts": 564
   },
   {
    "type": "attacker",
@@ -2190,8 +2190,8 @@
    ],
    "squash": null,
    "parts": 6,
-   "tris": 622,
-   "verts": 334
+   "tris": 612,
+   "verts": 1836
   },
   {
    "type": "botnet",
@@ -2219,7 +2219,7 @@
    "squash": null,
    "parts": 5,
    "tris": 536,
-   "verts": 298
+   "verts": 1608
   },
   {
    "type": "c2",
@@ -2247,7 +2247,7 @@
    "squash": null,
    "parts": 5,
    "tris": 684,
-   "verts": 376
+   "verts": 2052
   },
   {
    "type": "internet",
@@ -2276,7 +2276,7 @@
    "squash": null,
    "parts": 5,
    "tris": 728,
-   "verts": 368
+   "verts": 2184
   },
   {
    "type": "insider",
@@ -2304,7 +2304,7 @@
    "squash": null,
    "parts": 6,
    "tris": 316,
-   "verts": 174
+   "verts": 948
   },
   {
    "type": "aggswitch",
@@ -2328,7 +2328,7 @@
    "squash": null,
    "parts": 6,
    "tris": 588,
-   "verts": 352
+   "verts": 1764
   },
   {
    "type": "nta",
@@ -2352,7 +2352,7 @@
    "squash": null,
    "parts": 6,
    "tris": 508,
-   "verts": 282
+   "verts": 1524
   },
   {
    "type": "hids",
@@ -2377,7 +2377,7 @@
    "squash": null,
    "parts": 6,
    "tris": 576,
-   "verts": 316
+   "verts": 1728
   },
   {
    "type": "appsrv",
@@ -2401,7 +2401,7 @@
    "squash": null,
    "parts": 6,
    "tris": 492,
-   "verts": 296
+   "verts": 1476
   },
   {
    "type": "cache",
@@ -2425,7 +2425,7 @@
    "squash": null,
    "parts": 6,
    "tris": 400,
-   "verts": 220
+   "verts": 1200
   },
   {
    "type": "objstore",
@@ -2449,7 +2449,7 @@
    "squash": null,
    "parts": 6,
    "tris": 312,
-   "verts": 172
+   "verts": 936
   },
   {
    "type": "mq",
@@ -2474,7 +2474,7 @@
    "squash": null,
    "parts": 6,
    "tris": 720,
-   "verts": 404
+   "verts": 2160
   },
   {
    "type": "k8smaster",
@@ -2498,7 +2498,7 @@
    "squash": null,
    "parts": 5,
    "tris": 524,
-   "verts": 298
+   "verts": 1572
   },
   {
    "type": "k8snode",
@@ -2522,7 +2522,7 @@
    "squash": null,
    "parts": 6,
    "tris": 192,
-   "verts": 118
+   "verts": 576
   },
   {
    "type": "registry",
@@ -2547,7 +2547,7 @@
    "squash": null,
    "parts": 6,
    "tris": 240,
-   "verts": 160
+   "verts": 720
   },
   {
    "type": "cnapp",
@@ -2571,7 +2571,7 @@
    "squash": null,
    "parts": 6,
    "tris": 312,
-   "verts": 208
+   "verts": 936
   },
   {
    "type": "workstation",
@@ -2596,7 +2596,7 @@
    "squash": null,
    "parts": 6,
    "tris": 224,
-   "verts": 146
+   "verts": 672
   },
   {
    "type": "opsterm",
@@ -2620,7 +2620,7 @@
    "squash": null,
    "parts": 5,
    "tris": 216,
-   "verts": 142
+   "verts": 648
   },
   {
    "type": "kiosk",
@@ -2644,7 +2644,7 @@
    "squash": null,
    "parts": 6,
    "tris": 132,
-   "verts": 88
+   "verts": 396
   },
   {
    "type": "term3p",
@@ -2668,7 +2668,7 @@
    "squash": null,
    "parts": 5,
    "tris": 184,
-   "verts": 108
+   "verts": 552
   },
   {
    "type": "iotgw",
@@ -2692,7 +2692,7 @@
    "squash": null,
    "parts": 6,
    "tris": 388,
-   "verts": 232
+   "verts": 1164
   }
  ],
  "coverage": {
@@ -2726,6 +2726,17 @@
     "avg": 41.04,
     "n": 35
    }
+  },
+  "current": {
+   "sum": 20332,
+   "avg": 383.6,
+   "max": 728,
+   "note": "修复面错乱:去掉自制 RB 倒角与跨原子焊接,原子内保留 BoxGeometry 原始顶点与硬边法线"
   }
+ },
+ "meshcheck": {
+  "before": "51/53 模型有问题(法线夹角>60° 为主,attacker 另有 10 个退化三角)",
+  "after": "0/53",
+  "script": "tools/meshcheck.py"
  }
 }

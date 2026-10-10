@@ -485,22 +485,11 @@ function segFor(size, prefer) {
   if (size < .18) return Math.min(p, 10);
   return Math.min(p, 12);
 }
-function roundedBoxGeo(T, w, h, d, b) {
-  b = Math.min(b || .02, Math.min(w, h, d) * .18);
-  /* 主体 + 顶面四条高光棱(低段数倒角观感),避免 12+8 全棱带来的面数膨胀 */
-  const g = new T.BoxGeometry(w, h, d);
-  const edges = [];
-  const add = (gw, gh, gd, x, y, z) => { const e = new T.BoxGeometry(gw, gh, gd); e.translate(x, y, z); edges.push(e); };
-  add(w - 2 * b, b, b, 0, h / 2 - b / 2, d / 2 - b / 2);
-  add(w - 2 * b, b, b, 0, h / 2 - b / 2, -(d / 2 - b / 2));
-  add(b, b, d - 2 * b, w / 2 - b / 2, h / 2 - b / 2, 0);
-  add(b, b, d - 2 * b, -(w / 2 - b / 2), h / 2 - b / 2, 0);
-  return mergeGeos(T, [g].concat(edges));
-}
+/* rbox:不再做自制倒角(旧实现把带 index 的 BoxGeometry 当作非索引数组拼接,生成交叉斜三角),直接用 BoxGeometry 原始顶点 */
 function atomGeo(T, a) {
   let g, cy;
   if (a.s === 'box') { g = new T.BoxGeometry(a.w, a.h, a.d); cy = a.y + a.h / 2; }
-  else if (a.s === 'rbox') { g = roundedBoxGeo(T, a.w, a.h, a.d, a.b); cy = a.y + a.h / 2; }
+  else if (a.s === 'rbox') { g = new T.BoxGeometry(a.w, a.h, a.d); cy = a.y + a.h / 2; }
   else if (a.s === 'cyl') { const seg = segFor(Math.max(a.rt, a.rb) * 2, a.seg); g = new T.CylinderGeometry(a.rt, a.rb, a.h, seg, 1); cy = a.y + a.h / 2; }
   else if (a.s === 'cone') { const seg = segFor(a.rad * 2, a.seg); g = new T.ConeGeometry(a.rad, a.h, seg); cy = a.y + a.h / 2; }
   else if (a.s === 'tor') { const rs = segFor(a.R * 2, 16), ts = segFor(a.t * 2, 6); g = new T.TorusGeometry(a.R, a.t, Math.max(4, ts), Math.max(10, rs), a.arc); cy = a.y; }
@@ -510,31 +499,22 @@ function atomGeo(T, a) {
   g.translate(a.x, cy, a.z);
   return g.index ? g.toNonIndexed() : g;
 }
+/* 同角色原子拼接:每个原子先 toNonIndexed,保持各自原始顶点与硬边法线;不跨原子焊接、不平均法线 */
 function mergeGeos(T, list) {
+  list = list.map(g => g.index ? g.toNonIndexed() : g);
   let n = 0; list.forEach(g => n += g.attributes.position.count);
   const pos = new Float32Array(n * 3), nor = new Float32Array(n * 3); let o = 0;
   list.forEach(g => { pos.set(g.attributes.position.array, o * 3); nor.set(g.attributes.normal.array, o * 3); o += g.attributes.position.count; g.dispose(); });
-  const m = new T.BufferGeometry(); m.setAttribute('position', new T.BufferAttribute(pos, 3)); m.setAttribute('normal', new T.BufferAttribute(nor, 3)); return weldGeo(T, m);
-}
-/** 合并重复顶点(量化到 1e-4),同步法线平均 */
-function weldGeo(T, geo, eps) {
-  eps = eps || 1e-4; const inv = 1 / eps;
-  const P = geo.attributes.position.array, N = geo.attributes.normal.array;
-  const map = new Map(), idx = new Uint32Array(P.length / 3);
-  const pos = [], nor = []; let nV = 0;
-  for (let i = 0; i < P.length; i += 3) {
-    const key = (Math.round(P[i] * inv)) + ',' + (Math.round(P[i + 1] * inv)) + ',' + (Math.round(P[i + 2] * inv));
-    let id = map.get(key);
-    if (id == null) { id = nV++; map.set(key, id); pos.push(P[i], P[i + 1], P[i + 2]); nor.push(N[i], N[i + 1], N[i + 2]); }
-    else { nor[id * 3] += N[i]; nor[id * 3 + 1] += N[i + 1]; nor[id * 3 + 2] += N[i + 2]; }
-    idx[i / 3] = id;
+  /* 剔除零面积三角(球/锥极点处) */
+  const kp = [], kn = [];
+  for (let t = 0; t < n; t += 3) {
+    const i = t * 3, ax = pos[i], ay = pos[i + 1], az = pos[i + 2];
+    const ux = pos[i + 3] - ax, uy = pos[i + 4] - ay, uz = pos[i + 5] - az, vx = pos[i + 6] - ax, vy = pos[i + 7] - ay, vz = pos[i + 8] - az;
+    const cx = uy * vz - uz * vy, cy = uz * vx - ux * vz, cz = ux * vy - uy * vx;
+    if (cx * cx + cy * cy + cz * cz < 4e-16) continue;
+    for (let j = 0; j < 9; j++) { kp.push(pos[i + j]); kn.push(nor[i + j]); }
   }
-  for (let i = 0; i < nor.length; i += 3) { const l = Math.hypot(nor[i], nor[i + 1], nor[i + 2]) || 1; nor[i] /= l; nor[i + 1] /= l; nor[i + 2] /= l; }
-  const m = new T.BufferGeometry();
-  m.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
-  m.setAttribute('normal', new T.Float32BufferAttribute(nor, 3));
-  m.setIndex(Array.from(idx));
-  geo.dispose(); return m;
+  const m = new T.BufferGeometry(); m.setAttribute('position', new T.Float32BufferAttribute(kp, 3)); m.setAttribute('normal', new T.Float32BufferAttribute(kn, 3)); return m;
 }
 /** 近似 AO:凹处/底面/朝下法线变暗,写入 aAo attribute */
 function bakeAO(geo, role) {
@@ -594,7 +574,9 @@ function devMat(T, main, role, theme) {
     uFill: { value: theme === 'light' ? .78 : .80 },
     uSpec: { value: K.spec[role] * .75 }, uShin: { value: K.shin[role] },
     uHemiSky: { value: H.sky }, uHemiGnd: { value: H.gnd },
-  }, vertexShader: VS_DEV, fragmentShader: FS_DEV });
+  }, vertexShader: VS_DEV, fragmentShader: FS_DEV,
+  /* 贴在面板上的细部与面板共面,深度偏移防 z-fighting(不改几何) */
+  polygonOffset: true, polygonOffsetFactor: { body: 0, base: 1, face: -1, detail: -2, port: -3, led: -4 }[role] || 0, polygonOffsetUnits: { body: 0, base: 1, face: -1, detail: -2, port: -3, led: -4 }[role] || 0 });
 }
 /** 脚下柔和接触阴影(径向渐变贴片,非发光底座) */
 function contactShadow(T, theme, size) {
@@ -830,6 +812,7 @@ function setupBloom(renderer, opts) {
 }
 
 const api = { version: 8, CATS, SPEC, RSPEC, ROLES, buildModel, CUBE, SIZES, STATES, STATE_COL, FRAME, ZONE, createNode, createZone, createZoneLabel, createLink, fitLabels, addLights, setupBloom, markBloom, prepareRenderer, setTheme, get theme() { return THEME; }, types: () => Object.keys(SPEC), byCat: c => Object.keys(SPEC).filter(k => SPEC[k].cat === c) };
+api._debug = { RSPEC, atomGeo, buildModel };
 root.NODELIB = api;
 if (typeof module !== 'undefined') module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
