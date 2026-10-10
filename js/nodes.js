@@ -178,24 +178,24 @@ const MAJOR = [
       { title: '行政办公子区', ox: -5.2, oz: -4.4, w: 5.6, d: 4.6, cols: 4, items: Array.from({ length: 8 }, (_, i) => ['pc', '行政电脑' + (i + 1)]) },
       { title: '财务办公子区', ox: 1.0, oz: -4.4, w: 5.0, d: 4.6, cols: 3, items: [['pc', '财务电脑1'], ['pc', '财务电脑2'], ['pc', '财务电脑3'], ['laptop', '财务笔记本'], ['printer', '财务打印机'], ['pc', '出纳电脑']] },
       { title: '前端开发子区', ox: -5.2, oz: .6, w: 5.6, d: 4.8, cols: 4, items: Array.from({ length: 8 }, (_, i) => ['pc', '前端电脑' + (i + 1), i === 2 ? 'selected' : null]).map(x => x.filter(Boolean)) },
-      { title: '后端开发子区', ox: 1.0, oz: .6, w: 5.0, d: 4.8, cols: 3, items: Array.from({ length: 6 }, (_, i) => ['pc', '后端电脑' + (i + 1)]) },
-      { title: '测试运维子区', ox: 5.8, oz: -1.8, w: 3.8, d: 8.8, cols: 2, items: [['laptop', '测试本1'], ['laptop', '测试本2'], ['pc', '运维电脑1'], ['pc', '运维电脑2'], ['mobile', '值班手机'], ['voip', '值班电话']] },
+      { title: '后端开发子区', ox: 1.0, oz: .6, w: 5.0, d: 4.8, cols: 3, items: Array.from({ length: 6 }, (_, i) => [i < 2 ? 'workstation' : 'pc', (i < 2 ? '研发工作站' : '后端电脑') + (i + 1)]) },
+      { title: '测试运维子区', ox: 5.8, oz: -1.8, w: 3.8, d: 8.8, cols: 2, items: [['opsterm', '运维终端'], ['term3p', '外包终端'], ['pc', '运维电脑1'], ['pc', '运维电脑2'], ['kiosk', '自助终端'], ['mobile', '值班手机']] },
     ] },
   { title: '基础设施与安全区', cx: 9.2, cz: 0, w: 15.5, d: 14.5, color: 'gray',
     subs: [
-      { title: '网络汇聚子区', ox: -5.0, oz: -4.5, w: 5.0, d: 4.4, cols: 3, items: [['router', '出口路由'], ['coreswitch', '核心交换'], ['switch', '接入交换1'], ['switch', '接入交换2'], ['ap', '无线AP1'], ['ap', '无线AP2'], ['dns', 'DNS'], ['lb', '负载均衡']] },
-      { title: '安全管理子区', ox: 1.2, oz: -4.5, w: 5.2, d: 4.4, cols: 3, items: [['firewall', '边界防火墙', 'protected'], ['waf', 'WAF'], ['idsips', '入侵防御'], ['bastion', '堡垒机'], ['soc', '态势感知'], ['honeypot', '蜜罐'], ['vpngw', 'VPN网关'], ['sandbox', '沙箱']] },
-      { title: '业务服务子区', ox: -5.0, oz: .8, w: 5.0, d: 5.0, cols: 3, items: [['websrv', 'Web服务器1'], ['websrv', 'Web服务器2'], ['mailsrv', '邮件服务器'], ['container', '容器集群'], ['cloud', '云平台']] },
-      { title: '数据存储子区', ox: 1.2, oz: .8, w: 5.2, d: 5.0, cols: 3, items: [['dbsrv', '核心数据库', 'attacked'], ['dbsrv', '业务库'], ['storage', '备份存储'], ['storage', '文件存储'], ['dbsrv', '缓存库']] },
+      { title: '网络汇聚子区', ox: -5.0, oz: -4.5, w: 5.0, d: 4.4, cols: 3, items: [['router', '出口路由'], ['coreswitch', '核心交换'], ['switch', '接入交换1'], ['aggswitch', '汇聚交换'], ['ap', '无线AP1'], ['ap', '无线AP2'], ['dns', 'DNS'], ['lb', '负载均衡']] },
+      { title: '安全管理子区', ox: 1.2, oz: -4.5, w: 5.2, d: 4.4, cols: 3, items: [['firewall', '边界防火墙', 'protected'], ['waf', 'WAF'], ['idsips', '入侵防御'], ['bastion', '堡垒机'], ['soc', '态势感知'], ['nta', '全流量探针'], ['vpngw', 'VPN网关'], ['hids', '主机审计']] },
+      { title: '业务服务子区', ox: -5.0, oz: .8, w: 5.0, d: 5.0, cols: 3, items: [['websrv', 'Web服务器1'], ['websrv', 'Web服务器2'], ['appsrv', '应用服务器'], ['mq', '消息队列'], ['k8snode', 'K8s节点'], ['cnapp', '容器应用']] },
+      { title: '数据存储子区', ox: 1.2, oz: .8, w: 5.2, d: 5.0, cols: 3, items: [['dbsrv', '核心数据库', 'attacked'], ['dbsrv', '业务库'], ['storage', '备份存储'], ['objstore', '对象存储'], ['cache', 'Redis缓存']] },
       { title: '外部', ox: 5.8, oz: -1.5, w: 3.4, d: 8.5, cols: 2, items: [['internet', '互联网'], ['attacker', '外部攻击者'], ['c2', 'C2节点'], ['botnet', '僵尸网络']] },
     ] },
 ];
 const LINK_PAIRS = [
-  ['行政电脑1', '接入交换1'], ['财务电脑1', '接入交换1'], ['前端电脑1', '接入交换2'], ['后端电脑1', '接入交换2'],
-  ['接入交换1', '核心交换'], ['接入交换2', '核心交换'], ['核心交换', '出口路由'], ['出口路由', '互联网'],
+  ['行政电脑1', '接入交换1'], ['财务电脑1', '接入交换1'], ['前端电脑1', '汇聚交换'], ['研发工作站1', '汇聚交换'],
+  ['接入交换1', '核心交换'], ['汇聚交换', '核心交换'], ['核心交换', '出口路由'], ['出口路由', '互联网'],
   ['外部攻击者', '互联网'], ['互联网', '边界防火墙'], ['边界防火墙', 'WAF'], ['WAF', 'Web服务器1'],
-  ['Web服务器1', '核心数据库'], ['核心数据库', '备份存储'], ['堡垒机', '容器集群'], ['入侵防御', '态势感知'],
-  ['核心交换', '边界防火墙'], ['VPN网关', '运维电脑1'], ['邮件服务器', 'DNS'], ['负载均衡', 'Web服务器2'],
+  ['Web服务器1', '核心数据库'], ['核心数据库', '备份存储'], ['堡垒机', 'K8s节点'], ['入侵防御', '态势感知'],
+  ['核心交换', '边界防火墙'], ['VPN网关', '运维电脑1'], ['应用服务器', '消息队列'], ['负载均衡', 'Web服务器2'],
 ];
 function disposeCombo() {
   if (!CB.scene) return; CB.nodes.forEach(n => n.dispose()); CB.links.forEach(l => l.dispose()); CB.zones.forEach(z => z.dispose());

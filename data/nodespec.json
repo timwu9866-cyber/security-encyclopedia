@@ -1,6 +1,6 @@
 {
  "schema": "security-node-spec",
- "version": 6,
+ "version": 7,
  "generated": "2026-10-10",
  "note": "概念造型规范,不对应任何真实产品或商标。坐标单位与事件大全一致(1 = 地面网格 1 格),Y 轴向上;尺寸系数乘到整个节点。",
  "sizes": {
@@ -10,7 +10,7 @@
   "edge": 1,
   "origin": "底面中心",
   "front": "+Z",
-  "note": "所有模型归一化到 1×1×1(最长边=1),底贴 y=0,水平居中;norms[type].norm=1/rawLongest"
+  "note": "所有模型归一化到 1×1×1(最长边=1),底贴 y=0,水平居中"
  },
  "norms": {
   "router": {
@@ -37,7 +37,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 21,
    "tris": 892
   },
   "switch": {
@@ -64,7 +63,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 38,
    "tris": 456
   },
   "coreswitch": {
@@ -91,7 +89,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 25,
    "tris": 432
   },
   "ap": {
@@ -117,7 +114,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 10,
    "tris": 1300
   },
   "lb": {
@@ -143,7 +139,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 17,
    "tris": 672
   },
   "dns": {
@@ -169,7 +164,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 11,
    "tris": 1432
   },
   "pc": {
@@ -196,7 +190,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 14,
    "tris": 188
   },
   "laptop": {
@@ -221,7 +214,6 @@
     "port_02",
     "led_03"
    ],
-   "atoms": 12,
    "tris": 144
   },
   "printer": {
@@ -248,20 +240,19 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 9,
    "tris": 108
   },
   "mobile": {
-   "norm": 1.07851,
+   "norm": 1.065984,
    "raw": {
-    "x": 0.4,
-    "y": 0.9272,
-    "z": 0.3448
+    "x": 0.46,
+    "y": 0.9381,
+    "z": 0.4179
    },
    "after": {
-    "x": 0.4314,
+    "x": 0.4904,
     "y": 1,
-    "z": 0.3719
+    "z": 0.4455
    },
    "longest": 1,
    "minY": 0,
@@ -272,22 +263,22 @@
     "body_01",
     "face_02",
     "port_03",
-    "led_04"
+    "led_04",
+    "detail_05"
    ],
-   "atoms": 6,
-   "tris": 408
+   "tris": 560
   },
   "tablet": {
    "norm": 1,
    "raw": {
     "x": 1,
     "y": 0.7215,
-    "z": 0.4848
+    "z": 0.5178
    },
    "after": {
     "x": 1,
     "y": 0.7215,
-    "z": 0.4848
+    "z": 0.5178
    },
    "longest": 1,
    "minY": 0,
@@ -297,11 +288,11 @@
     "base_00",
     "body_01",
     "face_02",
-    "led_03",
-    "detail_04"
+    "port_03",
+    "led_04",
+    "detail_05"
    ],
-   "atoms": 8,
-   "tris": 404
+   "tris": 500
   },
   "voip": {
    "norm": 1.25,
@@ -327,7 +318,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 16,
    "tris": 264
   },
   "firewall": {
@@ -353,7 +343,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 19,
    "tris": 228
   },
   "waf": {
@@ -380,7 +369,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 12,
    "tris": 144
   },
   "idsips": {
@@ -406,7 +394,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 12,
    "tris": 976
   },
   "bastion": {
@@ -433,7 +420,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 14,
    "tris": 168
   },
   "honeypot": {
@@ -459,7 +445,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 9,
    "tris": 956
   },
   "soc": {
@@ -485,7 +470,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 17,
    "tris": 240
   },
   "vpngw": {
@@ -512,7 +496,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 14,
    "tris": 1124
   },
   "behavior": {
@@ -538,7 +521,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 9,
    "tris": 1860
   },
   "sandbox": {
@@ -564,7 +546,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 15,
    "tris": 812
   },
   "websrv": {
@@ -590,7 +571,6 @@
     "port_03",
     "led_04"
    ],
-   "atoms": 23,
    "tris": 276
   },
   "dbsrv": {
@@ -616,7 +596,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 11,
    "tris": 780
   },
   "storage": {
@@ -643,7 +622,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 30,
    "tris": 360
   },
   "cloud": {
@@ -668,7 +646,6 @@
     "face_02",
     "led_03"
    ],
-   "atoms": 10,
    "tris": 1352
   },
   "container": {
@@ -693,7 +670,6 @@
     "port_02",
     "led_03"
    ],
-   "atoms": 14,
    "tris": 264
   },
   "mailsrv": {
@@ -720,19 +696,18 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 8,
    "tris": 168
   },
   "ipcam": {
-   "norm": 1.111991,
+   "norm": 1.052632,
    "raw": {
-    "x": 0.36,
+    "x": 0.38,
     "y": 0.61,
-    "z": 0.8993
+    "z": 0.95
    },
    "after": {
-    "x": 0.4003,
-    "y": 0.6783,
+    "x": 0.4,
+    "y": 0.6421,
     "z": 1
    },
    "longest": 1,
@@ -747,8 +722,7 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 7,
-   "tris": 760
+   "tris": 1032
   },
   "plc": {
    "norm": 1,
@@ -774,7 +748,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 26,
    "tris": 312
   },
   "sensor": {
@@ -800,7 +773,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 7,
    "tris": 1488
   },
   "hmi": {
@@ -827,7 +799,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 13,
    "tris": 156
   },
   "pos": {
@@ -854,7 +825,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 11,
    "tris": 196
   },
   "attacker": {
@@ -881,7 +851,6 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 9,
    "tris": 1474
   },
   "botnet": {
@@ -907,7 +876,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 16,
    "tris": 1128
   },
   "c2": {
@@ -933,7 +901,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 13,
    "tris": 1468
   },
   "internet": {
@@ -959,7 +926,6 @@
     "led_03",
     "detail_04"
    ],
-   "atoms": 8,
    "tris": 2072
   },
   "insider": {
@@ -986,8 +952,420 @@
     "led_04",
     "detail_05"
    ],
-   "atoms": 8,
    "tris": 556
+  },
+  "aggswitch": {
+   "norm": 1.216545,
+   "raw": {
+    "x": 0.74,
+    "y": 0.822,
+    "z": 0.6055
+   },
+   "after": {
+    "x": 0.9002,
+    "y": 1,
+    "z": 0.7366
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 1308
+  },
+  "nta": {
+   "norm": 1.111111,
+   "raw": {
+    "x": 0.9,
+    "y": 0.845,
+    "z": 0.6455
+   },
+   "after": {
+    "x": 1,
+    "y": 0.9389,
+    "z": 0.7172
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 1140
+  },
+  "hids": {
+   "norm": 1.25,
+   "raw": {
+    "x": 0.8,
+    "y": 0.69,
+    "z": 0.77
+   },
+   "after": {
+    "x": 1,
+    "y": 0.8625,
+    "z": 0.9625
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 1168
+  },
+  "appsrv": {
+   "norm": 1.098901,
+   "raw": {
+    "x": 0.8,
+    "y": 0.91,
+    "z": 0.56
+   },
+   "after": {
+    "x": 0.8791,
+    "y": 1,
+    "z": 0.6154
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 708
+  },
+  "cache": {
+   "norm": 0.980392,
+   "raw": {
+    "x": 0.7354,
+    "y": 1.02,
+    "z": 0.6
+   },
+   "after": {
+    "x": 0.721,
+    "y": 1,
+    "z": 0.5882
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 696
+  },
+  "objstore": {
+   "norm": 1.041667,
+   "raw": {
+    "x": 0.96,
+    "y": 0.76,
+    "z": 0.96
+   },
+   "after": {
+    "x": 1,
+    "y": 0.7917,
+    "z": 1
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 480
+  },
+  "mq": {
+   "norm": 1,
+   "raw": {
+    "x": 1,
+    "y": 0.75,
+    "z": 0.6
+   },
+   "after": {
+    "x": 1,
+    "y": 0.75,
+    "z": 0.6
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 1608
+  },
+  "k8smaster": {
+   "norm": 1,
+   "raw": {
+    "x": 0.866,
+    "y": 0.83,
+    "z": 1
+   },
+   "after": {
+    "x": 0.866,
+    "y": 0.83,
+    "z": 1
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "led_03",
+    "detail_04"
+   ],
+   "tris": 916
+  },
+  "k8snode": {
+   "norm": 1.010101,
+   "raw": {
+    "x": 0.7621,
+    "y": 0.99,
+    "z": 0.88
+   },
+   "after": {
+    "x": 0.7698,
+    "y": 1,
+    "z": 0.8889
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 192
+  },
+  "registry": {
+   "norm": 1,
+   "raw": {
+    "x": 1,
+    "y": 0.97,
+    "z": 0.8
+   },
+   "after": {
+    "x": 1,
+    "y": 0.97,
+    "z": 0.8
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 240
+  },
+  "cnapp": {
+   "norm": 0.997506,
+   "raw": {
+    "x": 1.0025,
+    "y": 0.6,
+    "z": 0.5
+   },
+   "after": {
+    "x": 1,
+    "y": 0.5985,
+    "z": 0.4988
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 312
+  },
+  "workstation": {
+   "norm": 0.935417,
+   "raw": {
+    "x": 1.069,
+    "y": 0.79,
+    "z": 0.64
+   },
+   "after": {
+    "x": 1,
+    "y": 0.739,
+    "z": 0.5987
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 224
+  },
+  "opsterm": {
+   "norm": 1.052632,
+   "raw": {
+    "x": 0.95,
+    "y": 0.5195,
+    "z": 0.5876
+   },
+   "after": {
+    "x": 1,
+    "y": 0.5468,
+    "z": 0.6186
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "body_00",
+    "face_01",
+    "port_02",
+    "led_03",
+    "detail_04"
+   ],
+   "tris": 216
+  },
+  "kiosk": {
+   "norm": 1.030767,
+   "raw": {
+    "x": 0.8,
+    "y": 0.9702,
+    "z": 0.5
+   },
+   "after": {
+    "x": 0.8246,
+    "y": 1,
+    "z": 0.5154
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 132
+  },
+  "term3p": {
+   "norm": 1.179171,
+   "raw": {
+    "x": 0.73,
+    "y": 0.8481,
+    "z": 0.5
+   },
+   "after": {
+    "x": 0.8608,
+    "y": 1,
+    "z": 0.5896
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "led_03",
+    "detail_04"
+   ],
+   "tris": 424
+  },
+  "iotgw": {
+   "norm": 1.169591,
+   "raw": {
+    "x": 0.7,
+    "y": 0.855,
+    "z": 0.5
+   },
+   "after": {
+    "x": 0.8187,
+    "y": 1,
+    "z": 0.5848
+   },
+   "longest": 1,
+   "minY": 0,
+   "cx": 0,
+   "cz": 0,
+   "parts": [
+    "base_00",
+    "body_01",
+    "face_02",
+    "port_03",
+    "led_04",
+    "detail_05"
+   ],
+   "tris": 868
   }
  },
  "categories": {
@@ -1025,6 +1403,15 @@
     "dark": "#c9a0ff",
     "light": "#7a48c8",
     "albedo": "#c9a0ff"
+   }
+  },
+  "cn": {
+   "name": "云原生",
+   "en": "Cloud Native",
+   "color": {
+    "dark": "#ff9a3c",
+    "light": "#c4600f",
+    "albedo": "#ff9a3c"
    }
   },
   "iot": {
@@ -1080,7 +1467,7 @@
    "desc": "青色细描边 + 薄半透明护罩"
   }
  },
- "style": "v6 原子(box/cyl/sph/cone/torus/oct)→归一化 1×1×1→按角色合并;无贴图;无地面底座;状态=EdgesGeometry 描边",
+ "style": "v7 原子→归一化 1×1×1→按角色合并;53 种 / 7 大类(新增云原生 cn);无底座;描边状态",
  "camera": {
   "projection": "perspective",
   "fovDeg": 32,
@@ -4621,14 +5008,14 @@
    "type": "container",
    "name": "容器集群",
    "en": "Container Cluster",
-   "category": "srv",
+   "category": "cn",
    "size": "L",
    "scale": 1,
    "abbr": "K8",
    "color": {
-    "dark": "#c9a0ff",
-    "light": "#7a48c8",
-    "albedo": "#c9a0ff"
+    "dark": "#ff9a3c",
+    "light": "#c4600f",
+    "albedo": "#ff9a3c"
    },
    "roles": [
     "目标"
@@ -5970,60 +6357,369 @@
      "tone": null
     }
    ]
+  },
+  {
+   "type": "aggswitch",
+   "name": "汇聚交换机",
+   "en": "Aggregation Switch",
+   "category": "net",
+   "size": "M",
+   "scale": 1,
+   "abbr": "AGG",
+   "color": {
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#1fe85a"
+   },
+   "roles": [
+    "路径"
+   ],
+   "use": "汇聚多台接入交换机上联到核心,区域内东西向流量的必经点。",
+   "look": "2U 双层机身,两排端口 + 上联光口,顶部散热格。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "nta",
+   "name": "全流量探针",
+   "en": "Network Traffic Analyzer",
+   "category": "sec",
+   "size": "M",
+   "scale": 1,
+   "abbr": "NTA",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "检测"
+   ],
+   "use": "旁路镜像全流量,做协议还原、回溯与异常检测。",
+   "look": "1U 机身 + 前面板长指示条 + 顶部立杆探测球。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "hids",
+   "name": "主机安全 / 审计",
+   "en": "HIDS / Host Audit",
+   "category": "sec",
+   "size": "M",
+   "scale": 1,
+   "abbr": "HIDS",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "检测",
+    "防护"
+   ],
+   "use": "主机侧入侵检测、基线核查与操作审计。",
+   "look": "塔式机身,正面三条状态灯 + 顶部环形审计圈。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "appsrv",
+   "name": "应用服务器",
+   "en": "Application Server",
+   "category": "srv",
+   "size": "M",
+   "scale": 1,
+   "abbr": "APP",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "运行业务中间件与后端服务,区别于对外的 Web 前端。",
+   "look": "刀片机箱,两排竖插刀片 + 顶部风扇。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "cache",
+   "name": "缓存 Redis",
+   "en": "Cache (Redis)",
+   "category": "srv",
+   "size": "S",
+   "scale": 1,
+   "abbr": "RDS",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "内存缓存/会话存储,未授权访问是常见风险。",
+   "look": "短圆柱 + 闪电面板 + 顶部方块。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "objstore",
+   "name": "对象存储",
+   "en": "Object Storage",
+   "category": "srv",
+   "size": "L",
+   "scale": 1,
+   "abbr": "OBJ",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "存放文件/备份/镜像的桶式存储,权限配置错误易泄露。",
+   "look": "上宽下窄的桶形 + 箍圈 + 顶盖。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "mq",
+   "name": "消息队列 / 中间件",
+   "en": "Message Queue",
+   "category": "srv",
+   "size": "L",
+   "scale": 1,
+   "abbr": "MQ",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "路径",
+    "目标"
+   ],
+   "use": "异步消息、事件总线;横向移动与数据外泄的通道。",
+   "look": "扁平机身 + 顶部三段并排队列筒。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "k8smaster",
+   "name": "K8s 主控节点",
+   "en": "K8s Control Plane",
+   "category": "cn",
+   "size": "L",
+   "scale": 1,
+   "abbr": "K8M",
+   "color": {
+    "dark": "#ff9a3c",
+    "light": "#c4600f",
+    "albedo": "#ff9a3c"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "集群 API Server / 调度 / etcd,控制面一旦失守全集群沦陷。",
+   "look": "六棱柱机身 + 顶部舵轮。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "k8snode",
+   "name": "K8s 计算节点",
+   "en": "K8s Worker Node",
+   "category": "cn",
+   "size": "M",
+   "scale": 1,
+   "abbr": "K8N",
+   "color": {
+    "dark": "#ff9a3c",
+    "light": "#c4600f",
+    "albedo": "#ff9a3c"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "运行 Pod 的工作节点,容器逃逸的落点。",
+   "look": "高六棱柱 + 侧面三块 Pod 槽。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "registry",
+   "name": "镜像 / 制品仓库",
+   "en": "Image Registry",
+   "category": "cn",
+   "size": "L",
+   "scale": 1,
+   "abbr": "REG",
+   "color": {
+    "dark": "#ff9a3c",
+    "light": "#c4600f",
+    "albedo": "#ff9a3c"
+   },
+   "roles": [
+    "目标",
+    "源"
+   ],
+   "use": "存放容器镜像/制品,供应链投毒的入口。",
+   "look": "机身上错落堆叠的镜像箱。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "cnapp",
+   "name": "容器化应用",
+   "en": "Containerized App",
+   "category": "cn",
+   "size": "M",
+   "scale": 1,
+   "abbr": "POD",
+   "color": {
+    "dark": "#ff9a3c",
+    "light": "#c4600f",
+    "albedo": "#ff9a3c"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "以容器方式部署的单个业务应用(Pod/Deployment)。",
+   "look": "集装箱棱纹箱体 + 端门。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "workstation",
+   "name": "研发工作站",
+   "en": "Dev Workstation",
+   "category": "office",
+   "size": "L",
+   "scale": 1,
+   "abbr": "WS",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "目标",
+    "源"
+   ],
+   "use": "研发人员高性能主机,持有源码与凭据,价值高。",
+   "look": "大塔式主机 + 双显示器。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "opsterm",
+   "name": "运维终端",
+   "en": "Ops Terminal",
+   "category": "office",
+   "size": "M",
+   "scale": 1,
+   "abbr": "OPS",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "源"
+   ],
+   "use": "运维人员接入堡垒机的专用终端。",
+   "look": "笔记本 + 侧立扩展坞 + 外接小屏。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "kiosk",
+   "name": "分公司终端 / 自助机",
+   "en": "Branch Kiosk",
+   "category": "office",
+   "size": "M",
+   "scale": 1,
+   "abbr": "BR",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "营业厅/分支机构的自助办理终端。",
+   "look": "立式机柜 + 前倾大屏 + 刷卡口 + 出票口。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "term3p",
+   "name": "第三方终端",
+   "en": "Third-party Device",
+   "category": "office",
+   "size": "S",
+   "scale": 1,
+   "abbr": "3P",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "源"
+   ],
+   "use": "外包、访客、供应商带入的设备,资产管理盲区。",
+   "look": "立式支架上的平板 + 访客标牌。",
+   "core": null,
+   "squash": null,
+   "parts": []
+  },
+  {
+   "type": "iotgw",
+   "name": "IoT 网关",
+   "en": "IoT Gateway",
+   "category": "iot",
+   "size": "S",
+   "scale": 1,
+   "abbr": "IGW",
+   "color": {
+    "dark": "#ff6bcb",
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
+   },
+   "roles": [
+    "路径"
+   ],
+   "use": "汇聚传感器/工控协议上云的边缘网关。",
+   "look": "小机盒 + 两根天线 + 侧面接线端子排。",
+   "core": null,
+   "squash": null,
+   "parts": []
   }
  ],
- "roles": {
-  "list": [
-   "base",
-   "body",
-   "face",
-   "port",
-   "led",
-   "detail"
-  ],
-  "colors": {
-   "dark": {
-    "body": "主色×0.62",
-    "face": "主色×1.0",
-    "led": "主色→白 55%",
-    "base": "#2E3742",
-    "port": "#151B24",
-    "detail": "#7C8B9E"
-   },
-   "light": {
-    "body": "主色×0.78",
-    "face": "主色×1.0",
-    "led": "主色→白 55%",
-    "base": "#5a6676",
-    "port": "#1e2632",
-    "detail": "#9aa8ba"
-   }
-  }
- },
- "shading": {
-  "type": "ShaderMaterial 朗伯近似 + 大类色 fresnel 边缘光",
-  "lightDirView": [
-   0.35,
-   0.85,
-   0.45
-  ],
-  "ambient": {
-   "dark": 0.38,
-   "light": 0.5
-  },
-  "rimK": {
-   "dark": {
-    "body": 0.55,
-    "face": 0.35,
-    "base": 0.2,
-    "port": 0.1,
-    "led": 0,
-    "detail": 0.3
-   }
-  },
-  "led": "不受光照",
-  "emissive": 0,
-  "colorManagement": "off"
- },
- "reference": "借鉴 /workspace/topology/scene3d_v3 src/models.js 的结构与着色思路(未引用其文件)"
+ "coverage": {
+  "reference": "/workspace/topology/scene3d_v3/src/models.js",
+  "covered": 16,
+  "approx": 11,
+  "missing": 5,
+  "doc": "docs/nodes-coverage-topology.md"
+ }
 }

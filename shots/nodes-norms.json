@@ -23,7 +23,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 21,
   "tris": 892
  },
  "switch": {
@@ -50,7 +49,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 38,
   "tris": 456
  },
  "coreswitch": {
@@ -77,7 +75,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 25,
   "tris": 432
  },
  "ap": {
@@ -103,7 +100,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 10,
   "tris": 1300
  },
  "lb": {
@@ -129,7 +125,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 17,
   "tris": 672
  },
  "dns": {
@@ -155,7 +150,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 11,
   "tris": 1432
  },
  "pc": {
@@ -182,7 +176,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 14,
   "tris": 188
  },
  "laptop": {
@@ -207,7 +200,6 @@
    "port_02",
    "led_03"
   ],
-  "atoms": 12,
   "tris": 144
  },
  "printer": {
@@ -234,20 +226,19 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 9,
   "tris": 108
  },
  "mobile": {
-  "norm": 1.07851,
+  "norm": 1.065984,
   "raw": {
-   "x": 0.4,
-   "y": 0.9272,
-   "z": 0.3448
+   "x": 0.46,
+   "y": 0.9381,
+   "z": 0.4179
   },
   "after": {
-   "x": 0.4314,
+   "x": 0.4904,
    "y": 1,
-   "z": 0.3719
+   "z": 0.4455
   },
   "longest": 1,
   "minY": 0,
@@ -258,22 +249,22 @@
    "body_01",
    "face_02",
    "port_03",
-   "led_04"
+   "led_04",
+   "detail_05"
   ],
-  "atoms": 6,
-  "tris": 408
+  "tris": 560
  },
  "tablet": {
   "norm": 1,
   "raw": {
    "x": 1,
    "y": 0.7215,
-   "z": 0.4848
+   "z": 0.5178
   },
   "after": {
    "x": 1,
    "y": 0.7215,
-   "z": 0.4848
+   "z": 0.5178
   },
   "longest": 1,
   "minY": 0,
@@ -283,11 +274,11 @@
    "base_00",
    "body_01",
    "face_02",
-   "led_03",
-   "detail_04"
+   "port_03",
+   "led_04",
+   "detail_05"
   ],
-  "atoms": 8,
-  "tris": 404
+  "tris": 500
  },
  "voip": {
   "norm": 1.25,
@@ -313,7 +304,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 16,
   "tris": 264
  },
  "firewall": {
@@ -339,7 +329,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 19,
   "tris": 228
  },
  "waf": {
@@ -366,7 +355,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 12,
   "tris": 144
  },
  "idsips": {
@@ -392,7 +380,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 12,
   "tris": 976
  },
  "bastion": {
@@ -419,7 +406,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 14,
   "tris": 168
  },
  "honeypot": {
@@ -445,7 +431,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 9,
   "tris": 956
  },
  "soc": {
@@ -471,7 +456,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 17,
   "tris": 240
  },
  "vpngw": {
@@ -498,7 +482,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 14,
   "tris": 1124
  },
  "behavior": {
@@ -524,7 +507,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 9,
   "tris": 1860
  },
  "sandbox": {
@@ -550,7 +532,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 15,
   "tris": 812
  },
  "websrv": {
@@ -576,7 +557,6 @@
    "port_03",
    "led_04"
   ],
-  "atoms": 23,
   "tris": 276
  },
  "dbsrv": {
@@ -602,7 +582,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 11,
   "tris": 780
  },
  "storage": {
@@ -629,7 +608,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 30,
   "tris": 360
  },
  "cloud": {
@@ -654,7 +632,6 @@
    "face_02",
    "led_03"
   ],
-  "atoms": 10,
   "tris": 1352
  },
  "container": {
@@ -679,7 +656,6 @@
    "port_02",
    "led_03"
   ],
-  "atoms": 14,
   "tris": 264
  },
  "mailsrv": {
@@ -706,19 +682,18 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 8,
   "tris": 168
  },
  "ipcam": {
-  "norm": 1.111991,
+  "norm": 1.052632,
   "raw": {
-   "x": 0.36,
+   "x": 0.38,
    "y": 0.61,
-   "z": 0.8993
+   "z": 0.95
   },
   "after": {
-   "x": 0.4003,
-   "y": 0.6783,
+   "x": 0.4,
+   "y": 0.6421,
    "z": 1
   },
   "longest": 1,
@@ -733,8 +708,7 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 7,
-  "tris": 760
+  "tris": 1032
  },
  "plc": {
   "norm": 1,
@@ -760,7 +734,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 26,
   "tris": 312
  },
  "sensor": {
@@ -786,7 +759,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 7,
   "tris": 1488
  },
  "hmi": {
@@ -813,7 +785,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 13,
   "tris": 156
  },
  "pos": {
@@ -840,7 +811,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 11,
   "tris": 196
  },
  "attacker": {
@@ -867,7 +837,6 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 9,
   "tris": 1474
  },
  "botnet": {
@@ -893,7 +862,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 16,
   "tris": 1128
  },
  "c2": {
@@ -919,7 +887,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 13,
   "tris": 1468
  },
  "internet": {
@@ -945,7 +912,6 @@
    "led_03",
    "detail_04"
   ],
-  "atoms": 8,
   "tris": 2072
  },
  "insider": {
@@ -972,7 +938,419 @@
    "led_04",
    "detail_05"
   ],
-  "atoms": 8,
   "tris": 556
+ },
+ "aggswitch": {
+  "norm": 1.216545,
+  "raw": {
+   "x": 0.74,
+   "y": 0.822,
+   "z": 0.6055
+  },
+  "after": {
+   "x": 0.9002,
+   "y": 1,
+   "z": 0.7366
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 1308
+ },
+ "nta": {
+  "norm": 1.111111,
+  "raw": {
+   "x": 0.9,
+   "y": 0.845,
+   "z": 0.6455
+  },
+  "after": {
+   "x": 1,
+   "y": 0.9389,
+   "z": 0.7172
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 1140
+ },
+ "hids": {
+  "norm": 1.25,
+  "raw": {
+   "x": 0.8,
+   "y": 0.69,
+   "z": 0.77
+  },
+  "after": {
+   "x": 1,
+   "y": 0.8625,
+   "z": 0.9625
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 1168
+ },
+ "appsrv": {
+  "norm": 1.098901,
+  "raw": {
+   "x": 0.8,
+   "y": 0.91,
+   "z": 0.56
+  },
+  "after": {
+   "x": 0.8791,
+   "y": 1,
+   "z": 0.6154
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 708
+ },
+ "cache": {
+  "norm": 0.980392,
+  "raw": {
+   "x": 0.7354,
+   "y": 1.02,
+   "z": 0.6
+  },
+  "after": {
+   "x": 0.721,
+   "y": 1,
+   "z": 0.5882
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 696
+ },
+ "objstore": {
+  "norm": 1.041667,
+  "raw": {
+   "x": 0.96,
+   "y": 0.76,
+   "z": 0.96
+  },
+  "after": {
+   "x": 1,
+   "y": 0.7917,
+   "z": 1
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 480
+ },
+ "mq": {
+  "norm": 1,
+  "raw": {
+   "x": 1,
+   "y": 0.75,
+   "z": 0.6
+  },
+  "after": {
+   "x": 1,
+   "y": 0.75,
+   "z": 0.6
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 1608
+ },
+ "k8smaster": {
+  "norm": 1,
+  "raw": {
+   "x": 0.866,
+   "y": 0.83,
+   "z": 1
+  },
+  "after": {
+   "x": 0.866,
+   "y": 0.83,
+   "z": 1
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "led_03",
+   "detail_04"
+  ],
+  "tris": 916
+ },
+ "k8snode": {
+  "norm": 1.010101,
+  "raw": {
+   "x": 0.7621,
+   "y": 0.99,
+   "z": 0.88
+  },
+  "after": {
+   "x": 0.7698,
+   "y": 1,
+   "z": 0.8889
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 192
+ },
+ "registry": {
+  "norm": 1,
+  "raw": {
+   "x": 1,
+   "y": 0.97,
+   "z": 0.8
+  },
+  "after": {
+   "x": 1,
+   "y": 0.97,
+   "z": 0.8
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 240
+ },
+ "cnapp": {
+  "norm": 0.997506,
+  "raw": {
+   "x": 1.0025,
+   "y": 0.6,
+   "z": 0.5
+  },
+  "after": {
+   "x": 1,
+   "y": 0.5985,
+   "z": 0.4988
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 312
+ },
+ "workstation": {
+  "norm": 0.935417,
+  "raw": {
+   "x": 1.069,
+   "y": 0.79,
+   "z": 0.64
+  },
+  "after": {
+   "x": 1,
+   "y": 0.739,
+   "z": 0.5987
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 224
+ },
+ "opsterm": {
+  "norm": 1.052632,
+  "raw": {
+   "x": 0.95,
+   "y": 0.5195,
+   "z": 0.5876
+  },
+  "after": {
+   "x": 1,
+   "y": 0.5468,
+   "z": 0.6186
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "body_00",
+   "face_01",
+   "port_02",
+   "led_03",
+   "detail_04"
+  ],
+  "tris": 216
+ },
+ "kiosk": {
+  "norm": 1.030767,
+  "raw": {
+   "x": 0.8,
+   "y": 0.9702,
+   "z": 0.5
+  },
+  "after": {
+   "x": 0.8246,
+   "y": 1,
+   "z": 0.5154
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 132
+ },
+ "term3p": {
+  "norm": 1.179171,
+  "raw": {
+   "x": 0.73,
+   "y": 0.8481,
+   "z": 0.5
+  },
+  "after": {
+   "x": 0.8608,
+   "y": 1,
+   "z": 0.5896
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "led_03",
+   "detail_04"
+  ],
+  "tris": 424
+ },
+ "iotgw": {
+  "norm": 1.169591,
+  "raw": {
+   "x": 0.7,
+   "y": 0.855,
+   "z": 0.5
+  },
+  "after": {
+   "x": 0.8187,
+   "y": 1,
+   "z": 0.5848
+  },
+  "longest": 1,
+  "minY": 0,
+  "cx": 0,
+  "cz": 0,
+  "parts": [
+   "base_00",
+   "body_01",
+   "face_02",
+   "port_03",
+   "led_04",
+   "detail_05"
+  ],
+  "tris": 868
  }
 }

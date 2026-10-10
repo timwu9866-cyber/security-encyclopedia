@@ -6,14 +6,15 @@
 
 | 类别 | 英文 | 夜间色 | 日间色 | 数量 |
 |---|---|---|---|---|
-| 网络设备 | Network | `#1fe85a` | `#0c7a32` | 6 |
-| 办公设备 | Office / Endpoint | `#2f8fff` | `#1a6fd4` | 6 |
-| 安全设备 | Security | `#f5c518` | `#c9a010` | 9 |
-| 服务器 / 云 | Server / Cloud | `#c9a0ff` | `#7a48c8` | 6 |
-| 终端 / IoT / 工控 | IoT / ICS | `#ff6bcb` | `#c02098` | 5 |
+| 网络设备 | Network | `#1fe85a` | `#0c7a32` | 7 |
+| 办公设备 | Office / Endpoint | `#2f8fff` | `#1a6fd4` | 10 |
+| 安全设备 | Security | `#f5c518` | `#c9a010` | 11 |
+| 服务器 / 云 | Server / Cloud | `#c9a0ff` | `#7a48c8` | 9 |
+| 云原生 | Cloud Native | `#ff9a3c` | `#c4600f` | 5 |
+| 终端 / IoT / 工控 | IoT / ICS | `#ff6bcb` | `#c02098` | 6 |
 | 攻击者 / 外部 | Threat / External | `#ff3b4e` | `#c01830` | 5 |
 
-合计 **37** 种。必选三类:网络设备=绿、办公设备=蓝、安全设备=黄;补充三类:服务器/云=紫、终端/IoT/工控=品红、攻击者/外部=红(与事件大全"攻击"语义红一致)。
+合计 **53** 种。必选三类:网络设备=绿、办公设备=蓝、安全设备=黄;补充三类:服务器/云=紫、终端/IoT/工控=品红、攻击者/外部=红(与事件大全"攻击"语义红一致)。
 
 ## 2. 节点清单
 
@@ -29,6 +30,7 @@
 | `ap` | 无线 AP / Wireless AP | S | AP | 为终端提供 Wi-Fi 接入,常见于办公区与公共区域。 | 细杆上的圆饼形吸顶机身 + 上方两道同心信号弧。 | 路径、目标 |
 | `lb` | 负载均衡 / Load Balancer | M | LB | 把访问请求分发到多台后端服务器,提高可用性。 | 中心方体 + 一进三出的扇形分叉臂,末端小方块。 | 路径、防护 |
 | `dns` | DNS 服务 / DNS | S | DNS | 把域名解析为 IP 地址,是几乎所有访问的第一步。 | 细高立柱托起一个带经纬线的小地球。 | 目标、路径 |
+| `aggswitch` | 汇聚交换机 / Aggregation Switch | M | AGG | 汇聚多台接入交换机上联到核心,区域内东西向流量的必经点。 | 2U 双层机身,两排端口 + 上联光口,顶部散热格。 | 路径 |
 
 ### 办公设备(Office / Endpoint)
 
@@ -40,6 +42,10 @@
 | `mobile` | 手机 / Mobile Phone | S | MB | 移动终端,承载短信验证码、企业 IM 与邮件。 | 直立的细长薄片,略向后倾,顶部听筒缝。 | 目标、源 |
 | `tablet` | 平板 / Tablet | S | TB | 会议/展示/移动审批终端。 | 横放大屏薄片,靠在三角支架上明显后仰。 | 目标 |
 | `voip` | IP 电话 / IP Phone | S | VP | 基于网络的语音终端,常见于前台和会议室。 | 斜面楔形底座 + 横卧听筒(两端鼓包)。 | 目标 |
+| `workstation` | 研发工作站 / Dev Workstation | L | WS | 研发人员高性能主机,持有源码与凭据,价值高。 | 大塔式主机 + 双显示器。 | 目标、源 |
+| `opsterm` | 运维终端 / Ops Terminal | M | OPS | 运维人员接入堡垒机的专用终端。 | 笔记本 + 侧立扩展坞 + 外接小屏。 | 源 |
+| `kiosk` | 分公司终端 / 自助机 / Branch Kiosk | M | BR | 营业厅/分支机构的自助办理终端。 | 立式机柜 + 前倾大屏 + 刷卡口 + 出票口。 | 目标 |
+| `term3p` | 第三方终端 / Third-party Device | S | 3P | 外包、访客、供应商带入的设备,资产管理盲区。 | 立式支架上的平板 + 访客标牌。 | 源 |
 
 ### 安全设备(Security)
 
@@ -54,6 +60,8 @@
 | `vpngw` | VPN 网关 / VPN Gateway | M | VPN | 为远程用户/分支建立加密隧道接入内网。 | 低矮机身上横跨一道半圆隧道拱门。 | 防护、路径 |
 | `behavior` | 上网行为管理 / Secure Web Gateway | M | SWG | 对员工上网流量做分类、审计与访问控制。 | 倒置漏斗(上宽下窄)+ 下方细出口管。 | 防护 |
 | `sandbox` | 沙箱 / Sandbox | M | SBX | 在隔离环境中运行可疑文件,观察其行为。 | 敞口方箱框 + 箱内悬浮一颗小球(被观察样本)。 | 防护 |
+| `nta` | 全流量探针 / Network Traffic Analyzer | M | NTA | 旁路镜像全流量,做协议还原、回溯与异常检测。 | 1U 机身 + 前面板长指示条 + 顶部立杆探测球。 | 检测 |
+| `hids` | 主机安全 / 审计 / HIDS / Host Audit | M | HIDS | 主机侧入侵检测、基线核查与操作审计。 | 塔式机身,正面三条状态灯 + 顶部环形审计圈。 | 检测、防护 |
 
 ### 服务器 / 云(Server / Cloud)
 
@@ -63,8 +71,21 @@
 | `dbsrv` | 数据库 / Database | L | DB | 存放业务与用户数据,泄露后果最直接。 | 三节堆叠的扁圆柱(经典数据库符号)。 | 目标 |
 | `storage` | 存储阵列 / Storage Array | L | NAS | 集中文件/块存储与备份,勒索软件的重点目标。 | 地面上 2×2 平铺的四个磁盘模块,顶部一根横向汇流条。 | 目标 |
 | `cloud` | 云平台 / Cloud Platform | XL | CLD | 公有云/私有云资源池,承载虚拟机、存储与服务。 | 三颗大小不一的球团簇成云朵 + 扁平底座。 | 目标、路径 |
-| `container` | 容器集群 / Container Cluster | L | K8 | 容器编排平台上的大量微服务实例。 | 三块六棱柱错落堆叠成蜂巢簇。 | 目标 |
 | `mailsrv` | 邮件服务器 / Mail Server | M | MX | 收发企业邮件,钓鱼与商业邮件诈骗的入口。 | 方形邮箱身 + 半圆拱顶 + 侧边竖立小旗。 | 目标、路径 |
+| `appsrv` | 应用服务器 / Application Server | M | APP | 运行业务中间件与后端服务,区别于对外的 Web 前端。 | 刀片机箱,两排竖插刀片 + 顶部风扇。 | 目标 |
+| `cache` | 缓存 Redis / Cache (Redis) | S | RDS | 内存缓存/会话存储,未授权访问是常见风险。 | 短圆柱 + 闪电面板 + 顶部方块。 | 目标 |
+| `objstore` | 对象存储 / Object Storage | L | OBJ | 存放文件/备份/镜像的桶式存储,权限配置错误易泄露。 | 上宽下窄的桶形 + 箍圈 + 顶盖。 | 目标 |
+| `mq` | 消息队列 / 中间件 / Message Queue | L | MQ | 异步消息、事件总线;横向移动与数据外泄的通道。 | 扁平机身 + 顶部三段并排队列筒。 | 路径、目标 |
+
+### 云原生(Cloud Native)
+
+| 类型 | 名称 | 尺寸 | 缩写 | 用途 | 造型要点 | 常见角色 |
+|---|---|---|---|---|---|---|
+| `container` | 容器集群 / Container Cluster | L | K8 | 容器编排平台上的大量微服务实例。 | 三块六棱柱错落堆叠成蜂巢簇。 | 目标 |
+| `k8smaster` | K8s 主控节点 / K8s Control Plane | L | K8M | 集群 API Server / 调度 / etcd,控制面一旦失守全集群沦陷。 | 六棱柱机身 + 顶部舵轮。 | 目标 |
+| `k8snode` | K8s 计算节点 / K8s Worker Node | M | K8N | 运行 Pod 的工作节点,容器逃逸的落点。 | 高六棱柱 + 侧面三块 Pod 槽。 | 目标 |
+| `registry` | 镜像 / 制品仓库 / Image Registry | L | REG | 存放容器镜像/制品,供应链投毒的入口。 | 机身上错落堆叠的镜像箱。 | 目标、源 |
+| `cnapp` | 容器化应用 / Containerized App | M | POD | 以容器方式部署的单个业务应用(Pod/Deployment)。 | 集装箱棱纹箱体 + 端门。 | 目标 |
 
 ### 终端 / IoT / 工控(IoT / ICS)
 
@@ -75,6 +96,7 @@
 | `sensor` | 传感器 / Sensor | S | SN | 采集温湿度、压力等数据的小型联网节点。 | 短杆顶上一个半球圆顶 + 两侧一组短弧。 | 目标、源 |
 | `hmi` | 工控操作台 HMI / HMI Console | L | HMI | 操作员监视与控制产线的人机界面。 | 立式柜体,上部前倾的斜面屏 + 下部按钮格。 | 目标 |
 | `pos` | 收银 POS / POS Terminal | S | POS | 门店收银与刷卡终端,涉及支付卡数据。 | 低矮底座 + 背后小票纸卷圆筒 + 前倾小屏。 | 目标 |
+| `iotgw` | IoT 网关 / IoT Gateway | S | IGW | 汇聚传感器/工控协议上云的边缘网关。 | 小机盒 + 两根天线 + 侧面接线端子排。 | 路径 |
 
 ### 攻击者 / 外部(Threat / External)
 
@@ -138,6 +160,7 @@
 | 办公设备 | `#2f8fff` | `#1a6fd4` |
 | 安全设备 | `#f5c518` | `#c9a010` |
 | 服务器 / 云 | `#c9a0ff` | `#7a48c8` |
+| 云原生 | `#ff9a3c` | `#c4600f` |
 | 终端 / IoT / 工控 | `#ff6bcb` | `#c02098` |
 | 攻击者 / 外部 | `#ff3b4e` | `#c01830` |
 
@@ -161,11 +184,12 @@ n.dispose();
 ## 5. Unity 端
 `data/nodespec.json` 含类别色、尺寸、状态色、每种节点的部件列表(shape/args/pos/rotRad,单位与 three.js 一致,Y 向上,右手坐标;导入 Unity 时 Z 取反)。Unity 工程本次未改动。
 
-## 附录 · v6 细节重做(2026-10)
-参考 `/workspace/topology/scene3d_v3`(src/models.js + scene.js 设备着色器,three r160)的做法,代码在本项目内重写:
-- **几何**:原子(box/cylinder/sphere/cone/torus/octahedron)声明,坐标用单位立方体分数;机身分层(底座 base → 机身 body → 前面板 face),面板上加接口(port)、指示灯(led)、散热孔/刻线/天线/顶盖(detail)。
-- **归一化**:整体包围盒最长边缩放到 1,底面 y=0,水平居中,正面 +Z;不用参考方的 S/M/L 脚位。
-- **角色合并**:每个模型合并为 4~6 个角色网格(`base_00`…),便于 Unity 按部件换材质。
-- **着色**:ShaderMaterial 朗伯近似(环境 0.38 夜/0.5 日)+ 大类主色 fresnel 边缘光;led 不受光照;无贴图、无 emissive、无 bloom。
-- **配色**:body=主色×0.62(日 0.78),face=主色,led=主色提亮;base/port/detail 用固定深灰 #2E3742/#151B24/#7C8B9E。大类主色保持 网络绿/办公蓝/安全黄/服务器紫/IoT 粉/外部红。
-- **状态**:EdgesGeometry 描边(选中白、攻击红闪、防护青 + 薄护罩),不变。
+## 附录 · v6 细节做法(参考 scene3d_v3)
+原子声明 → 归一化到 1×1×1 → 按角色合并成 base/body/face/port/led/detail;着色用朗伯近似 + 大类色边缘光;不用贴图,也不加 emissive 和 bloom。
+
+## 附录 · v7 对照对抗赛补全(2026-10)
+- 对照结果:已覆盖 16、近似 11、缺失 5,详见 `docs/nodes-coverage-topology.md`。
+- 新增 16 种:aggswitch、nta、hids、appsrv、cache、objstore、mq、k8smaster、k8snode、registry、cnapp、workstation、opsterm、kiosk、term3p、iotgw。
+- 新增大类「云原生 cn」(橙 #ff9a3c / 日 #c4600f),container 移入该类。
+- 加细了 mobile、tablet、ipcam。
+- 现在共 53 种:网络 7 / 办公 10 / 安全 11 / 服务器 9 / 云原生 5 / IoT 6 / 威胁 5。
