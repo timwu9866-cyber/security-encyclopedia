@@ -1,0 +1,4995 @@
+{
+ "schema": "security-node-spec",
+ "version": 4,
+ "generated": "2026-10-10",
+ "note": "概念造型规范,不对应任何真实产品或商标。坐标单位与事件大全一致(1 = 地面网格 1 格),Y 轴向上;尺寸系数乘到整个节点。",
+ "sizes": {
+  "S": 0.8,
+  "M": 1,
+  "L": 1.25,
+  "XL": 1.5
+ },
+ "categories": {
+  "net": {
+   "name": "网络设备",
+   "en": "Network",
+   "color": {
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#1fe85a"
+   }
+  },
+  "office": {
+   "name": "办公设备",
+   "en": "Office / Endpoint",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   }
+  },
+  "sec": {
+   "name": "安全设备",
+   "en": "Security",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   }
+  },
+  "srv": {
+   "name": "服务器 / 云",
+   "en": "Server / Cloud",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   }
+  },
+  "iot": {
+   "name": "终端 / IoT / 工控",
+   "en": "IoT / ICS",
+   "color": {
+    "dark": "#ff6bcb",
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
+   }
+  },
+  "ext": {
+   "name": "攻击者 / 外部",
+   "en": "Threat / External",
+   "color": {
+    "dark": "#ff3b4e",
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
+   }
+  }
+ },
+ "stateColors": {
+  "dark": {
+   "sel": "#ffffff",
+   "atk": "#ff2a3c",
+   "def": "#22e6ff",
+   "bg": "#07090f",
+   "grid": "#1a2438"
+  },
+  "light": {
+   "sel": "#0d1626",
+   "atk": "#c4001c",
+   "def": "#007f9e",
+   "bg": "#d5dee9",
+   "grid": "#7a8799"
+  }
+ },
+ "states": {
+  "normal": {
+   "name": "普通",
+   "desc": "MeshStandard 无地面底座"
+  },
+  "selected": {
+   "name": "选中",
+   "desc": "白边 EdgesGeometry"
+  },
+  "attacked": {
+   "name": "被攻击",
+   "desc": "闪红+红边"
+  },
+  "protected": {
+   "name": "已防护",
+   "desc": "青边+护罩"
+  }
+ },
+ "style": "v4: MeshStandard lit, no ground frame, EdgesGeometry states, ColorManagement off",
+ "camera": {
+  "projection": "perspective",
+  "fovDeg": 32,
+  "azimuthDeg": 30,
+  "elevationDeg": 46
+ },
+ "tones": {
+  "body": "类别主色(夜间向日间色混 22%,日间混 45%)",
+  "light": "浅色细部(支架/刻线/天线):夜 #e9eef6 日 #f4f7fb",
+  "dark": "深色面(屏幕/键盘):夜 #1a2438 日 #25324a",
+  "rule": "部件未指定色调时,最小尺寸<0.13 且次小<0.32 的细杆/刻线自动用 light"
+ },
+ "emissive": {
+  "body": {
+   "dark": 0.1,
+   "light": 0.05
+  },
+  "selectedMultiplier": 2.2
+ },
+ "frame": {
+  "desc": "方形底框:实线外框(宽 0.11)+ 外侧辉光带(宽 0.42)+ 内部淡填充;选中时外加白色(日间深色)描边",
+  "halfSize": "max(1, 节点半宽+0.35)",
+  "colors": {
+   "dark": {
+    "normal": "#1aff60",
+    "selected": "#7dffaa",
+    "outline": "#ffffff",
+    "attacked": "#ff2040",
+    "protected": "#00e8ff",
+    "label": "rgba(8,10,18,.88)",
+    "labelTxt": "#f2f6ff",
+    "labelLine": "rgba(255,255,255,.7)"
+   },
+   "light": {
+    "normal": "#0c9a38",
+    "selected": "#14b848",
+    "outline": "#0d1626",
+    "attacked": "#c4001c",
+    "protected": "#007f9e",
+    "label": "rgba(255,255,255,.96)",
+    "labelTxt": "#152033",
+    "labelLine": "rgba(30,50,80,.5)"
+   }
+  }
+ },
+ "zone": {
+  "desc": "createZone({title,w,d,color}):半透明底板 + 0.5 格细网格 + 实线描边 + 外侧淡描边 + 前沿大号区域名",
+  "colors": {
+   "dark": {
+    "violet": "#8a5cff",
+    "gray": "#7a8498",
+    "green": "#00ff66",
+    "blue": "#2f8fff",
+    "plate": "#05070c",
+    "grid": "#1c2434",
+    "text": "rgba(235,240,255,.78)"
+   },
+   "light": {
+    "violet": "#5a2fa8",
+    "gray": "#4f5a6c",
+    "green": "#0c9a38",
+    "blue": "#1360c8",
+    "plate": "#e8eef6",
+    "grid": "#8a96aa",
+    "text": "rgba(30,42,64,.8)"
+   }
+  }
+ },
+ "link": {
+  "desc": "createLink(a,b):绿色平面虚线短条(长 0.32、间隔 0.22)向终点流动 + 末端三角箭头",
+  "color": "同 frame.normal"
+ },
+ "blending": {
+  "dark": "additive",
+  "light": "normal(alpha)"
+ },
+ "types": [
+  {
+   "type": "router",
+   "name": "路由器",
+   "en": "Router",
+   "category": "net",
+   "size": "M",
+   "scale": 1,
+   "abbr": "RT",
+   "color": {
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#1fe85a"
+   },
+   "roles": [
+    "路径",
+    "目标"
+   ],
+   "use": "在不同网段/运营商之间转发数据包、维护路由表。",
+   "look": "扁平机身 + 后部两根竖直天线,正面一排指示灯。",
+   "core": [
+    0,
+    0.9,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      2.2,
+      0.5,
+      1.4
+     ],
+     "pos": [
+      0,
+      0.35,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.05,
+      0.05,
+      1.3,
+      6
+     ],
+     "pos": [
+      -0.85,
+      1.15,
+      -0.5
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.05,
+      0.05,
+      1.3,
+      6
+     ],
+     "pos": [
+      0.85,
+      1.15,
+      -0.5
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.12,
+      0.08,
+      0.04
+     ],
+     "pos": [
+      -0.6,
+      0.4,
+      0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.12,
+      0.08,
+      0.04
+     ],
+     "pos": [
+      -0.3,
+      0.4,
+      0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.12,
+      0.08,
+      0.04
+     ],
+     "pos": [
+      0,
+      0.4,
+      0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.12,
+      0.08,
+      0.04
+     ],
+     "pos": [
+      0.3,
+      0.4,
+      0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.12,
+      0.08,
+      0.04
+     ],
+     "pos": [
+      0.6,
+      0.4,
+      0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "switch",
+   "name": "交换机",
+   "en": "Switch",
+   "category": "net",
+   "size": "M",
+   "scale": 1,
+   "abbr": "SW",
+   "color": {
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#1fe85a"
+   },
+   "roles": [
+    "路径",
+    "目标"
+   ],
+   "use": "在同一局域网内按 MAC 地址转发,连接大量终端端口。",
+   "look": "超长 1U 薄机身,正面两排小方口阵列。",
+   "core": [
+    0,
+    0.85,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      2.9,
+      0.32,
+      1.1
+     ],
+     "pos": [
+      0,
+      0.26,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -1.2,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -1.2,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -0.9329999999999999,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -0.9329999999999999,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -0.6659999999999999,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -0.6659999999999999,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -0.3989999999999999,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -0.3989999999999999,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -0.1319999999999999,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      -0.1319999999999999,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      0.135,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      0.135,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      0.40200000000000014,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      0.40200000000000014,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      0.6690000000000003,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      0.6690000000000003,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      0.9360000000000002,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      0.9360000000000002,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      1.203,
+      0.32,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.16,
+      0.07,
+      0.04
+     ],
+     "pos": [
+      1.203,
+      0.2,
+      0.57
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "coreswitch",
+   "name": "核心交换机",
+   "en": "Core Switch",
+   "category": "net",
+   "size": "L",
+   "scale": 1.25,
+   "abbr": "CS",
+   "color": {
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#1fe85a"
+   },
+   "roles": [
+    "路径",
+    "目标"
+   ],
+   "use": "园区/机房汇聚核心,承载大部分东西向流量。",
+   "look": "宽机箱,竖直插卡槽位(竖向条纹)+ 顶部风扇格栅。",
+   "core": [
+    0,
+    2.2,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      2,
+      1.5,
+      1.2
+     ],
+     "pos": [
+      0,
+      0.85,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.2,
+      0.04
+     ],
+     "pos": [
+      -0.78,
+      0.85,
+      0.62
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.2,
+      0.04
+     ],
+     "pos": [
+      -0.52,
+      0.85,
+      0.62
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.2,
+      0.04
+     ],
+     "pos": [
+      -0.26,
+      0.85,
+      0.62
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.2,
+      0.04
+     ],
+     "pos": [
+      0,
+      0.85,
+      0.62
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.2,
+      0.04
+     ],
+     "pos": [
+      0.26,
+      0.85,
+      0.62
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.2,
+      0.04
+     ],
+     "pos": [
+      0.52,
+      0.85,
+      0.62
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.2,
+      0.04
+     ],
+     "pos": [
+      0.78,
+      0.85,
+      0.62
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.3,
+      0.3,
+      0.06,
+      12
+     ],
+     "pos": [
+      -0.45,
+      1.63,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.3,
+      0.3,
+      0.06,
+      12
+     ],
+     "pos": [
+      0.45,
+      1.63,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "ap",
+   "name": "无线 AP",
+   "en": "Wireless AP",
+   "category": "net",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "AP",
+   "color": {
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#1fe85a"
+   },
+   "roles": [
+    "路径",
+    "目标"
+   ],
+   "use": "为终端提供 Wi-Fi 接入,常见于办公区与公共区域。",
+   "look": "细杆上的圆饼形吸顶机身 + 上方两道同心信号弧。",
+   "core": [
+    0,
+    1.25,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cyl",
+     "args": [
+      0.08,
+      0.08,
+      0.95,
+      6
+     ],
+     "pos": [
+      0,
+      0.48,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": "light"
+    },
+    {
+     "shape": "hemi",
+     "args": [
+      0.9
+     ],
+     "pos": [
+      0,
+      1,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": "dark"
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.95,
+      0.95,
+      0.12,
+      20
+     ],
+     "pos": [
+      0,
+      1.12,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.55,
+      0.035,
+      3.14
+     ],
+     "pos": [
+      0,
+      1.28,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": "light"
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.95,
+      0.035,
+      3.14
+     ],
+     "pos": [
+      0,
+      1.28,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": "light"
+    }
+   ]
+  },
+  {
+   "type": "lb",
+   "name": "负载均衡",
+   "en": "Load Balancer",
+   "category": "net",
+   "size": "M",
+   "scale": 1,
+   "abbr": "LB",
+   "color": {
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#1fe85a"
+   },
+   "roles": [
+    "路径",
+    "防护"
+   ],
+   "use": "把访问请求分发到多台后端服务器,提高可用性。",
+   "look": "中心方体 + 一进三出的扇形分叉臂,末端小方块。",
+   "core": [
+    0,
+    1.15,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      0.9,
+      0.7,
+      0.9
+     ],
+     "pos": [
+      0,
+      0.45,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1,
+      0.08,
+      0.08
+     ],
+     "pos": [
+      -0.95,
+      0.45,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "pos": [
+      -1.55,
+      0.45,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.9,
+      0.08,
+      0.08
+     ],
+     "pos": [
+      0.85,
+      0.45,
+      -0.385
+     ],
+     "rotRad": [
+      0,
+      0.42529711697162154,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "pos": [
+      1.45,
+      0.45,
+      -0.7
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.9,
+      0.08,
+      0.08
+     ],
+     "pos": [
+      0.85,
+      0.45,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "pos": [
+      1.45,
+      0.45,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.9,
+      0.08,
+      0.08
+     ],
+     "pos": [
+      0.85,
+      0.45,
+      0.385
+     ],
+     "rotRad": [
+      0,
+      -0.42529711697162154,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.3,
+      0.3,
+      0.3
+     ],
+     "pos": [
+      1.45,
+      0.45,
+      0.7
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "dns",
+   "name": "DNS 服务",
+   "en": "DNS",
+   "category": "net",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "DNS",
+   "color": {
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#1fe85a"
+   },
+   "roles": [
+    "目标",
+    "路径"
+   ],
+   "use": "把域名解析为 IP 地址,是几乎所有访问的第一步。",
+   "look": "细高立柱托起一个带经纬线的小地球。",
+   "core": [
+    0,
+    1.55,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cyl",
+     "args": [
+      0.22,
+      0.32,
+      1.1,
+      8
+     ],
+     "pos": [
+      0,
+      0.55,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "sph",
+     "args": [
+      0.55,
+      10,
+      8
+     ],
+     "pos": [
+      0,
+      1.55,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.62,
+      0.025,
+      6.283185307179586
+     ],
+     "pos": [
+      0,
+      1.55,
+      0
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "pc",
+   "name": "台式电脑",
+   "en": "Desktop PC",
+   "category": "office",
+   "size": "M",
+   "scale": 1,
+   "abbr": "PC",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "目标",
+    "源"
+   ],
+   "use": "员工日常办公主机,常是钓鱼、勒索的落点。",
+   "look": "左侧竖立机箱 + 右侧支架显示器。",
+   "core": [
+    0.35,
+    1.15,
+    0.25
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      0.55,
+      1.3,
+      1.1
+     ],
+     "pos": [
+      -0.9,
+      0.65,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1.5,
+      0.95,
+      0.08
+     ],
+     "pos": [
+      0.35,
+      1.15,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.1,
+      0.5,
+      0.1
+     ],
+     "pos": [
+      0.35,
+      0.4,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.7,
+      0.05,
+      0.5
+     ],
+     "pos": [
+      0.35,
+      0.05,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "laptop",
+   "name": "笔记本",
+   "en": "Laptop",
+   "category": "office",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "NB",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "目标",
+    "源"
+   ],
+   "use": "移动办公终端,常在外部网络与内网之间切换。",
+   "look": "薄底座 + 后仰张开的屏幕,呈打开的书本角度。",
+   "core": [
+    0,
+    0.7,
+    -0.3
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.7,
+      0.1,
+      1.15
+     ],
+     "pos": [
+      0,
+      0.1,
+      0.1
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1.7,
+      1.05,
+      0.06
+     ],
+     "pos": [
+      0,
+      0.62,
+      -0.6
+     ],
+     "rotRad": [
+      -0.3,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1.3,
+      0.02,
+      0.6
+     ],
+     "pos": [
+      0,
+      0.16,
+      0.2
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": "dark"
+    }
+   ]
+  },
+  {
+   "type": "printer",
+   "name": "打印机",
+   "en": "Printer",
+   "category": "office",
+   "size": "M",
+   "scale": 1,
+   "abbr": "PR",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "共享打印/扫描设备,常被忽视的联网资产。",
+   "look": "矮胖方机身 + 前伸出纸托盘 + 顶部斜插纸张。",
+   "core": [
+    0,
+    0.95,
+    0.3
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.6,
+      0.7,
+      1.2
+     ],
+     "pos": [
+      0,
+      0.4,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1.2,
+      0.05,
+      0.7
+     ],
+     "pos": [
+      0,
+      0.2,
+      0.9
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1.1,
+      0.9,
+      0.03
+     ],
+     "pos": [
+      0,
+      1.1,
+      -0.35
+     ],
+     "rotRad": [
+      -0.35,
+      0,
+      0
+     ],
+     "tone": "light"
+    }
+   ]
+  },
+  {
+   "type": "mobile",
+   "name": "手机",
+   "en": "Mobile Phone",
+   "category": "office",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "MB",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "目标",
+    "源"
+   ],
+   "use": "移动终端,承载短信验证码、企业 IM 与邮件。",
+   "look": "直立的细长薄片,略向后倾,顶部听筒缝。",
+   "core": [
+    0,
+    0.8,
+    0.3
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      0.75,
+      1.5,
+      0.1
+     ],
+     "pos": [
+      0,
+      0.8,
+      0
+     ],
+     "rotRad": [
+      -0.18,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.3,
+      0.04,
+      0.02
+     ],
+     "pos": [
+      0,
+      1.45,
+      0.17
+     ],
+     "rotRad": [
+      -0.18,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.9,
+      0.08,
+      0.5
+     ],
+     "pos": [
+      0,
+      0.04,
+      0.1
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "tablet",
+   "name": "平板",
+   "en": "Tablet",
+   "category": "office",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "TB",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "会议/展示/移动审批终端。",
+   "look": "横放大屏薄片,靠在三角支架上明显后仰。",
+   "core": [
+    0,
+    0.8,
+    0.25
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.6,
+      1.1,
+      0.07
+     ],
+     "pos": [
+      0,
+      0.7,
+      0
+     ],
+     "rotRad": [
+      -0.55,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.1,
+      0.7,
+      0.1
+     ],
+     "pos": [
+      0,
+      0.35,
+      -0.35
+     ],
+     "rotRad": [
+      0.5,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1,
+      0.05,
+      0.3
+     ],
+     "pos": [
+      0,
+      0.05,
+      0.3
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "voip",
+   "name": "IP 电话",
+   "en": "IP Phone",
+   "category": "office",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "VP",
+   "color": {
+    "dark": "#2f8fff",
+    "light": "#1a6fd4",
+    "albedo": "#2f8fff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "基于网络的语音终端,常见于前台和会议室。",
+   "look": "斜面楔形底座 + 横卧听筒(两端鼓包)。",
+   "core": [
+    0,
+    0.5,
+    0.3
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.4,
+      0.35,
+      1
+     ],
+     "pos": [
+      0,
+      0.3,
+      0
+     ],
+     "rotRad": [
+      -0.3,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.1,
+      0.1,
+      1.3,
+      8
+     ],
+     "pos": [
+      0,
+      0.65,
+      -0.25
+     ],
+     "rotRad": [
+      0,
+      0,
+      1.5707963267948966
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.3,
+      0.22,
+      0.3
+     ],
+     "pos": [
+      -0.6,
+      0.6,
+      -0.25
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.3,
+      0.22,
+      0.3
+     ],
+     "pos": [
+      0.6,
+      0.6,
+      -0.25
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "firewall",
+   "name": "防火墙",
+   "en": "Firewall",
+   "category": "sec",
+   "size": "L",
+   "scale": 1.25,
+   "abbr": "FW",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "防护"
+   ],
+   "use": "按策略控制网段之间的流量,是边界的第一道闸门。",
+   "look": "三层错缝砖墙,砖块交错排列。",
+   "core": [
+    0,
+    1.8,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      0.7,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      -0.72,
+      0.24,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.7,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      0,
+      0.24,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.7,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      0.72,
+      0.24,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.52,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      -0.81,
+      0.7,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.52,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      -0.27,
+      0.7,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.52,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      0.27,
+      0.7,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.52,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      0.81,
+      0.7,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.7,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      -0.72,
+      1.1600000000000001,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.7,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      0,
+      1.1600000000000001,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.7,
+      0.42,
+      0.5
+     ],
+     "pos": [
+      0.72,
+      1.1600000000000001,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "waf",
+   "name": "Web 应用防火墙",
+   "en": "WAF",
+   "category": "sec",
+   "size": "M",
+   "scale": 1,
+   "abbr": "WAF",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "防护"
+   ],
+   "use": "在 Web 应用前检查 HTTP 请求,拦截注入、XSS 等。",
+   "look": "竖立的六边形盾牌板 + 板前一个网页窗口框。",
+   "core": [
+    0,
+    1.05,
+    0.4
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cyl",
+     "args": [
+      1,
+      1,
+      0.14,
+      6
+     ],
+     "pos": [
+      0,
+      1.05,
+      -0.2
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.9,
+      0.65,
+      0.06
+     ],
+     "pos": [
+      0,
+      1.05,
+      0.1
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.9,
+      0.1,
+      0.06
+     ],
+     "pos": [
+      0,
+      1.32,
+      0.12
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.6,
+      0.06,
+      0.5
+     ],
+     "pos": [
+      0,
+      0.03,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "idsips",
+   "name": "IDS / IPS",
+   "en": "IDS / IPS",
+   "category": "sec",
+   "size": "M",
+   "scale": 1,
+   "abbr": "IPS",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "防护"
+   ],
+   "use": "检测(IDS)或在线阻断(IPS)可疑流量与攻击特征。",
+   "look": "立杆上朝上的雷达碟面 + 中心接收针。",
+   "core": [
+    0,
+    1.1,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cyl",
+     "args": [
+      0.08,
+      0.2,
+      0.9,
+      6
+     ],
+     "pos": [
+      0,
+      0.45,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cone",
+     "args": [
+      1,
+      0.45,
+      20
+     ],
+     "pos": [
+      0,
+      1.15,
+      0
+     ],
+     "rotRad": [
+      3.141592653589793,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.03,
+      0.03,
+      0.6,
+      4
+     ],
+     "pos": [
+      0,
+      1.4,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "sph",
+     "args": [
+      0.09,
+      6,
+      4
+     ],
+     "pos": [
+      0,
+      1.72,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "bastion",
+   "name": "堡垒机",
+   "en": "Bastion Host",
+   "category": "sec",
+   "size": "M",
+   "scale": 1,
+   "abbr": "BH",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "防护"
+   ],
+   "use": "运维统一入口,集中认证、授权与操作审计。",
+   "look": "宽矮台基上的方形塔楼,顶部四角城垛,台基正面一扇门。",
+   "core": [
+    0,
+    1.3,
+    0.45
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.6,
+      0.5,
+      1.6
+     ],
+     "pos": [
+      0,
+      0.25,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.8,
+      1.5,
+      0.8
+     ],
+     "pos": [
+      0,
+      1.25,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.22,
+      0.26,
+      0.22
+     ],
+     "pos": [
+      -0.29,
+      2.13,
+      -0.29
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.22,
+      0.26,
+      0.22
+     ],
+     "pos": [
+      0.29,
+      2.13,
+      -0.29
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.22,
+      0.26,
+      0.22
+     ],
+     "pos": [
+      -0.29,
+      2.13,
+      0.29
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.22,
+      0.26,
+      0.22
+     ],
+     "pos": [
+      0.29,
+      2.13,
+      0.29
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.3,
+      0.38,
+      0.03
+     ],
+     "pos": [
+      0,
+      0.19,
+      0.81
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "honeypot",
+   "name": "蜜罐",
+   "en": "Honeypot",
+   "category": "sec",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "HP",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "防护",
+    "目标"
+   ],
+   "use": "故意暴露的诱饵系统,用来发现与记录攻击行为。",
+   "look": "矮胖圆罐 + 宽口沿圆环 + 斜插的勺柄。",
+   "core": [
+    0,
+    0.7,
+    0
+   ],
+   "squash": [
+    1,
+    0.8,
+    1
+   ],
+   "parts": [
+    {
+     "shape": "sph",
+     "args": [
+      0.8,
+      14,
+      10
+     ],
+     "pos": [
+      0,
+      0.7,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.5,
+      0.07,
+      6.283185307179586
+     ],
+     "pos": [
+      0,
+      1.38,
+      0
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.04,
+      0.04,
+      1.2,
+      4
+     ],
+     "pos": [
+      0.3,
+      1.6,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      -0.5
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "soc",
+   "name": "态势感知 / SOC",
+   "en": "SOC / Situational Awareness",
+   "category": "sec",
+   "size": "XL",
+   "scale": 1.5,
+   "abbr": "SOC",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "防护"
+   ],
+   "use": "集中采集日志与告警,分析研判与响应调度。",
+   "look": "长桌面上三块弧形排列的大屏幕墙。",
+   "core": [
+    0,
+    1.25,
+    0.2
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      2.8,
+      0.08,
+      0.9
+     ],
+     "pos": [
+      0,
+      0.6,
+      0.3
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.1,
+      0.6,
+      0.1
+     ],
+     "pos": [
+      -1.2,
+      0.3,
+      0.3
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.1,
+      0.6,
+      0.1
+     ],
+     "pos": [
+      1.2,
+      0.3,
+      0.3
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1,
+      0.75,
+      0.05
+     ],
+     "pos": [
+      0,
+      1.25,
+      -0.2
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1,
+      0.75,
+      0.05
+     ],
+     "pos": [
+      -0.95,
+      1.25,
+      -0.02
+     ],
+     "rotRad": [
+      0,
+      0.45,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1,
+      0.75,
+      0.05
+     ],
+     "pos": [
+      0.95,
+      1.25,
+      -0.02
+     ],
+     "rotRad": [
+      0,
+      -0.45,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "vpngw",
+   "name": "VPN 网关",
+   "en": "VPN Gateway",
+   "category": "sec",
+   "size": "M",
+   "scale": 1,
+   "abbr": "VPN",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "防护",
+    "路径"
+   ],
+   "use": "为远程用户/分支建立加密隧道接入内网。",
+   "look": "低矮机身上横跨一道半圆隧道拱门。",
+   "core": [
+    0,
+    0.65,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.8,
+      0.35,
+      0.9
+     ],
+     "pos": [
+      0,
+      0.2,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.75,
+      0.12,
+      3.141592653589793
+     ],
+     "pos": [
+      0,
+      0.38,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.5,
+      0.04,
+      3.141592653589793
+     ],
+     "pos": [
+      0,
+      0.38,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "behavior",
+   "name": "上网行为管理",
+   "en": "Secure Web Gateway",
+   "category": "sec",
+   "size": "M",
+   "scale": 1,
+   "abbr": "SWG",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "防护"
+   ],
+   "use": "对员工上网流量做分类、审计与访问控制。",
+   "look": "倒置漏斗(上宽下窄)+ 下方细出口管。",
+   "core": [
+    0,
+    1.2,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cone",
+     "args": [
+      1,
+      1,
+      16
+     ],
+     "pos": [
+      0,
+      1.25,
+      0
+     ],
+     "rotRad": [
+      3.141592653589793,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.12,
+      0.12,
+      0.7,
+      8
+     ],
+     "pos": [
+      0,
+      0.4,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      1,
+      0.04,
+      6.283185307179586
+     ],
+     "pos": [
+      0,
+      1.75,
+      0
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "sandbox",
+   "name": "沙箱",
+   "en": "Sandbox",
+   "category": "sec",
+   "size": "M",
+   "scale": 1,
+   "abbr": "SBX",
+   "color": {
+    "dark": "#f5c518",
+    "light": "#c9a010",
+    "albedo": "#f5c518"
+   },
+   "roles": [
+    "防护"
+   ],
+   "use": "在隔离环境中运行可疑文件,观察其行为。",
+   "look": "敞口方箱框 + 箱内悬浮一颗小球(被观察样本)。",
+   "core": [
+    0,
+    0.7,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.5,
+      0.08,
+      1.5
+     ],
+     "pos": [
+      0,
+      0.04,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.3,
+      0.06
+     ],
+     "pos": [
+      -0.72,
+      0.69,
+      -0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.3,
+      0.06
+     ],
+     "pos": [
+      0.72,
+      0.69,
+      -0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.3,
+      0.06
+     ],
+     "pos": [
+      -0.72,
+      0.69,
+      0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.06,
+      1.3,
+      0.06
+     ],
+     "pos": [
+      0.72,
+      0.69,
+      0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1.5,
+      0.05,
+      0.05
+     ],
+     "pos": [
+      0,
+      1.32,
+      0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1.5,
+      0.05,
+      0.05
+     ],
+     "pos": [
+      0,
+      1.32,
+      -0.72
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "sph",
+     "args": [
+      0.32,
+      10,
+      8
+     ],
+     "pos": [
+      0,
+      0.7,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "websrv",
+   "name": "Web / 应用服务器",
+   "en": "Web / App Server",
+   "category": "srv",
+   "size": "L",
+   "scale": 1.25,
+   "abbr": "WEB",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "对外提供网站与 API 服务,是最常见的攻击目标。",
+   "look": "高窄机柜,正面多条水平 1U 刻线。",
+   "core": [
+    0,
+    2.45,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      0.95,
+      2.1,
+      1
+     ],
+     "pos": [
+      0,
+      1.05,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.8,
+      0.05,
+      0.03
+     ],
+     "pos": [
+      0,
+      0.3,
+      0.51
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.8,
+      0.05,
+      0.03
+     ],
+     "pos": [
+      0,
+      0.6,
+      0.51
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.8,
+      0.05,
+      0.03
+     ],
+     "pos": [
+      0,
+      0.8999999999999999,
+      0.51
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.8,
+      0.05,
+      0.03
+     ],
+     "pos": [
+      0,
+      1.2,
+      0.51
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.8,
+      0.05,
+      0.03
+     ],
+     "pos": [
+      0,
+      1.5,
+      0.51
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.8,
+      0.05,
+      0.03
+     ],
+     "pos": [
+      0,
+      1.8,
+      0.51
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "dbsrv",
+   "name": "数据库",
+   "en": "Database",
+   "category": "srv",
+   "size": "L",
+   "scale": 1.25,
+   "abbr": "DB",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "存放业务与用户数据,泄露后果最直接。",
+   "look": "三节堆叠的扁圆柱(经典数据库符号)。",
+   "core": [
+    0,
+    1.95,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cyl",
+     "args": [
+      0.85,
+      0.85,
+      0.45,
+      20
+     ],
+     "pos": [
+      0,
+      0.25,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.85,
+      0.85,
+      0.45,
+      20
+     ],
+     "pos": [
+      0,
+      0.78,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.85,
+      0.85,
+      0.45,
+      20
+     ],
+     "pos": [
+      0,
+      1.31,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "storage",
+   "name": "存储阵列",
+   "en": "Storage Array",
+   "category": "srv",
+   "size": "L",
+   "scale": 1.25,
+   "abbr": "NAS",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "集中文件/块存储与备份,勒索软件的重点目标。",
+   "look": "地面上 2×2 平铺的四个磁盘模块,顶部一根横向汇流条。",
+   "core": [
+    0,
+    1.25,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      0.85,
+      0.7,
+      0.9
+     ],
+     "pos": [
+      -0.5,
+      0.35,
+      -0.55
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.85,
+      0.7,
+      0.9
+     ],
+     "pos": [
+      0.5,
+      0.35,
+      -0.55
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.85,
+      0.7,
+      0.9
+     ],
+     "pos": [
+      -0.5,
+      0.35,
+      0.55
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.85,
+      0.7,
+      0.9
+     ],
+     "pos": [
+      0.5,
+      0.35,
+      0.55
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.5,
+      0.04,
+      0.02
+     ],
+     "pos": [
+      -0.5,
+      0.45,
+      1.01
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.5,
+      0.04,
+      0.02
+     ],
+     "pos": [
+      0.5,
+      0.45,
+      1.01
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1.9,
+      0.06,
+      0.06
+     ],
+     "pos": [
+      0,
+      0.78,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "cloud",
+   "name": "云平台",
+   "en": "Cloud Platform",
+   "category": "srv",
+   "size": "XL",
+   "scale": 1.5,
+   "abbr": "CLD",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "目标",
+    "路径"
+   ],
+   "use": "公有云/私有云资源池,承载虚拟机、存储与服务。",
+   "look": "三颗大小不一的球团簇成云朵 + 扁平底座。",
+   "core": [
+    0,
+    1,
+    0.6
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "sph",
+     "args": [
+      0.6,
+      12,
+      8
+     ],
+     "pos": [
+      -0.65,
+      0.75,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "sph",
+     "args": [
+      0.8,
+      12,
+      8
+     ],
+     "pos": [
+      0.1,
+      1,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "sph",
+     "args": [
+      0.55,
+      12,
+      8
+     ],
+     "pos": [
+      0.85,
+      0.7,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      2.4,
+      0.1,
+      0.9
+     ],
+     "pos": [
+      0,
+      0.1,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "container",
+   "name": "容器集群",
+   "en": "Container Cluster",
+   "category": "srv",
+   "size": "L",
+   "scale": 1.25,
+   "abbr": "K8",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "容器编排平台上的大量微服务实例。",
+   "look": "三块六棱柱错落堆叠成蜂巢簇。",
+   "core": [
+    0,
+    1.6,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cyl",
+     "args": [
+      0.55,
+      0.55,
+      0.6,
+      6
+     ],
+     "pos": [
+      -0.55,
+      0.3,
+      0.3
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.55,
+      0.55,
+      0.6,
+      6
+     ],
+     "pos": [
+      0.55,
+      0.3,
+      0.3
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.55,
+      0.55,
+      0.6,
+      6
+     ],
+     "pos": [
+      0,
+      0.3,
+      -0.6
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.55,
+      0.55,
+      0.6,
+      6
+     ],
+     "pos": [
+      0,
+      0.9,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "mailsrv",
+   "name": "邮件服务器",
+   "en": "Mail Server",
+   "category": "srv",
+   "size": "M",
+   "scale": 1,
+   "abbr": "MX",
+   "color": {
+    "dark": "#c9a0ff",
+    "light": "#7a48c8",
+    "albedo": "#c9a0ff"
+   },
+   "roles": [
+    "目标",
+    "路径"
+   ],
+   "use": "收发企业邮件,钓鱼与商业邮件诈骗的入口。",
+   "look": "方形邮箱身 + 半圆拱顶 + 侧边竖立小旗。",
+   "core": [
+    0,
+    0.9,
+    0.5
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.3,
+      0.8,
+      0.9
+     ],
+     "pos": [
+      0,
+      0.4,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.65,
+      0.65,
+      0.9,
+      12,
+      true
+     ],
+     "pos": [
+      0,
+      0.8,
+      0
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.03,
+      0.03,
+      1,
+      4
+     ],
+     "pos": [
+      0.8,
+      0.75,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.35,
+      0.2,
+      0.03
+     ],
+     "pos": [
+      0.95,
+      1.15,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "ipcam",
+   "name": "网络摄像头",
+   "en": "IP Camera",
+   "category": "iot",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "CAM",
+   "color": {
+    "dark": "#ff6bcb",
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
+   },
+   "roles": [
+    "目标",
+    "源"
+   ],
+   "use": "视频监控终端,弱口令时易被拉入僵尸网络。",
+   "look": "墙装支架 + 横置圆筒镜头机身 + 前端遮阳檐。",
+   "core": [
+    0,
+    1.15,
+    0.95
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      0.4,
+      1.2,
+      0.15
+     ],
+     "pos": [
+      0,
+      0.6,
+      -0.6
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.1,
+      0.1,
+      0.5
+     ],
+     "pos": [
+      0,
+      1.15,
+      -0.35
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.3,
+      0.3,
+      1.2,
+      12
+     ],
+     "pos": [
+      0,
+      1.15,
+      0.3
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.7,
+      0.04,
+      0.5
+     ],
+     "pos": [
+      0,
+      1.47,
+      0.55
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "plc",
+   "name": "PLC 控制器",
+   "en": "PLC",
+   "category": "iot",
+   "size": "M",
+   "scale": 1,
+   "abbr": "PLC",
+   "color": {
+    "dark": "#ff6bcb",
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "工业现场逻辑控制器,直接驱动阀门、电机等。",
+   "look": "横向导轨上一排高低不同的竖插模块。",
+   "core": [
+    0,
+    1.3,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      2.4,
+      0.08,
+      0.3
+     ],
+     "pos": [
+      0,
+      0.5,
+      -0.3
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.38,
+      0.9,
+      0.6
+     ],
+     "pos": [
+      -0.9,
+      0.5,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.38,
+      0.7,
+      0.6
+     ],
+     "pos": [
+      -0.45,
+      0.39999999999999997,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.38,
+      0.7,
+      0.6
+     ],
+     "pos": [
+      0,
+      0.39999999999999997,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.38,
+      0.7,
+      0.6
+     ],
+     "pos": [
+      0.45000000000000007,
+      0.39999999999999997,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.38,
+      0.5,
+      0.6
+     ],
+     "pos": [
+      0.9,
+      0.3,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "sensor",
+   "name": "传感器",
+   "en": "Sensor",
+   "category": "iot",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "SN",
+   "color": {
+    "dark": "#ff6bcb",
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
+   },
+   "roles": [
+    "目标",
+    "源"
+   ],
+   "use": "采集温湿度、压力等数据的小型联网节点。",
+   "look": "短杆顶上一个半球圆顶 + 两侧一组短弧。",
+   "core": [
+    0,
+    0.8,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cyl",
+     "args": [
+      0.06,
+      0.06,
+      0.6,
+      6
+     ],
+     "pos": [
+      0,
+      0.3,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "hemi",
+     "args": [
+      0.45
+     ],
+     "pos": [
+      0,
+      0.6,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.7,
+      0.02,
+      1.5707963267948966
+     ],
+     "pos": [
+      0,
+      0.75,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0.7853981633974483
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.7,
+      0.02,
+      1.5707963267948966
+     ],
+     "pos": [
+      0,
+      0.75,
+      0
+     ],
+     "rotRad": [
+      0,
+      3.141592653589793,
+      0.7853981633974483
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "hmi",
+   "name": "工控操作台 HMI",
+   "en": "HMI Console",
+   "category": "iot",
+   "size": "L",
+   "scale": 1.25,
+   "abbr": "HMI",
+   "color": {
+    "dark": "#ff6bcb",
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "操作员监视与控制产线的人机界面。",
+   "look": "立式柜体,上部前倾的斜面屏 + 下部按钮格。",
+   "core": [
+    0,
+    1.5,
+    0.5
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.3,
+      1.2,
+      0.8
+     ],
+     "pos": [
+      0,
+      0.6,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      1.3,
+      0.8,
+      0.08
+     ],
+     "pos": [
+      0,
+      1.45,
+      0.2
+     ],
+     "rotRad": [
+      -0.6,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.08,
+      0.08,
+      0.05,
+      10
+     ],
+     "pos": [
+      -0.35,
+      0.9,
+      0.42
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.08,
+      0.08,
+      0.05,
+      10
+     ],
+     "pos": [
+      0,
+      0.9,
+      0.42
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.08,
+      0.08,
+      0.05,
+      10
+     ],
+     "pos": [
+      0.35,
+      0.9,
+      0.42
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "pos",
+   "name": "收银 POS",
+   "en": "POS Terminal",
+   "category": "iot",
+   "size": "S",
+   "scale": 0.8,
+   "abbr": "POS",
+   "color": {
+    "dark": "#ff6bcb",
+    "light": "#c02098",
+    "albedo": "#ff6bcb"
+   },
+   "roles": [
+    "目标"
+   ],
+   "use": "门店收银与刷卡终端,涉及支付卡数据。",
+   "look": "低矮底座 + 背后小票纸卷圆筒 + 前倾小屏。",
+   "core": [
+    0,
+    0.65,
+    0.45
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "box",
+     "args": [
+      1.2,
+      0.3,
+      1
+     ],
+     "pos": [
+      0,
+      0.15,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cyl",
+     "args": [
+      0.25,
+      0.25,
+      0.9,
+      12
+     ],
+     "pos": [
+      0,
+      0.55,
+      -0.3
+     ],
+     "rotRad": [
+      0,
+      0,
+      1.5707963267948966
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.8,
+      0.5,
+      0.05
+     ],
+     "pos": [
+      0,
+      0.6,
+      0.25
+     ],
+     "rotRad": [
+      -0.5,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "attacker",
+   "name": "攻击者",
+   "en": "Attacker",
+   "category": "ext",
+   "size": "M",
+   "scale": 1,
+   "abbr": "ATK",
+   "color": {
+    "dark": "#ff3b4e",
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
+   },
+   "roles": [
+    "源"
+   ],
+   "use": "外部恶意行为者的抽象,事件中的发起方。",
+   "look": "兜帽式尖锥身体 + 头部圆球 + 前方一块小屏。",
+   "core": [
+    0,
+    1.55,
+    0.3
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cone",
+     "args": [
+      0.75,
+      1.4,
+      10
+     ],
+     "pos": [
+      0,
+      0.7,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "sph",
+     "args": [
+      0.32,
+      10,
+      8
+     ],
+     "pos": [
+      0,
+      1.55,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "cone",
+     "args": [
+      0.42,
+      0.45,
+      10
+     ],
+     "pos": [
+      0,
+      1.82,
+      -0.05
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.7,
+      0.45,
+      0.05
+     ],
+     "pos": [
+      0,
+      0.7,
+      0.7
+     ],
+     "rotRad": [
+      -0.3,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "botnet",
+   "name": "僵尸网络",
+   "en": "Botnet",
+   "category": "ext",
+   "size": "L",
+   "scale": 1.25,
+   "abbr": "BOT",
+   "color": {
+    "dark": "#ff3b4e",
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
+   },
+   "roles": [
+    "源"
+   ],
+   "use": "被控制的大量设备集合,常用于 DDoS 与撞库。",
+   "look": "环形分布的六个小八面体 + 中心较大的控制球。",
+   "core": [
+    0,
+    1,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "oct",
+     "args": [
+      0.25
+     ],
+     "pos": [
+      1.15,
+      0.6,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "oct",
+     "args": [
+      0.25
+     ],
+     "pos": [
+      0.5750000000000001,
+      0.95,
+      0.9959292143521044
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "oct",
+     "args": [
+      0.25
+     ],
+     "pos": [
+      -0.5749999999999997,
+      0.6,
+      0.9959292143521045
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "oct",
+     "args": [
+      0.25
+     ],
+     "pos": [
+      -1.15,
+      0.95,
+      1.408343819019456e-16
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "oct",
+     "args": [
+      0.25
+     ],
+     "pos": [
+      -0.5750000000000005,
+      0.6,
+      -0.9959292143521041
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "oct",
+     "args": [
+      0.25
+     ],
+     "pos": [
+      0.5750000000000001,
+      0.95,
+      -0.9959292143521044
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "sph",
+     "args": [
+      0.35,
+      10,
+      8
+     ],
+     "pos": [
+      0,
+      1,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      1.15,
+      0.02,
+      6.283185307179586
+     ],
+     "pos": [
+      0,
+      0.75,
+      0
+     ],
+     "rotRad": [
+      1.5707963267948966,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "c2",
+   "name": "C2 服务器",
+   "en": "C2 Server",
+   "category": "ext",
+   "size": "M",
+   "scale": 1,
+   "abbr": "C2",
+   "color": {
+    "dark": "#ff3b4e",
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
+   },
+   "roles": [
+    "源"
+   ],
+   "use": "恶意软件回连的指挥控制端,下发指令收集数据。",
+   "look": "四棱锥格构铁塔 + 塔顶发射球 + 两道发射弧。",
+   "core": [
+    0,
+    2.15,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cone",
+     "args": [
+      0.75,
+      2,
+      4
+     ],
+     "pos": [
+      0,
+      1,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.9,
+      0.04,
+      0.04
+     ],
+     "pos": [
+      0,
+      0.6,
+      0
+     ],
+     "rotRad": [
+      0,
+      0.7853981633974483,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "sph",
+     "args": [
+      0.18,
+      8,
+      6
+     ],
+     "pos": [
+      0,
+      2.15,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.45,
+      0.025,
+      1.8849555921538759
+     ],
+     "pos": [
+      0,
+      2.15,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0.6283185307179586
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      0.75,
+      0.025,
+      1.8849555921538759
+     ],
+     "pos": [
+      0,
+      2.15,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0.6283185307179586
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "internet",
+   "name": "互联网",
+   "en": "Internet",
+   "category": "ext",
+   "size": "XL",
+   "scale": 1.5,
+   "abbr": "NET",
+   "color": {
+    "dark": "#ff3b4e",
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
+   },
+   "roles": [
+    "路径",
+    "源"
+   ],
+   "use": "外部公共网络的抽象,内外网边界的另一侧。",
+   "look": "大号经纬线地球 + 斜交的轨道环。",
+   "core": [
+    0,
+    1.25,
+    0
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "sph",
+     "args": [
+      1.1,
+      16,
+      10
+     ],
+     "pos": [
+      0,
+      1.25,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      1.45,
+      0.03,
+      6.283185307179586
+     ],
+     "pos": [
+      0,
+      1.25,
+      0
+     ],
+     "rotRad": [
+      1.1707963267948966,
+      0,
+      0.3
+     ],
+     "tone": null
+    },
+    {
+     "shape": "tor",
+     "args": [
+      1.15,
+      0.025,
+      6.283185307179586
+     ],
+     "pos": [
+      0,
+      1.25,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  },
+  {
+   "type": "insider",
+   "name": "内部威胁",
+   "en": "Insider Threat",
+   "category": "ext",
+   "size": "M",
+   "scale": 1,
+   "abbr": "INS",
+   "color": {
+    "dark": "#ff3b4e",
+    "light": "#c01830",
+    "albedo": "#ff3b4e"
+   },
+   "roles": [
+    "源"
+   ],
+   "use": "拥有合法权限但滥用权限的内部人员。",
+   "look": "圆柱身体 + 圆头 + 胸前工牌方片(区别于兜帽攻击者)。",
+   "core": [
+    0,
+    1.55,
+    0.35
+   ],
+   "squash": null,
+   "parts": [
+    {
+     "shape": "cyl",
+     "args": [
+      0.4,
+      0.5,
+      1.2,
+      12
+     ],
+     "pos": [
+      0,
+      0.6,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "sph",
+     "args": [
+      0.33,
+      10,
+      8
+     ],
+     "pos": [
+      0,
+      1.55,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.3,
+      0.38,
+      0.04
+     ],
+     "pos": [
+      0.15,
+      0.85,
+      0.48
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    },
+    {
+     "shape": "box",
+     "args": [
+      0.04,
+      0.25,
+      0.02
+     ],
+     "pos": [
+      0.15,
+      1.12,
+      0.48
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": null
+    }
+   ]
+  }
+ ]
+}

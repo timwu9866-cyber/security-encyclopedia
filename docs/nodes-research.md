@@ -162,7 +162,5 @@ n.dispose();
 `data/nodespec.json` 含类别色、尺寸、状态色、每种节点的部件列表(shape/args/pos/rotRad,单位与 three.js 一致,Y 向上,右手坐标;导入 Unity 时 Z 取反)。Unity 工程本次未改动。
 
 ## 附录 · v4 造型修订(2026-10)
-- 去掉节点脚下发光方形底座及加色外扩 glow。
-- 主体 MeshStandard(emissive≈0.12)+平行光明暗;关闭 ColorManagement。
-- 状态:选中白边 / 被攻击闪红+红边 / 已防护青边+薄护罩。
-- 分区描边与连线为干净细线。
+- 去掉地面发光底座与加色 glow。
+- MeshStandard + ColorManagement off; 状态 EdgesGeometry。
