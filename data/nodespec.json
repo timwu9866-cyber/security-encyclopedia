@@ -14,63 +14,69 @@
    "name": "网络设备",
    "en": "Network",
    "color": {
-    "dark": "#4dff88",
-    "light": "#137a3a"
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#22f06a"
    }
   },
   "office": {
    "name": "办公设备",
    "en": "Office / Endpoint",
    "color": {
-    "dark": "#4d9dff",
-    "light": "#1d55b8"
+    "dark": "#2f8fff",
+    "light": "#1360c8",
+    "albedo": "#4aa8ff"
    }
   },
   "sec": {
    "name": "安全设备",
    "en": "Security",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    }
   },
   "srv": {
    "name": "服务器 / 云",
    "en": "Server / Cloud",
    "color": {
-    "dark": "#b08cff",
-    "light": "#5a2fa8"
+    "dark": "#c9a0ff",
+    "light": "#6b3ab8",
+    "albedo": "#d4b0ff"
    }
   },
   "iot": {
    "name": "终端 / IoT / 工控",
    "en": "IoT / ICS",
    "color": {
-    "dark": "#ff7ad9",
-    "light": "#a1238c"
+    "dark": "#ff6bcb",
+    "light": "#b0188a",
+    "albedo": "#ff7ad5"
    }
   },
   "ext": {
    "name": "攻击者 / 外部",
    "en": "Threat / External",
    "color": {
-    "dark": "#ff4d5e",
-    "light": "#b01030"
+    "dark": "#ff3b4e",
+    "light": "#b01030",
+    "albedo": "#ff4558"
    }
   }
  },
  "stateColors": {
   "dark": {
    "sel": "#ffffff",
-   "atk": "#ff3048",
-   "def": "#2ee6d6",
-   "bg": "#0b1020",
-   "grid": "#1e3550"
+   "atk": "#ff2a3c",
+   "def": "#22e6ff",
+   "bg": "#07090f",
+   "grid": "#1a2438"
   },
   "light": {
    "sel": "#0d1626",
-   "atk": "#c00020",
-   "def": "#0b6e6a",
+   "atk": "#c4001c",
+   "def": "#007f9e",
    "bg": "#d5dee9",
    "grid": "#7a8799"
   }
@@ -93,7 +99,7 @@
    "desc": "底框变青色,常亮"
   }
  },
- "style": "v2 实心低多边形(MeshStandard, flatShading, roughness .42, metalness .12, 少量自发光) + 发光方形底框 + 标签牌;透视俯视镜头",
+ "style": "v3 实心低多边形(MeshStandard, flatShading, roughness .42, metalness .12, 少量自发光) + 发光方形底框 + 标签牌;透视俯视镜头",
  "camera": {
   "projection": "perspective",
   "fovDeg": 32,
@@ -118,24 +124,24 @@
   "halfSize": "max(1, 节点半宽+0.35)",
   "colors": {
    "dark": {
-    "normal": "#1fe85a",
-    "selected": "#7dff9e",
+    "normal": "#00ff55",
+    "selected": "#6dff9a",
     "outline": "#ffffff",
-    "attacked": "#ff2a3c",
-    "protected": "#22e6ff",
-    "label": "rgba(10,14,24,.82)",
-    "labelTxt": "#e8f1ff",
-    "labelLine": "rgba(200,215,240,.55)"
+    "attacked": "#ff2040",
+    "protected": "#00e8ff",
+    "label": "rgba(8,10,18,.88)",
+    "labelTxt": "#f2f6ff",
+    "labelLine": "rgba(255,255,255,.7)"
    },
    "light": {
-    "normal": "#0f8a36",
-    "selected": "#16b048",
+    "normal": "#0c9a38",
+    "selected": "#14b848",
     "outline": "#0d1626",
     "attacked": "#c4001c",
     "protected": "#007f9e",
-    "label": "rgba(255,255,255,.94)",
+    "label": "rgba(255,255,255,.96)",
     "labelTxt": "#152033",
-    "labelLine": "rgba(40,60,90,.45)"
+    "labelLine": "rgba(30,50,80,.5)"
    }
   }
  },
@@ -143,22 +149,22 @@
   "desc": "createZone({title,w,d,color}):半透明底板 + 0.5 格细网格 + 实线描边 + 外侧淡描边 + 前沿大号区域名",
   "colors": {
    "dark": {
-    "violet": "#9a7cff",
-    "gray": "#8c96a8",
-    "green": "#2bff6a",
-    "blue": "#4d9dff",
-    "plate": "#141a2c",
-    "grid": "#3a4766",
-    "text": "rgba(225,232,248,.88)"
+    "violet": "#8a5cff",
+    "gray": "#7a8498",
+    "green": "#00ff66",
+    "blue": "#2f8fff",
+    "plate": "#05070c",
+    "grid": "#1c2434",
+    "text": "rgba(235,240,255,.78)"
    },
    "light": {
     "violet": "#5a2fa8",
     "gray": "#4f5a6c",
-    "green": "#0f8a36",
-    "blue": "#1d55b8",
-    "plate": "#f3f6fa",
+    "green": "#0c9a38",
+    "blue": "#1360c8",
+    "plate": "#e8eef6",
     "grid": "#8a96aa",
-    "text": "rgba(30,42,64,.85)"
+    "text": "rgba(30,42,64,.8)"
    }
   }
  },
@@ -180,8 +186,9 @@
    "scale": 1,
    "abbr": "RT",
    "color": {
-    "dark": "#4dff88",
-    "light": "#137a3a"
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#22f06a"
    },
    "roles": [
     "路径",
@@ -361,8 +368,9 @@
    "scale": 1,
    "abbr": "SW",
    "color": {
-    "dark": "#4dff88",
-    "light": "#137a3a"
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#22f06a"
    },
    "roles": [
     "路径",
@@ -787,8 +795,9 @@
    "scale": 1.25,
    "abbr": "CS",
    "color": {
-    "dark": "#4dff88",
-    "light": "#137a3a"
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#22f06a"
    },
    "roles": [
     "路径",
@@ -1006,8 +1015,9 @@
    "scale": 0.8,
    "abbr": "AP",
    "color": {
-    "dark": "#4dff88",
-    "light": "#137a3a"
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#22f06a"
    },
    "roles": [
     "路径",
@@ -1111,8 +1121,9 @@
    "scale": 1,
    "abbr": "LB",
    "color": {
-    "dark": "#4dff88",
-    "light": "#137a3a"
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#22f06a"
    },
    "roles": [
     "路径",
@@ -1309,8 +1320,9 @@
    "scale": 0.8,
    "abbr": "DNS",
    "color": {
-    "dark": "#4dff88",
-    "light": "#137a3a"
+    "dark": "#1fd65a",
+    "light": "#0c7a32",
+    "albedo": "#22f06a"
    },
    "roles": [
     "目标",
@@ -1394,8 +1406,9 @@
    "scale": 1,
    "abbr": "PC",
    "color": {
-    "dark": "#4d9dff",
-    "light": "#1d55b8"
+    "dark": "#2f8fff",
+    "light": "#1360c8",
+    "albedo": "#4aa8ff"
    },
    "roles": [
     "目标",
@@ -1497,8 +1510,9 @@
    "scale": 0.8,
    "abbr": "NB",
    "color": {
-    "dark": "#4d9dff",
-    "light": "#1d55b8"
+    "dark": "#2f8fff",
+    "light": "#1360c8",
+    "albedo": "#4aa8ff"
    },
    "roles": [
     "目标",
@@ -1581,8 +1595,9 @@
    "scale": 1,
    "abbr": "PR",
    "color": {
-    "dark": "#4d9dff",
-    "light": "#1d55b8"
+    "dark": "#2f8fff",
+    "light": "#1360c8",
+    "albedo": "#4aa8ff"
    },
    "roles": [
     "目标"
@@ -1664,8 +1679,9 @@
    "scale": 0.8,
    "abbr": "MB",
    "color": {
-    "dark": "#4d9dff",
-    "light": "#1d55b8"
+    "dark": "#2f8fff",
+    "light": "#1360c8",
+    "albedo": "#4aa8ff"
    },
    "roles": [
     "目标",
@@ -1748,8 +1764,9 @@
    "scale": 0.8,
    "abbr": "TB",
    "color": {
-    "dark": "#4d9dff",
-    "light": "#1d55b8"
+    "dark": "#2f8fff",
+    "light": "#1360c8",
+    "albedo": "#4aa8ff"
    },
    "roles": [
     "目标"
@@ -1831,8 +1848,9 @@
    "scale": 0.8,
    "abbr": "VP",
    "color": {
-    "dark": "#4d9dff",
-    "light": "#1d55b8"
+    "dark": "#2f8fff",
+    "light": "#1360c8",
+    "albedo": "#4aa8ff"
    },
    "roles": [
     "目标"
@@ -1934,8 +1952,9 @@
    "scale": 1.25,
    "abbr": "FW",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    },
    "roles": [
     "防护"
@@ -2150,8 +2169,9 @@
    "scale": 1,
    "abbr": "WAF",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    },
    "roles": [
     "防护"
@@ -2253,8 +2273,9 @@
    "scale": 1,
    "abbr": "IPS",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    },
    "roles": [
     "防护"
@@ -2357,8 +2378,9 @@
    "scale": 1,
    "abbr": "BH",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    },
    "roles": [
     "防护"
@@ -2516,8 +2538,9 @@
    "scale": 0.8,
    "abbr": "HP",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    },
    "roles": [
     "防护",
@@ -2605,8 +2628,9 @@
    "scale": 1.5,
    "abbr": "SOC",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    },
    "roles": [
     "防护"
@@ -2745,8 +2769,9 @@
    "scale": 1,
    "abbr": "VPN",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    },
    "roles": [
     "防护",
@@ -2829,8 +2854,9 @@
    "scale": 1,
    "abbr": "SWG",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    },
    "roles": [
     "防护"
@@ -2913,8 +2939,9 @@
    "scale": 1,
    "abbr": "SBX",
    "color": {
-    "dark": "#ffd23d",
-    "light": "#8a6400"
+    "dark": "#f5c518",
+    "light": "#a07a00",
+    "albedo": "#ffd428"
    },
    "roles": [
     "防护"
@@ -3091,8 +3118,9 @@
    "scale": 1.25,
    "abbr": "WEB",
    "color": {
-    "dark": "#b08cff",
-    "light": "#5a2fa8"
+    "dark": "#c9a0ff",
+    "light": "#6b3ab8",
+    "albedo": "#d4b0ff"
    },
    "roles": [
     "目标"
@@ -3250,8 +3278,9 @@
    "scale": 1.25,
    "abbr": "DB",
    "color": {
-    "dark": "#b08cff",
-    "light": "#5a2fa8"
+    "dark": "#c9a0ff",
+    "light": "#6b3ab8",
+    "albedo": "#d4b0ff"
    },
    "roles": [
     "目标"
@@ -3336,8 +3365,9 @@
    "scale": 1.25,
    "abbr": "NAS",
    "color": {
-    "dark": "#b08cff",
-    "light": "#5a2fa8"
+    "dark": "#c9a0ff",
+    "light": "#6b3ab8",
+    "albedo": "#d4b0ff"
    },
    "roles": [
     "目标"
@@ -3495,8 +3525,9 @@
    "scale": 1.5,
    "abbr": "CLD",
    "color": {
-    "dark": "#b08cff",
-    "light": "#5a2fa8"
+    "dark": "#c9a0ff",
+    "light": "#6b3ab8",
+    "albedo": "#d4b0ff"
    },
    "roles": [
     "目标",
@@ -3598,8 +3629,9 @@
    "scale": 1.25,
    "abbr": "K8",
    "color": {
-    "dark": "#b08cff",
-    "light": "#5a2fa8"
+    "dark": "#c9a0ff",
+    "light": "#6b3ab8",
+    "albedo": "#d4b0ff"
    },
    "roles": [
     "目标"
@@ -3704,8 +3736,9 @@
    "scale": 1,
    "abbr": "MX",
    "color": {
-    "dark": "#b08cff",
-    "light": "#5a2fa8"
+    "dark": "#c9a0ff",
+    "light": "#6b3ab8",
+    "albedo": "#d4b0ff"
    },
    "roles": [
     "目标",
@@ -3810,8 +3843,9 @@
    "scale": 0.8,
    "abbr": "CAM",
    "color": {
-    "dark": "#ff7ad9",
-    "light": "#a1238c"
+    "dark": "#ff6bcb",
+    "light": "#b0188a",
+    "albedo": "#ff7ad5"
    },
    "roles": [
     "目标",
@@ -3914,8 +3948,9 @@
    "scale": 1,
    "abbr": "PLC",
    "color": {
-    "dark": "#ff7ad9",
-    "light": "#a1238c"
+    "dark": "#ff6bcb",
+    "light": "#b0188a",
+    "albedo": "#ff7ad5"
    },
    "roles": [
     "目标"
@@ -4054,8 +4089,9 @@
    "scale": 0.8,
    "abbr": "SN",
    "color": {
-    "dark": "#ff7ad9",
-    "light": "#a1238c"
+    "dark": "#ff6bcb",
+    "light": "#b0188a",
+    "albedo": "#ff7ad5"
    },
    "roles": [
     "目标",
@@ -4156,8 +4192,9 @@
    "scale": 1.25,
    "abbr": "HMI",
    "color": {
-    "dark": "#ff7ad9",
-    "light": "#a1238c"
+    "dark": "#ff6bcb",
+    "light": "#b0188a",
+    "albedo": "#ff7ad5"
    },
    "roles": [
     "目标"
@@ -4280,8 +4317,9 @@
    "scale": 0.8,
    "abbr": "POS",
    "color": {
-    "dark": "#ff7ad9",
-    "light": "#a1238c"
+    "dark": "#ff6bcb",
+    "light": "#b0188a",
+    "albedo": "#ff7ad5"
    },
    "roles": [
     "目标"
@@ -4364,8 +4402,9 @@
    "scale": 1,
    "abbr": "ATK",
    "color": {
-    "dark": "#ff4d5e",
-    "light": "#b01030"
+    "dark": "#ff3b4e",
+    "light": "#b01030",
+    "albedo": "#ff4558"
    },
    "roles": [
     "源"
@@ -4466,8 +4505,9 @@
    "scale": 1.25,
    "abbr": "BOT",
    "color": {
-    "dark": "#ff4d5e",
-    "light": "#b01030"
+    "dark": "#ff3b4e",
+    "light": "#b01030",
+    "albedo": "#ff4558"
    },
    "roles": [
     "源"
@@ -4632,8 +4672,9 @@
    "scale": 1,
    "abbr": "C2",
    "color": {
-    "dark": "#ff4d5e",
-    "light": "#b01030"
+    "dark": "#ff3b4e",
+    "light": "#b01030",
+    "albedo": "#ff4558"
    },
    "roles": [
     "源"
@@ -4753,8 +4794,9 @@
    "scale": 1.5,
    "abbr": "NET",
    "color": {
-    "dark": "#ff4d5e",
-    "light": "#b01030"
+    "dark": "#ff3b4e",
+    "light": "#b01030",
+    "albedo": "#ff4558"
    },
    "roles": [
     "路径",
@@ -4837,8 +4879,9 @@
    "scale": 1,
    "abbr": "INS",
    "color": {
-    "dark": "#ff4d5e",
-    "light": "#b01030"
+    "dark": "#ff3b4e",
+    "light": "#b01030",
+    "albedo": "#ff4558"
    },
    "roles": [
     "源"
