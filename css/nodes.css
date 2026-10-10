@@ -1,0 +1,34 @@
+/* nodes.css — 节点模型库页面(沿用 app.css 的主题变量) */
+main.nodes{grid-template-columns:240px minmax(0,1fr) 360px}
+#cats{padding:10px 8px;display:flex;flex-direction:column;gap:4px}
+#cats .ct{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;cursor:pointer;color:var(--txt2);border:1px solid transparent;font-size:14px}
+#cats .ct:hover{background:var(--hover)}
+#cats .ct.on{background:var(--on);border-color:var(--line);color:var(--txt)}
+#cats .ct i{width:12px;height:12px;border-radius:3px;flex:0 0 auto;box-shadow:0 0 6px currentColor}
+#cats .ct small{margin-left:auto;color:var(--dim)}
+#cats .ct .en{color:var(--dim);font-size:11px;margin-left:4px}
+#gwrap{position:relative;min-height:0;overflow:auto;background:var(--gcenter)}
+#gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px;padding:12px}
+.cell{position:relative;border:1px solid var(--line);border-radius:8px;background:var(--panel);cursor:pointer;overflow:hidden;transition:border-color .15s}
+.cell:hover{border-color:var(--cyan)}
+.cell.on{outline:2px solid var(--cyan);outline-offset:-2px}
+.cell canvas{display:block;width:100%;aspect-ratio:6/5}
+.cell .nm{padding:5px 8px 7px;font-size:13px;color:var(--txt);display:flex;gap:6px;align-items:center;border-top:1px solid var(--line)}
+.cell .nm i{width:9px;height:9px;border-radius:2px;flex:0 0 auto}
+.cell .nm small{margin-left:auto;color:var(--dim);font-size:11px}
+.ghead{padding:10px 14px 0;color:var(--dim);font-size:12.5px}
+#pv{position:absolute;inset:0;display:none;flex-direction:column;background:var(--bg);z-index:5}
+#pv.show{display:flex}
+#pvbar{display:flex;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+#pvbar .t{font-weight:600;color:var(--txt);margin-right:6px}
+#pvcv{flex:1 1 auto;min-height:0;width:100%;display:block}
+#pvlabels{position:absolute;left:0;right:0;bottom:12px;display:none;pointer-events:none}
+#pvlabels.show{display:grid;grid-template-columns:repeat(4,1fr)}
+#pvlabels span{text-align:center;color:var(--txt);font-size:13px;font-weight:600}
+.stbtn.on{background:var(--btn-on);border-color:var(--cyan)}
+#detail .kv{display:grid;grid-template-columns:72px 1fr;gap:4px 8px;font-size:13px;color:var(--txt2);margin-top:8px}
+#detail .kv b{color:var(--dim);font-weight:400}
+#detail .sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:4px;border:1px solid var(--line)}
+#detail .role{display:inline-block;padding:1px 8px;border-radius:10px;border:1px solid var(--line);margin-right:4px;font-size:12px;color:var(--txt2)}
+#detail .sts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+@media (max-width:1000px){main.nodes{grid-template-columns:1fr;grid-template-rows:auto minmax(420px,1fr) auto}#cats{flex-direction:row;flex-wrap:wrap}#cats .ct .en{display:none}#detail{border-left:0;border-top:1px solid var(--line)}}

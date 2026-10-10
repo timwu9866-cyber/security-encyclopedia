@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<script>(function(){var t;try{t=localStorage.getItem('sec-theme')}catch(e){}if(t!=='light'&&t!=='dark'){try{t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}catch(e){t='dark'}}document.documentElement.setAttribute('data-theme',t)})();</script>
+<title>网络安全节点模型库 · 概念造型</title>
+<link rel="stylesheet" href="css/app.css?v=db5f9332">
+<link rel="stylesheet" href="css/nodes.css?v=23b59026">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">◈ 节点模型库 <small>通用网络安全节点 · 概念造型</small></div>
+    <div class="hstat" id="total"></div>
+    <div class="grow"></div>
+    <a class="navbtn" href="index.html" title="返回 3D 事件大全">◈ 事件大全</a>
+    <a class="navbtn" href="graph.html" title="打开知识图谱">✦ 知识图谱</a>
+    <button id="bTheme" type="button" title="当前夜间,点击切换到日间" aria-pressed="false">☾ 夜间</button>
+  </header>
+  <main class="nodes">
+    <aside id="left"><div id="cats"></div></aside>
+    <section id="gwrap">
+      <div class="ghead" id="ghead"></div>
+      <div id="gallery"></div>
+      <div id="pv">
+        <div id="pvbar">
+          <button id="pvBack" title="返回画廊 (Esc)">← 画廊</button>
+          <span class="t" id="pvTitle"></span>
+          <button class="stbtn" data-s="normal">普通</button>
+          <button class="stbtn" data-s="selected">选中</button>
+          <button class="stbtn" data-s="attacked">被攻击</button>
+          <button class="stbtn" data-s="protected">已防护</button>
+          <button id="pvQuad" title="同一节点四种状态并排对比">▦ 四态对比</button>
+        </div>
+        <canvas id="pvcv"></canvas>
+        <div id="pvlabels"><span>普通</span><span>选中</span><span>被攻击</span><span>已防护</span></div>
+      </div>
+    </section>
+    <aside id="detail"></aside>
+  </main>
+</div>
+<script src="lib/three.bundle.js?v=ebfe9ba7"></script>
+<script src="js/nodelib.js?v=c1438ae9"></script>
+<script src="js/theme.js?v=69e90e94"></script>
+<script src="js/nodes.js?v=1983c589"></script>
+</body>
+</html>

@@ -67,3 +67,10 @@
 - 所有动画和字幕均为示意,不含真实攻击载荷;参考标准仅列有把握的 OWASP / ATT&CK / CWE / RFC / NIST 等条目。
 - 图谱里的"缓解""串联"关系是教学性的归纳,不是严格的因果模型;"同类相似"部分由关键词/参考重合度自动给出。
 - 需要系统中文字体;未在真实 GPU 或其他浏览器上做过压力测试。
+
+
+## 节点模型库(nodes.html)
+
+- `nodes.html`:37 种通用网络安全节点概念造型(网络=绿、办公=蓝、安全=黄、服务器/云=紫、终端/IoT/工控=品红、攻击者/外部=红),画廊 + 放大预览 + 普通/选中/被攻击/已防护四态切换与对比,支持日间/夜间。
+- `js/nodelib.js`:可复用模块,`NODELIB.createNode(type, opts)`。
+- `docs/nodes-research.md`:调研清单与造型规范;`data/nodespec.json`:给其他引擎(如 Unity)用的规范 JSON。由 `node tools/export_nodespec.js` 重新生成。
