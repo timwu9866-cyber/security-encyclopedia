@@ -200,7 +200,7 @@ const SPEC = {
     parts: [P('sph', [1.1, 16, 10], [0, 1.25, 0]), P('tor', [1.45, .03, 2 * PI], [0, 1.25, 0], [PI / 2 - .4, 0, .3]), P('tor', [1.15, .025, 2 * PI], [0, 1.25, 0], [0, 0, 0])], core: [0, 1.25, 0] },
   insider: { cat: 'ext', name: '内部威胁', en: 'Insider Threat', size: 'M', abbr: 'INS', role: ['源'],
     use: '拥有合法权限但滥用权限的内部人员。',
-    look: '友好的办公室白领:肤色脸+两个深色眼点+平直小嘴线,短发只盖头顶后脑、露前额;藏青西装+白衬衫+红领带贴胸;左胸红框工牌,红挂绳贴身垂到工牌;双手在身前托住带红色小标签的文件箱;方形底座+红色底座环。',
+    look: '棋子式抽象人物:低多边形亮红光头(无五官/头发)+ 深红圆台棋子身与圆肩;胸前白底红框工牌贴身+短挂带;简化手臂双手托住身前灰色文件箱(红标签);方形底座+红色细环。',
     parts: [P('cyl', [.4, .5, 1.2, 12], [0, .6, 0]), P('sph', [.33, 10, 8], [0, 1.55, 0]), P('box', [.3, .38, .04], [.15, .85, .48]), P('box', [.04, .25, .02], [.15, 1.12, .48])], core: [0, 1.55, .35] },
 
   /* ===== v7 补充:对照对抗赛 32 种模型 ===== */
@@ -460,37 +460,34 @@ const RSPEC = {
     TO('detail', 0, .45, 0, .42, .012, 2 * PI, [PI / 2 + .4, .25, .2]),
     S('led', 0, .77, 0, .025), S('led', .38, .55, .1, .022)],
   /* 内部威胁 v10:站姿西装,头身比与攻击者一致;宽领+领带;工牌挂绳清楚;双手抱文件箱 */
-  /* 内部威胁 v13:友好白领。肤色脸+眼点+微笑线,短发露额;藏青西装+白衬衫+红领带;左胸红框工牌+贴身红挂绳;双手托住正前方文件箱(红标签) */
+  /* 内部威胁 v15:棋子式抽象人物(与设备积木同语言)。低多边形红色光头 + 圆台棋子身 + 圆肩;身份靠物件:胸前白底红框工牌贴身,双手托住身前灰色文件箱(红标签) */
   insider: [B('base', 0, 0, .02, .5, .035, .5),
     TO('face', 0, .043, .02, .2, .008, 2 * PI, [PI / 2, 0, 0]),
-    Object.assign(B('body', -0.05, .05, 0, .08, .285, .1), { c: 'pant' }),
-    Object.assign(B('port', -0.05, .035, .02, .085, .03, .13), { c: 'ink' }),
-    Object.assign(B('body', 0.05, .05, 0, .08, .285, .1), { c: 'pant' }),
-    Object.assign(B('port', 0.05, .035, .02, .085, .03, .13), { c: 'ink' }),
-    Object.assign(C('body', 0, .335, 0, .16, .27, 8, .14, [0, PI / 8, 0]), { c: 'suit' }),
-    Object.assign(S('body', -0.15, .57, 0, .055), { c: 'suit' }),
-    Object.assign(S('body', 0.15, .57, 0, .055), { c: 'suit' }),
-    Object.assign(B('face', 0, .5, 0.1472, .05, .105, .008, [0.0683, 0, 0]), { c: 'shirt' }),
-    B('face', 0, .42, 0.1541, .024, .165, .008, [0.0683, 0, 0]),
-    B('face', .04, .468, 0.1423, .044, .054, .005, [0.0683, 0, 0]),
-    Object.assign(B('detail', .04, .473, 0.1468, .034, .044, .004, [0.0683, 0, 0]), { c: 'shirt' }),
-    B('face', 0.0260, 0.5217, 0.1508, .006, 0.0796, .004, [0.0683, 0, 0.2541]),
-    Object.assign(C('body', 0, .6, 0, .035, .05, 8), { c: 'skin' }),
-    Object.assign(S('body', 0, .72, 0, .085), { c: 'skin' }),
-    Object.assign(S('port', 0, .75, -.015, .082), { c: 'hair' }),
-    Object.assign(S('port', -0.028, .73, 0.0776, .009), { c: 'ink' }),
-    Object.assign(S('port', 0.028, .73, 0.0776, .009), { c: 'ink' }),
-    Object.assign(B('port', 0, .695, 0.0801, .03, .006, .006), { c: 'ink' }),
-    Object.assign(C('body', -0.1575, 0.3932, 0.0150, 0.03, 0.1886, 6, null, [2.8273, 0.9124, 0.1552]), { c: 'suit' }),
-    Object.assign(C('body', -0.1225, 0.2347, 0.1025, 0.028, 0.2156, 6, null, [1.8738, -0.7888, -0.5938]), { c: 'suit' }),
-    Object.assign(B('body', -0.075, .262, .205, .05, .025, .075), { c: 'skin' }),
-    Object.assign(C('body', 0.1575, 0.3932, 0.0150, 0.03, 0.1886, 6, null, [2.8273, -0.9124, -0.1552]), { c: 'suit' }),
-    Object.assign(C('body', 0.1225, 0.2347, 0.1025, 0.028, 0.2156, 6, null, [1.8738, 0.7888, 0.5938]), { c: 'suit' }),
-    Object.assign(B('body', 0.075, .262, .205, .05, .025, .075), { c: 'skin' }),
-    B('detail', 0, .287, .21, .18, .12, .12),
-    B('detail', 0, .407, .21, .19, .015, .13),
-    B('face', 0, .33, .2733, .08, .04, .006),
-    B('led', -.05, .305, .2722, .02, .012, .004)],
+    Object.assign(C('body', 0, .035, 0, .135, .06, 10, .175, [0, PI / 10, 0]), { c: 'deepred' }),
+    Object.assign(C('body', 0, .095, 0, .11, .36, 10, .15, [0, PI / 10, 0]), { c: 'deepred' }),
+    C('face', 0, .445, 0, .118, .035, 10, .125, [0, PI / 10, 0]),
+    S('body', -.11, .425, 0, .055),
+    S('body', .11, .425, 0, .055),
+    C('body', 0, .475, 0, .045, .04, 8),
+    S('face', 0, .6, 0, .1),
+    Object.assign(B('led', 0, .37, 0.1129, .056, .066, .005, [-0.1053, 0, 0]), { c: 'white' }),
+    B('face', 0, 0.372, 0.1174, 0.048, 0.005, .004, [-0.1053, 0, 0]),
+    B('face', 0, 0.425, 0.1174, 0.048, 0.009, .004, [-0.1053, 0, 0]),
+    B('face', -0.022, 0.377, 0.1174, 0.004, 0.048, .004, [-0.1053, 0, 0]),
+    B('face', 0.022, 0.377, 0.1174, 0.004, 0.048, .004, [-0.1053, 0, 0]),
+    B('face', 0, 0.39, 0.1174, 0.026, 0.004, .004, [-0.1053, 0, 0]),
+    B('face', 0, 0.4, 0.1174, 0.026, 0.004, .004, [-0.1053, 0, 0]),
+    B('face', 0, .436, 0.1097, .008, .018, .004, [-0.1053, 0, 0]),
+    C('body', -0.1400, 0.2896, 0.0150, 0.032, 0.1508, 6, null, [0.6717, 1.1604, 2.1628]),
+    C('body', -0.1200, 0.1631, 0.0975, 0.03, 0.1888, 6, null, [1.7798, -0.7511, -0.6184]),
+    B('body', -0.075, .192, .195, .05, .025, .075),
+    C('body', 0.1400, 0.2896, 0.0150, 0.032, 0.1508, 6, null, [0.6717, -1.1604, -2.1628]),
+    C('body', 0.1200, 0.1631, 0.0975, 0.03, 0.1888, 6, null, [1.7798, 0.7511, 0.6184]),
+    B('body', 0.075, .192, .195, .05, .025, .075),
+    B('detail', 0, .217, .2, .18, .11, .12),
+    B('detail', 0, .327, .2, .19, .015, .13),
+    B('face', 0, .25, .2633, .08, .04, .006),
+    B('led', -.05, .232, .2622, .02, .012, .004)],
 
 
   /* ===== v7 新增 ===== */
@@ -617,7 +614,7 @@ function buildModel(T, type) {
 const VS_DEV = 'attribute float aAo;varying vec3 vN;varying vec3 vV;varying float vAo;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);vAo=aAo;gl_Position=projectionMatrix*mv;}';
 const FS_DEV = 'uniform vec3 uColor,uRim,uHemiSky,uHemiGnd;uniform float uRimK,uLam,uAmb,uSpec,uShin,uFill;varying vec3 vN;varying vec3 vV;varying float vAo;void main(){vec3 N=normalize(vN);vec3 V=normalize(vV);vec3 Ldir=normalize(vec3(.35,.85,.45));float ndl=max(dot(N,Ldir),0.);float hemi=.5+.5*N.y;vec3 ambCol=mix(uHemiGnd,uHemiSky,hemi);float ambL=dot(ambCol,vec3(.2126,.7152,.0722));float shade=mix(uFill,1.,smoothstep(0.,1.,ndl)*.85);float lit=shade*(.55+uAmb*ambL*.9);vec3 diff=uColor*lit;vec3 H=normalize(Ldir+V);float sp=pow(max(dot(N,H),0.),uShin)*uSpec*ndl;float fr=pow(1.-max(abs(dot(N,V)),0.),3.6);vec3 c=(diff+uRim*sp*.55+uRim*fr*uRimK*.85)*vAo;gl_FragColor=vec4(c,1.);}';
 /* 自定义部件色(仅人物类使用):肤色、白衬衫、藏青西装、深色头发/眼 */
-const CUSTOM_COL = { skin: { dark: '#e8c4a8', light: '#e8c4a8' }, shirt: { dark: '#eef1f5', light: '#f4f6f9' }, suit: { dark: '#2c3a52', light: '#34445f' }, hair: { dark: '#3a2c24', light: '#3f3027' }, ink: { dark: '#1c1a1a', light: '#1c1a1a' }, pant: { dark: '#252d3c', light: '#2c3546' } };
+const CUSTOM_COL = { skin: { dark: '#e8c4a8', light: '#e8c4a8' }, shirt: { dark: '#eef1f5', light: '#f4f6f9' }, suit: { dark: '#2c3a52', light: '#34445f' }, hair: { dark: '#3a2c24', light: '#3f3027' }, ink: { dark: '#1c1a1a', light: '#1c1a1a' }, pant: { dark: '#252d3c', light: '#2c3546' }, white: { dark: '#f2f4f7', light: '#ffffff' }, deepred: { dark: '#9a2230', light: '#9c1a2a' } };
 const ROLE_FIX = { dark: { base: '#556578', port: '#3a4860', detail: '#a8b6c8' }, light: { base: '#7a8a9c', port: '#4a586c', detail: '#b0bec8' } };
 const ROLE_K = { dark: { body: .78, face: 1.0, rim: { body: .22, face: .14, base: .08, port: .04, led: 0, detail: .12 }, spec: { body: .18, face: .22, base: .06, port: .04, led: 0, detail: .12 }, shin: { body: 28, face: 36, base: 16, port: 20, led: 1, detail: 24 } }, light: { body: .88, face: 1.0, rim: { body: .12, face: .08, base: .04, port: .03, led: 0, detail: .07 }, spec: { body: .12, face: .14, base: .04, port: .03, led: 0, detail: .08 }, shin: { body: 32, face: 40, base: 18, port: 22, led: 1, detail: 28 } } };
 function roleColor(T, main, role, theme) {

@@ -125,11 +125,10 @@ JS = r"""([WL,SYM,DWL,PWL])=>{
     if(!(head&&scr&&scr.c.z>head.c.z)) R.orient.push({note:'笔记本屏幕不在人物前方'});
     const eyes=P.filter(p=>p.role==='led'&&p.s==='sph'&&p.c.y>0.4);
     if(eyes.length<2||eyes.some(e=>e.c.z<head.c.z)) R.orient.push({note:'红眼不在兜帽前侧(+Z)'});}
-  if(type==='insider'){ const sph=P.filter(p=>p.s==='sph'), head=sph.filter(p=>p.role==='body').sort((a,b)=>b.c.y-a.c.y)[0];
-    const hair=sph.filter(p=>p.role==='port').sort((a,b)=>b.v-a.v)[0], eyes=sph.filter(p=>p.role==='port'&&p!==hair);
-    if(!head||!hair||hair.c.z>=head.c.z||eyes.length<2||eyes.some(e=>e.c.z<=head.c.z)) R.orient.push({note:'脸/眼点不朝 +Z'});
-    const box=P.filter(p=>p.role==='detail'&&p.s==='box').sort((a,b)=>b.v-a.v)[0];
-    if(!box||box.c.z<=head.c.z||Math.abs(box.c.x)>0.02) R.orient.push({note:'文件箱不在身体正前方'});}
+  if(type==='insider'){ const head=P.filter(p=>p.s==='sph').sort((a,b)=>b.c.y-a.c.y)[0];
+    const box=P.filter(p=>p.role==='detail'&&p.s==='box').sort((a,b)=>b.v-a.v)[0], badge=P.filter(p=>p.role==='face'&&p.s==='box'&&p.c.y>0.3);
+    if(!head||!box||box.c.z<=head.c.z+0.05||Math.abs(box.c.x)>0.02) R.orient.push({note:'文件箱不在身体正前方'});
+    if(!badge.length||badge.some(b=>b.c.z<=head.c.z)) R.orient.push({note:'工牌不在正面'});}
   // 5) 超出范围
   P.forEach(p=>{ const e=1e-3; if(p.b.min.y<-e||p.b.max.y>1+e||p.b.min.x<-.5-e||p.b.max.x>.5+e||p.b.min.z<-.5-e||p.b.max.z>.5+e) R.range.push({i:p.i,role:p.role,min:p.b.min.toArray().map(v=>+v.toFixed(3)),max:p.b.max.toArray().map(v=>+v.toFixed(3))});});
   // 6) 对称:body/base/face 体积加权的 x 质心偏差
