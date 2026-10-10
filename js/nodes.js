@@ -24,8 +24,8 @@ function gridFor(theme, n = 8) {
   g.material.transparent = true; g.material.opacity = theme === 'light' ? .4 : .3; g.material.depthWrite = false; return g;
 }
 function frameFor(node, asp) {
-  const r = node.bounds.radius + 1.3, h = node.bounds.height + 1.0;
-  const need = Math.max(h * 1.25, (r * 2.2) / Math.min(asp, 1.6), 3.4);
+  const r = node.bounds.radius + .3, h = node.bounds.height + .35;
+  const need = Math.max(h * 1.25, (r * 2.2) / Math.min(asp, 1.6), 1.5);
   const dist = need / (2 * Math.tan(FOV * Math.PI / 360)) * 1.05;
   return persp(asp, dist, 0, h * .38, 0);
 }
@@ -57,11 +57,35 @@ function buildCats() {
   const add = (key, name, en, color, count) => {
     const d = document.createElement('div'); d.className = 'ct' + (ST.cat === key ? ' on' : ''); d.dataset.c = key;
     d.innerHTML = (color ? '<i style="background:' + color + ';color:' + color + '"></i>' : '<i style="background:var(--dim);color:transparent"></i>') + '<span>' + name + '<span class="en">' + en + '</span></span><small>' + count + '</small>';
-    d.onclick = () => { ST.cat = key; buildCats(); if (CB.on) setCombo(false); else buildGallery(); }; el.appendChild(d);
+    d.onclick = () => selectCat(key); el.appendChild(d);
   };
   add('all', '全部', 'All', null, types.length);
   Object.keys(L.CATS).forEach(k => { const c = L.CATS[k]; add(k, c.name, c.en, c[ST.theme], L.byCat(k).length); });
 }
+
+/* ---------- 分类切换 + hash 路由 ----------
+   任何视图(画廊/单模型/四态/组合)点分类:清理预览与组合场景 → 网格画廊 → 说明栏重置 → #cat=key */
+function showGallery(key) {
+  ST.cat = L.CATS[key] ? key : 'all';
+  $('pv').classList.remove('show'); disposePv(); ST.sel = null; ST.quad = false; ST.state = 'normal';
+  if (CB.on) { CB.on = false; $('combo').classList.remove('show'); $('bView').classList.remove('on'); $('bView').textContent = '⌗ 组合示例'; }
+  disposeCombo();
+  if (pr) { pr.setScissorTest(false); pr.clear(); }
+  buildCats(); buildGallery(); detail();
+}
+function selectCat(key) {
+  const h = '#cat=' + key;
+  if (location.hash !== h) location.hash = h; /* 推入历史,hashchange 里执行 */
+  else showGallery(key);
+}
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h === 'combo') { if (!CB.on) setCombo(true, true); return; }
+  if (h.startsWith('cat=')) { showGallery(h.slice(4)); return; }
+  if (L.SPEC[h]) { if (ST.sel !== h || !$('pv').classList.contains('show')) openPreview(h, true); return; }
+  showGallery(ST.cat || 'all');
+}
+addEventListener('hashchange', route);
 
 /* ---------- 画廊 ---------- */
 function buildGallery() {
@@ -72,7 +96,7 @@ function buildGallery() {
     const sp = L.SPEC[type], c = L.CATS[sp.cat][ST.theme];
     const d = document.createElement('div'); d.className = 'cell' + (ST.sel === type ? ' on' : ''); d.dataset.t = type; d.title = sp.name + ' / ' + sp.en;
     const cv = document.createElement('canvas'); cv.width = TW; cv.height = TH; d.appendChild(cv);
-    const nm = document.createElement('div'); nm.className = 'nm'; nm.innerHTML = '<i style="background:' + c + '"></i>' + sp.name + '<small>' + sp.size + '</small>'; d.appendChild(nm);
+    const nm = document.createElement('div'); nm.className = 'nm'; nm.innerHTML = '<i style="background:' + c + '"></i>' + sp.name; d.appendChild(nm);
     d.onclick = () => openPreview(type);
     g.appendChild(d);
     renderThumb(type, cv, ST.theme);
@@ -90,13 +114,13 @@ function buildPv() {
   pv = { items: states.map(s => { const sc = newScene(ST.theme, 8); const n = L.createNode(ST.sel, { theme: ST.theme, label: L.SPEC[ST.sel].name }); n.setState(s); sc.add(n.group); return { scene: sc, node: n, state: s }; }) };
   $('pvlabels').classList.toggle('show', ST.quad);
 }
-function openPreview(type) {
-  if (CB.on) setCombo(false);
+function openPreview(type, fromRoute) {
+  if (CB.on) setCombo(false, true);
   ST.sel = type; $('pv').classList.add('show'); $('pvTitle').textContent = L.SPEC[type].name + ' · ' + L.SPEC[type].en;
   document.querySelectorAll('.cell').forEach(c => c.classList.toggle('on', c.dataset.t === type));
-  buildPv(); detail(); syncStateBtns(); location.hash = type;
+  buildPv(); detail(); syncStateBtns(); if (!fromRoute && location.hash !== '#' + type) location.hash = type;
 }
-function closePreview() { $('pv').classList.remove('show'); disposePv(); history.replaceState(null, '', location.pathname); }
+function closePreview() { if (!$('pv').classList.contains('show')) return; selectCat(ST.cat || 'all'); }
 function setState(s) { ST.state = s; if (ST.quad) { ST.quad = false; } buildPv(); syncStateBtns(); detail(); }
 function syncStateBtns() {
   document.querySelectorAll('.stbtn').forEach(b => b.classList.toggle('on', !ST.quad && b.dataset.s === ST.state));
@@ -122,6 +146,11 @@ function loop(now) {
 const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 function detail() {
   const D = $('detail');
+  if (!ST.sel && ST.cat && ST.cat !== 'all' && L.CATS[ST.cat]) {
+    const c = L.CATS[ST.cat], list = L.byCat(ST.cat);
+    D.innerHTML = '<h2>' + esc(c.name) + '</h2><div class="en">' + esc(c.en) + ' · ' + list.length + ' 种</div><div class="kv"><b>色值</b><span><span class="sw" style="background:' + c[ST.theme] + '"></span>夜 ' + c.dark + ' / 日 ' + c.light + '</span></div><h3>包含</h3><p>' + list.map(t => esc(L.SPEC[t].name)).join('、') + '</p><h3>说明</h3><p>点击模型查看详情与四态对比。所有模型统一在 1×1×1 立方体内。</p>';
+    return;
+  }
   if (!ST.sel) {
     const rows = Object.keys(L.CATS).map(k => { const c = L.CATS[k]; return '<div><span class="sw" style="background:' + c[ST.theme] + '"></span>' + c.name + ' <span style="color:var(--dim)">夜 ' + c.dark + ' · 日 ' + c.light + '</span></div>'; }).join('');
     D.innerHTML = '<h2>节点模型库</h2><div class="en">Generic security node models</div><h3>说明</h3><p>每种节点是程序化生成的实心低多边形(分层机身/面板/接口/指示灯,朗伯 + 大类色边缘光),上方有小标签牌;轮廓区分种类,颜色区分类别。状态用模型描边表示:选中=白边、被攻击=闪红+红边、已防护=青边+薄护罩。无地面发光底座。全部为概念造型,不对应任何真实产品或商标。</p><h3>类别色</h3><div style="display:flex;flex-direction:column;gap:6px;font-size:13px">' + rows + '</div><h3>复用</h3><p><code>NODELIB.createNode(type, { theme, size, badge })</code> 返回 <code>{ group, setState, update, dispose }</code>;另有 <code>createZone({title,w,d,color})</code> 分区底板、<code>createZoneLabel(text)</code> 区域标签、<code>createLink(a,b)</code> 绿色虚线箭头、<code>addLights(scene)</code>。</p>';
@@ -168,6 +197,10 @@ const LINK_PAIRS = [
   ['Web服务器1', '核心数据库'], ['核心数据库', '备份存储'], ['堡垒机', '容器集群'], ['入侵防御', '态势感知'],
   ['核心交换', '边界防火墙'], ['VPN网关', '运维电脑1'], ['邮件服务器', 'DNS'], ['负载均衡', 'Web服务器2'],
 ];
+function disposeCombo() {
+  if (!CB.scene) return; CB.nodes.forEach(n => n.dispose()); CB.links.forEach(l => l.dispose()); CB.zones.forEach(z => z.dispose());
+  CB.nodes = []; CB.links = []; CB.zones = []; CB.pick = []; CB.scene = null; if (cr) cr.clear();
+}
 function buildCombo() {
   if (CB.scene) { CB.nodes.forEach(n => n.dispose()); CB.links.forEach(l => l.dispose()); CB.zones.forEach(z => z.dispose()); if (CB.bloom) { try { CB.bloom.dispose(); } catch (e) {} CB.bloom = null; } }
   const th = ST.theme, sc = new T.Scene(); sc.background = new T.Color(L.STATE_COL[th].bg); L.addLights(sc, th);
@@ -204,9 +237,11 @@ function fitCombo() {
   CB.dist = hi * FIT_K;
 }
 function comboCam() { const w = cbcv.clientWidth, h = cbcv.clientHeight; return persp(w / Math.max(1, h), CB.dist, CB.tgt.x, .2, CB.tgt.z); }
-function setCombo(on) {
+function setCombo(on, fromRoute) {
+  if (!fromRoute) { if (on) { if (location.hash !== '#combo') { location.hash = 'combo'; return; } } else { selectCat(ST.cat || 'all'); return; } }
+  if (on) { disposePv(); ST.quad = false; }
   CB.on = !!on; $('combo').classList.toggle('show', CB.on); $('bView').classList.toggle('on', CB.on); $('bView').textContent = CB.on ? '▦ 节点画廊' : '⌗ 组合示例';
-  if (CB.on) { $('pv').classList.remove('show'); buildCombo(); $('ghead').textContent = '组合示例 · 2 大区 / ' + CB.zones.filter(z => z.nested).length + ' 子区 / ' + CB.nodes.length + ' 节点 · 绿色虚线表示流向'; } else buildGallery();
+  if (CB.on) { $('pv').classList.remove('show'); buildCombo(); $('ghead').textContent = '组合示例 · 2 大区 / ' + CB.zones.filter(z => z.nested).length + ' 子区 / ' + CB.nodes.length + ' 节点 · 绿色虚线表示流向'; } else { disposeCombo(); buildGallery(); }
 }
 { let drag = null;
   cbcv.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, m: 0 }; cbcv.setPointerCapture(e.pointerId); });
@@ -241,12 +276,12 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closePreview(); });
 addEventListener('sec-theme', applyTheme);
 $('total').textContent = '共 ' + L.types().length + ' 种节点 · ' + Object.keys(L.CATS).length + ' 个类别';
 applyTheme();
-const h0 = decodeURIComponent(location.hash.slice(1)); if (h0 === 'combo') setCombo(true); else if (L.SPEC[h0]) openPreview(h0);
+if (location.hash) route();
 requestAnimationFrame(loop);
 
 /* 测试/复用接口 */
 window.NODES_PAGE = {
-  ST, CB, setCombo, openPreview, closePreview, setState, setQuad(on) { ST.quad = !!on; buildPv(); syncStateBtns(); detail(); },
+  ST, CB, setCombo, selectCat, openPreview, closePreview, setState, setQuad(on) { ST.quad = !!on; buildPv(); syncStateBtns(); detail(); },
   /* 纯白剪影掩码,用于判断轮廓是否重复 */
   mask(type, size = 96) {
     const sc = new T.Scene(); sc.background = new T.Color('#000');
