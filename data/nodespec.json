@@ -1,6 +1,6 @@
 {
  "schema": "security-node-spec",
- "version": 7,
+ "version": 8,
  "generated": "2026-10-10",
  "note": "概念造型规范,不对应任何真实产品或商标。坐标单位与事件大全一致(1 = 地面网格 1 格),Y 轴向上;尺寸系数乘到整个节点。",
  "sizes": {
@@ -29,15 +29,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 892
+   "tris": 492,
+   "verts": 288,
+   "parts": 6
   },
   "switch": {
    "norm": 0.961538,
@@ -55,15 +49,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 456
+   "tris": 456,
+   "verts": 304,
+   "parts": 6
   },
   "coreswitch": {
    "norm": 1.111111,
@@ -81,15 +69,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 432
+   "tris": 540,
+   "verts": 298,
+   "parts": 6
   },
   "ap": {
    "norm": 0.947867,
@@ -107,14 +89,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 1300
+   "tris": 620,
+   "verts": 338,
+   "parts": 5
   },
   "lb": {
    "norm": 1.234568,
@@ -132,14 +109,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 672
+   "tris": 456,
+   "verts": 262,
+   "parts": 5
   },
   "dns": {
    "norm": 1.008064,
@@ -157,14 +129,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 1432
+   "tris": 656,
+   "verts": 332,
+   "parts": 5
   },
   "pc": {
    "norm": 1.075269,
@@ -182,15 +149,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 188
+   "tris": 500,
+   "verts": 234,
+   "parts": 6
   },
   "laptop": {
    "norm": 1.111111,
@@ -208,13 +169,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "body_00",
-    "face_01",
-    "port_02",
-    "led_03"
-   ],
-   "tris": 144
+   "tris": 144,
+   "verts": 96,
+   "parts": 4
   },
   "printer": {
    "norm": 1.111111,
@@ -232,15 +189,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 108
+   "tris": 108,
+   "verts": 72,
+   "parts": 6
   },
   "mobile": {
    "norm": 1.065984,
@@ -258,41 +209,29 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 560
+   "tris": 312,
+   "verts": 192,
+   "parts": 6
   },
   "tablet": {
    "norm": 1,
    "raw": {
     "x": 1,
     "y": 0.7215,
-    "z": 0.5178
+    "z": 0.518
    },
    "after": {
     "x": 1,
     "y": 0.7215,
-    "z": 0.5178
+    "z": 0.518
    },
    "longest": 1,
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 500
+   "tris": 260,
+   "verts": 162,
+   "parts": 6
   },
   "voip": {
    "norm": 1.25,
@@ -310,15 +249,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 264
+   "tris": 248,
+   "verts": 156,
+   "parts": 6
   },
   "firewall": {
    "norm": 1,
@@ -336,14 +269,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 228
+   "tris": 228,
+   "verts": 136,
+   "parts": 5
   },
   "waf": {
    "norm": 1.123596,
@@ -361,15 +289,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 144
+   "tris": 144,
+   "verts": 96,
+   "parts": 6
   },
   "idsips": {
    "norm": 1.041667,
@@ -387,14 +309,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 976
+   "tris": 488,
+   "verts": 266,
+   "parts": 5
   },
   "bastion": {
    "norm": 1,
@@ -412,25 +329,19 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 168
+   "tris": 168,
+   "verts": 112,
+   "parts": 6
   },
   "honeypot": {
    "norm": 0.994868,
    "raw": {
-    "x": 0.8395,
+    "x": 0.8387,
     "y": 1.0052,
     "z": 0.82
    },
    "after": {
-    "x": 0.8352,
+    "x": 0.8344,
     "y": 1,
     "z": 0.8158
    },
@@ -438,14 +349,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 956
+   "tris": 468,
+   "verts": 250,
+   "parts": 5
   },
   "soc": {
    "norm": 1,
@@ -463,14 +369,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 240
+   "tris": 240,
+   "verts": 154,
+   "parts": 5
   },
   "vpngw": {
    "norm": 0.961538,
@@ -488,40 +389,29 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 1124
+   "tris": 540,
+   "verts": 306,
+   "parts": 6
   },
   "behavior": {
-   "norm": 1.06383,
+   "norm": 1.162791,
    "raw": {
-    "x": 0.94,
-    "y": 0.86,
-    "z": 0.94
+    "x": 0.86,
+    "y": 0.76,
+    "z": 0.86
    },
    "after": {
     "x": 1,
-    "y": 0.9149,
+    "y": 0.8837,
     "z": 1
    },
    "longest": 1,
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 1860
+   "tris": 524,
+   "verts": 276,
+   "parts": 5
   },
   "sandbox": {
    "norm": 0.997506,
@@ -539,14 +429,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 812
+   "tris": 420,
+   "verts": 230,
+   "parts": 5
   },
   "websrv": {
    "norm": 1.041667,
@@ -564,14 +449,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04"
-   ],
-   "tris": 276
+   "tris": 276,
+   "verts": 184,
+   "parts": 5
   },
   "dbsrv": {
    "norm": 1.020408,
@@ -589,14 +469,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 780
+   "tris": 420,
+   "verts": 232,
+   "parts": 5
   },
   "storage": {
    "norm": 1,
@@ -614,39 +489,29 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 360
+   "tris": 360,
+   "verts": 240,
+   "parts": 6
   },
   "cloud": {
    "norm": 1.111111,
    "raw": {
     "x": 0.9,
     "y": 0.73,
-    "z": 0.5543
+    "z": 0.5221
    },
    "after": {
     "x": 1,
     "y": 0.8111,
-    "z": 0.6159
+    "z": 0.5801
    },
    "longest": 1,
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03"
-   ],
-   "tris": 1352
+   "tris": 552,
+   "verts": 296,
+   "parts": 4
   },
   "container": {
    "norm": 1.06497,
@@ -664,13 +529,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "body_00",
-    "face_01",
-    "port_02",
-    "led_03"
-   ],
-   "tris": 264
+   "tris": 264,
+   "verts": 160,
+   "parts": 4
   },
   "mailsrv": {
    "norm": 0.961538,
@@ -688,15 +549,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 168
+   "tris": 144,
+   "verts": 88,
+   "parts": 6
   },
   "ipcam": {
    "norm": 1.052632,
@@ -714,15 +569,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 1032
+   "tris": 576,
+   "verts": 328,
+   "parts": 6
   },
   "plc": {
    "norm": 1,
@@ -740,15 +589,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 312
+   "tris": 312,
+   "verts": 208,
+   "parts": 6
   },
   "sensor": {
    "norm": 0.913242,
@@ -766,14 +609,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 1488
+   "tris": 656,
+   "verts": 350,
+   "parts": 5
   },
   "hmi": {
    "norm": 1.002576,
@@ -791,15 +629,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 156
+   "tris": 156,
+   "verts": 104,
+   "parts": 6
   },
   "pos": {
    "norm": 1.111111,
@@ -817,41 +649,29 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 196
+   "tris": 188,
+   "verts": 116,
+   "parts": 6
   },
   "attacker": {
-   "norm": 1.190476,
+   "norm": 1.234568,
    "raw": {
-    "x": 0.6303,
-    "y": 0.84,
-    "z": 0.6868
+    "x": 0.6861,
+    "y": 0.81,
+    "z": 0.72
    },
    "after": {
-    "x": 0.7503,
+    "x": 0.847,
     "y": 1,
-    "z": 0.8177
+    "z": 0.8889
    },
    "longest": 1,
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 1474
+   "tris": 622,
+   "verts": 334,
+   "parts": 6
   },
   "botnet": {
    "norm": 1.06383,
@@ -869,14 +689,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 1128
+   "tris": 536,
+   "verts": 298,
+   "parts": 5
   },
   "c2": {
    "norm": 0.891266,
@@ -894,39 +709,29 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 1468
+   "tris": 684,
+   "verts": 376,
+   "parts": 5
   },
   "internet": {
-   "norm": 1.012995,
+   "norm": 1.11084,
    "raw": {
-    "x": 0.9872,
-    "y": 0.882,
-    "z": 0.9092
+    "x": 0.9002,
+    "y": 0.842,
+    "z": 0.8749
    },
    "after": {
     "x": 1,
-    "y": 0.8935,
-    "z": 0.9211
+    "y": 0.9353,
+    "z": 0.9718
    },
    "longest": 1,
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 2072
+   "tris": 728,
+   "verts": 368,
+   "parts": 5
   },
   "insider": {
    "norm": 1.190476,
@@ -944,15 +749,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 556
+   "tris": 316,
+   "verts": 174,
+   "parts": 6
   },
   "aggswitch": {
    "norm": 1.216545,
@@ -970,15 +769,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 1308
+   "tris": 588,
+   "verts": 352,
+   "parts": 6
   },
   "nta": {
    "norm": 1.111111,
@@ -996,15 +789,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 1140
+   "tris": 508,
+   "verts": 282,
+   "parts": 6
   },
   "hids": {
    "norm": 1.25,
@@ -1022,15 +809,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 1168
+   "tris": 576,
+   "verts": 316,
+   "parts": 6
   },
   "appsrv": {
    "norm": 1.098901,
@@ -1048,25 +829,19 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 708
+   "tris": 492,
+   "verts": 296,
+   "parts": 6
   },
   "cache": {
    "norm": 0.980392,
    "raw": {
-    "x": 0.7354,
+    "x": 0.74,
     "y": 1.02,
     "z": 0.6
    },
    "after": {
-    "x": 0.721,
+    "x": 0.7255,
     "y": 1,
     "z": 0.5882
    },
@@ -1074,15 +849,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 696
+   "tris": 400,
+   "verts": 220,
+   "parts": 6
   },
   "objstore": {
    "norm": 1.041667,
@@ -1100,41 +869,29 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 480
+   "tris": 312,
+   "verts": 172,
+   "parts": 6
   },
   "mq": {
    "norm": 1,
    "raw": {
     "x": 1,
-    "y": 0.75,
-    "z": 0.6
+    "y": 0.645,
+    "z": 0.5505
    },
    "after": {
     "x": 1,
-    "y": 0.75,
-    "z": 0.6
+    "y": 0.645,
+    "z": 0.5505
    },
    "longest": 1,
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 1608
+   "tris": 720,
+   "verts": 404,
+   "parts": 6
   },
   "k8smaster": {
    "norm": 1,
@@ -1152,14 +909,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 916
+   "tris": 524,
+   "verts": 298,
+   "parts": 5
   },
   "k8snode": {
    "norm": 1.010101,
@@ -1177,15 +929,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 192
+   "tris": 192,
+   "verts": 118,
+   "parts": 6
   },
   "registry": {
    "norm": 1,
@@ -1203,15 +949,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 240
+   "tris": 240,
+   "verts": 160,
+   "parts": 6
   },
   "cnapp": {
    "norm": 0.997506,
@@ -1229,15 +969,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 312
+   "tris": 312,
+   "verts": 208,
+   "parts": 6
   },
   "workstation": {
    "norm": 0.935417,
@@ -1255,15 +989,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 224
+   "tris": 224,
+   "verts": 146,
+   "parts": 6
   },
   "opsterm": {
    "norm": 1.052632,
@@ -1281,14 +1009,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "body_00",
-    "face_01",
-    "port_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 216
+   "tris": 216,
+   "verts": 142,
+   "parts": 5
   },
   "kiosk": {
    "norm": 1.030767,
@@ -1306,15 +1029,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 132
+   "tris": 132,
+   "verts": 88,
+   "parts": 6
   },
   "term3p": {
    "norm": 1.179171,
@@ -1332,14 +1049,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "led_03",
-    "detail_04"
-   ],
-   "tris": 424
+   "tris": 184,
+   "verts": 108,
+   "parts": 5
   },
   "iotgw": {
    "norm": 1.169591,
@@ -1357,15 +1069,9 @@
    "minY": 0,
    "cx": 0,
    "cz": 0,
-   "parts": [
-    "base_00",
-    "body_01",
-    "face_02",
-    "port_03",
-    "led_04",
-    "detail_05"
-   ],
-   "tris": 868
+   "tris": 388,
+   "verts": 232,
+   "parts": 6
   }
  },
  "categories": {
@@ -1467,7 +1173,7 @@
    "desc": "青色细描边 + 薄半透明护罩"
   }
  },
- "style": "v7 原子→归一化 1×1×1→按角色合并;53 种 / 7 大类(新增云原生 cn);无底座;描边状态",
+ "style": "v8 减面+焊接+倒角;接触阴影;半球+Blinn-Phong+AO;ACES",
  "camera": {
   "projection": "perspective",
   "fovDeg": 32,
@@ -1569,162 +1275,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      2.2,
-      0.5,
-      1.4
-     ],
-     "pos": [
-      0,
-      0.35,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.05,
-      0.05,
-      1.3,
-      6
-     ],
-     "pos": [
-      -0.85,
-      1.15,
-      -0.5
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.05,
-      0.05,
-      1.3,
-      6
-     ],
-     "pos": [
-      0.85,
-      1.15,
-      -0.5
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.12,
-      0.08,
-      0.04
-     ],
-     "pos": [
-      -0.6,
-      0.4,
-      0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.12,
-      0.08,
-      0.04
-     ],
-     "pos": [
-      -0.3,
-      0.4,
-      0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.12,
-      0.08,
-      0.04
-     ],
-     "pos": [
-      0,
-      0.4,
-      0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.12,
-      0.08,
-      0.04
-     ],
-     "pos": [
-      0.3,
-      0.4,
-      0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.12,
-      0.08,
-      0.04
-     ],
-     "pos": [
-      0.6,
-      0.4,
-      0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 492,
+   "verts": 288
   },
   {
    "type": "switch",
@@ -1751,407 +1304,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      2.9,
-      0.32,
-      1.1
-     ],
-     "pos": [
-      0,
-      0.26,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -1.2,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -1.2,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -0.9329999999999999,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -0.9329999999999999,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -0.6659999999999999,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -0.6659999999999999,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -0.3989999999999999,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -0.3989999999999999,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -0.1319999999999999,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      -0.1319999999999999,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      0.135,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      0.135,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      0.40200000000000014,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      0.40200000000000014,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      0.6690000000000003,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      0.6690000000000003,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      0.9360000000000002,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      0.9360000000000002,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      1.203,
-      0.32,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.16,
-      0.07,
-      0.04
-     ],
-     "pos": [
-      1.203,
-      0.2,
-      0.57
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 456,
+   "verts": 304
   },
   {
    "type": "coreswitch",
@@ -2178,200 +1333,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      2,
-      1.5,
-      1.2
-     ],
-     "pos": [
-      0,
-      0.85,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.2,
-      0.04
-     ],
-     "pos": [
-      -0.78,
-      0.85,
-      0.62
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.2,
-      0.04
-     ],
-     "pos": [
-      -0.52,
-      0.85,
-      0.62
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.2,
-      0.04
-     ],
-     "pos": [
-      -0.26,
-      0.85,
-      0.62
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.2,
-      0.04
-     ],
-     "pos": [
-      0,
-      0.85,
-      0.62
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.2,
-      0.04
-     ],
-     "pos": [
-      0.26,
-      0.85,
-      0.62
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.2,
-      0.04
-     ],
-     "pos": [
-      0.52,
-      0.85,
-      0.62
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.2,
-      0.04
-     ],
-     "pos": [
-      0.78,
-      0.85,
-      0.62
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.3,
-      0.3,
-      0.06,
-      12
-     ],
-     "pos": [
-      -0.45,
-      1.63,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.3,
-      0.3,
-      0.06,
-      12
-     ],
-     "pos": [
-      0.45,
-      1.63,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 540,
+   "verts": 298
   },
   {
    "type": "ap",
@@ -2398,103 +1362,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cyl",
-     "args": [
-      0.08,
-      0.08,
-      0.95,
-      6
-     ],
-     "pos": [
-      0,
-      0.48,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": "light"
-    },
-    {
-     "shape": "hemi",
-     "args": [
-      0.9
-     ],
-     "pos": [
-      0,
-      1,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": "dark"
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.95,
-      0.95,
-      0.12,
-      20
-     ],
-     "pos": [
-      0,
-      1.12,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.55,
-      0.035,
-      3.14
-     ],
-     "pos": [
-      0,
-      1.28,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": "light"
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.95,
-      0.035,
-      3.14
-     ],
-     "pos": [
-      0,
-      1.28,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": "light"
-    }
-   ]
+   "parts": 5,
+   "tris": 620,
+   "verts": 338
   },
   {
    "type": "lb",
@@ -2521,179 +1391,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      0.9,
-      0.7,
-      0.9
-     ],
-     "pos": [
-      0,
-      0.45,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1,
-      0.08,
-      0.08
-     ],
-     "pos": [
-      -0.95,
-      0.45,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.3,
-      0.3,
-      0.3
-     ],
-     "pos": [
-      -1.55,
-      0.45,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.9,
-      0.08,
-      0.08
-     ],
-     "pos": [
-      0.85,
-      0.45,
-      -0.385
-     ],
-     "rotRad": [
-      0,
-      0.42529711697162154,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.3,
-      0.3,
-      0.3
-     ],
-     "pos": [
-      1.45,
-      0.45,
-      -0.7
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.9,
-      0.08,
-      0.08
-     ],
-     "pos": [
-      0.85,
-      0.45,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.3,
-      0.3,
-      0.3
-     ],
-     "pos": [
-      1.45,
-      0.45,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.9,
-      0.08,
-      0.08
-     ],
-     "pos": [
-      0.85,
-      0.45,
-      0.385
-     ],
-     "rotRad": [
-      0,
-      -0.42529711697162154,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.3,
-      0.3,
-      0.3
-     ],
-     "pos": [
-      1.45,
-      0.45,
-      0.7
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 456,
+   "verts": 262
   },
   {
    "type": "dns",
@@ -2720,66 +1420,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cyl",
-     "args": [
-      0.22,
-      0.32,
-      1.1,
-      8
-     ],
-     "pos": [
-      0,
-      0.55,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "sph",
-     "args": [
-      0.55,
-      10,
-      8
-     ],
-     "pos": [
-      0,
-      1.55,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.62,
-      0.025,
-      6.283185307179586
-     ],
-     "pos": [
-      0,
-      1.55,
-      0
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 656,
+   "verts": 332
   },
   {
    "type": "pc",
@@ -2806,84 +1449,9 @@
     0.25
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      0.55,
-      1.3,
-      1.1
-     ],
-     "pos": [
-      -0.9,
-      0.65,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1.5,
-      0.95,
-      0.08
-     ],
-     "pos": [
-      0.35,
-      1.15,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.1,
-      0.5,
-      0.1
-     ],
-     "pos": [
-      0.35,
-      0.4,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.7,
-      0.05,
-      0.5
-     ],
-     "pos": [
-      0.35,
-      0.05,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 500,
+   "verts": 234
   },
   {
    "type": "laptop",
@@ -2910,65 +1478,9 @@
     -0.3
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.7,
-      0.1,
-      1.15
-     ],
-     "pos": [
-      0,
-      0.1,
-      0.1
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1.7,
-      1.05,
-      0.06
-     ],
-     "pos": [
-      0,
-      0.62,
-      -0.6
-     ],
-     "rotRad": [
-      -0.3,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1.3,
-      0.02,
-      0.6
-     ],
-     "pos": [
-      0,
-      0.16,
-      0.2
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": "dark"
-    }
-   ]
+   "parts": 4,
+   "tris": 144,
+   "verts": 96
   },
   {
    "type": "printer",
@@ -2994,65 +1506,9 @@
     0.3
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.6,
-      0.7,
-      1.2
-     ],
-     "pos": [
-      0,
-      0.4,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1.2,
-      0.05,
-      0.7
-     ],
-     "pos": [
-      0,
-      0.2,
-      0.9
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1.1,
-      0.9,
-      0.03
-     ],
-     "pos": [
-      0,
-      1.1,
-      -0.35
-     ],
-     "rotRad": [
-      -0.35,
-      0,
-      0
-     ],
-     "tone": "light"
-    }
-   ]
+   "parts": 6,
+   "tris": 108,
+   "verts": 72
   },
   {
    "type": "mobile",
@@ -3079,65 +1535,9 @@
     0.3
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      0.75,
-      1.5,
-      0.1
-     ],
-     "pos": [
-      0,
-      0.8,
-      0
-     ],
-     "rotRad": [
-      -0.18,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.3,
-      0.04,
-      0.02
-     ],
-     "pos": [
-      0,
-      1.45,
-      0.17
-     ],
-     "rotRad": [
-      -0.18,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.9,
-      0.08,
-      0.5
-     ],
-     "pos": [
-      0,
-      0.04,
-      0.1
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 312,
+   "verts": 192
   },
   {
    "type": "tablet",
@@ -3163,65 +1563,9 @@
     0.25
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.6,
-      1.1,
-      0.07
-     ],
-     "pos": [
-      0,
-      0.7,
-      0
-     ],
-     "rotRad": [
-      -0.55,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.1,
-      0.7,
-      0.1
-     ],
-     "pos": [
-      0,
-      0.35,
-      -0.35
-     ],
-     "rotRad": [
-      0.5,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1,
-      0.05,
-      0.3
-     ],
-     "pos": [
-      0,
-      0.05,
-      0.3
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 260,
+   "verts": 162
   },
   {
    "type": "voip",
@@ -3247,85 +1591,9 @@
     0.3
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.4,
-      0.35,
-      1
-     ],
-     "pos": [
-      0,
-      0.3,
-      0
-     ],
-     "rotRad": [
-      -0.3,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.1,
-      0.1,
-      1.3,
-      8
-     ],
-     "pos": [
-      0,
-      0.65,
-      -0.25
-     ],
-     "rotRad": [
-      0,
-      0,
-      1.5707963267948966
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.3,
-      0.22,
-      0.3
-     ],
-     "pos": [
-      -0.6,
-      0.6,
-      -0.25
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.3,
-      0.22,
-      0.3
-     ],
-     "pos": [
-      0.6,
-      0.6,
-      -0.25
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 248,
+   "verts": 156
   },
   {
    "type": "firewall",
@@ -3351,198 +1619,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      0.7,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      -0.72,
-      0.24,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.7,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      0,
-      0.24,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.7,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      0.72,
-      0.24,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.52,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      -0.81,
-      0.7,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.52,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      -0.27,
-      0.7,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.52,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      0.27,
-      0.7,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.52,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      0.81,
-      0.7,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.7,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      -0.72,
-      1.1600000000000001,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.7,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      0,
-      1.1600000000000001,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.7,
-      0.42,
-      0.5
-     ],
-     "pos": [
-      0.72,
-      1.1600000000000001,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 228,
+   "verts": 136
   },
   {
    "type": "waf",
@@ -3568,85 +1647,9 @@
     0.4
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cyl",
-     "args": [
-      1,
-      1,
-      0.14,
-      6
-     ],
-     "pos": [
-      0,
-      1.05,
-      -0.2
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.9,
-      0.65,
-      0.06
-     ],
-     "pos": [
-      0,
-      1.05,
-      0.1
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.9,
-      0.1,
-      0.06
-     ],
-     "pos": [
-      0,
-      1.32,
-      0.12
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.6,
-      0.06,
-      0.5
-     ],
-     "pos": [
-      0,
-      0.03,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 144,
+   "verts": 96
   },
   {
    "type": "idsips",
@@ -3672,86 +1675,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cyl",
-     "args": [
-      0.08,
-      0.2,
-      0.9,
-      6
-     ],
-     "pos": [
-      0,
-      0.45,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cone",
-     "args": [
-      1,
-      0.45,
-      20
-     ],
-     "pos": [
-      0,
-      1.15,
-      0
-     ],
-     "rotRad": [
-      3.141592653589793,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.03,
-      0.03,
-      0.6,
-      4
-     ],
-     "pos": [
-      0,
-      1.4,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "sph",
-     "args": [
-      0.09,
-      6,
-      4
-     ],
-     "pos": [
-      0,
-      1.72,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 488,
+   "verts": 266
   },
   {
    "type": "bastion",
@@ -3777,141 +1703,9 @@
     0.45
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.6,
-      0.5,
-      1.6
-     ],
-     "pos": [
-      0,
-      0.25,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.8,
-      1.5,
-      0.8
-     ],
-     "pos": [
-      0,
-      1.25,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.22,
-      0.26,
-      0.22
-     ],
-     "pos": [
-      -0.29,
-      2.13,
-      -0.29
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.22,
-      0.26,
-      0.22
-     ],
-     "pos": [
-      0.29,
-      2.13,
-      -0.29
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.22,
-      0.26,
-      0.22
-     ],
-     "pos": [
-      -0.29,
-      2.13,
-      0.29
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.22,
-      0.26,
-      0.22
-     ],
-     "pos": [
-      0.29,
-      2.13,
-      0.29
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.3,
-      0.38,
-      0.03
-     ],
-     "pos": [
-      0,
-      0.19,
-      0.81
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 168,
+   "verts": 112
   },
   {
    "type": "honeypot",
@@ -3942,66 +1736,9 @@
     0.8,
     1
    ],
-   "parts": [
-    {
-     "shape": "sph",
-     "args": [
-      0.8,
-      14,
-      10
-     ],
-     "pos": [
-      0,
-      0.7,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.5,
-      0.07,
-      6.283185307179586
-     ],
-     "pos": [
-      0,
-      1.38,
-      0
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.04,
-      0.04,
-      1.2,
-      4
-     ],
-     "pos": [
-      0.3,
-      1.6,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      -0.5
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 468,
+   "verts": 250
   },
   {
    "type": "soc",
@@ -4027,122 +1764,9 @@
     0.2
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      2.8,
-      0.08,
-      0.9
-     ],
-     "pos": [
-      0,
-      0.6,
-      0.3
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.1,
-      0.6,
-      0.1
-     ],
-     "pos": [
-      -1.2,
-      0.3,
-      0.3
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.1,
-      0.6,
-      0.1
-     ],
-     "pos": [
-      1.2,
-      0.3,
-      0.3
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1,
-      0.75,
-      0.05
-     ],
-     "pos": [
-      0,
-      1.25,
-      -0.2
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1,
-      0.75,
-      0.05
-     ],
-     "pos": [
-      -0.95,
-      1.25,
-      -0.02
-     ],
-     "rotRad": [
-      0,
-      0.45,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1,
-      0.75,
-      0.05
-     ],
-     "pos": [
-      0.95,
-      1.25,
-      -0.02
-     ],
-     "rotRad": [
-      0,
-      -0.45,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 240,
+   "verts": 154
   },
   {
    "type": "vpngw",
@@ -4169,65 +1793,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.8,
-      0.35,
-      0.9
-     ],
-     "pos": [
-      0,
-      0.2,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.75,
-      0.12,
-      3.141592653589793
-     ],
-     "pos": [
-      0,
-      0.38,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.5,
-      0.04,
-      3.141592653589793
-     ],
-     "pos": [
-      0,
-      0.38,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 540,
+   "verts": 306
   },
   {
    "type": "behavior",
@@ -4253,66 +1821,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cone",
-     "args": [
-      1,
-      1,
-      16
-     ],
-     "pos": [
-      0,
-      1.25,
-      0
-     ],
-     "rotRad": [
-      3.141592653589793,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.12,
-      0.12,
-      0.7,
-      8
-     ],
-     "pos": [
-      0,
-      0.4,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      1,
-      0.04,
-      6.283185307179586
-     ],
-     "pos": [
-      0,
-      1.75,
-      0
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 524,
+   "verts": 276
   },
   {
    "type": "sandbox",
@@ -4338,160 +1849,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.5,
-      0.08,
-      1.5
-     ],
-     "pos": [
-      0,
-      0.04,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.3,
-      0.06
-     ],
-     "pos": [
-      -0.72,
-      0.69,
-      -0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.3,
-      0.06
-     ],
-     "pos": [
-      0.72,
-      0.69,
-      -0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.3,
-      0.06
-     ],
-     "pos": [
-      -0.72,
-      0.69,
-      0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.06,
-      1.3,
-      0.06
-     ],
-     "pos": [
-      0.72,
-      0.69,
-      0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1.5,
-      0.05,
-      0.05
-     ],
-     "pos": [
-      0,
-      1.32,
-      0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1.5,
-      0.05,
-      0.05
-     ],
-     "pos": [
-      0,
-      1.32,
-      -0.72
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "sph",
-     "args": [
-      0.32,
-      10,
-      8
-     ],
-     "pos": [
-      0,
-      0.7,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 420,
+   "verts": 230
   },
   {
    "type": "websrv",
@@ -4517,141 +1877,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      0.95,
-      2.1,
-      1
-     ],
-     "pos": [
-      0,
-      1.05,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.8,
-      0.05,
-      0.03
-     ],
-     "pos": [
-      0,
-      0.3,
-      0.51
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.8,
-      0.05,
-      0.03
-     ],
-     "pos": [
-      0,
-      0.6,
-      0.51
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.8,
-      0.05,
-      0.03
-     ],
-     "pos": [
-      0,
-      0.8999999999999999,
-      0.51
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.8,
-      0.05,
-      0.03
-     ],
-     "pos": [
-      0,
-      1.2,
-      0.51
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.8,
-      0.05,
-      0.03
-     ],
-     "pos": [
-      0,
-      1.5,
-      0.51
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.8,
-      0.05,
-      0.03
-     ],
-     "pos": [
-      0,
-      1.8,
-      0.51
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 276,
+   "verts": 184
   },
   {
    "type": "dbsrv",
@@ -4677,68 +1905,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cyl",
-     "args": [
-      0.85,
-      0.85,
-      0.45,
-      20
-     ],
-     "pos": [
-      0,
-      0.25,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.85,
-      0.85,
-      0.45,
-      20
-     ],
-     "pos": [
-      0,
-      0.78,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.85,
-      0.85,
-      0.45,
-      20
-     ],
-     "pos": [
-      0,
-      1.31,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 420,
+   "verts": 232
   },
   {
    "type": "storage",
@@ -4764,141 +1933,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      0.85,
-      0.7,
-      0.9
-     ],
-     "pos": [
-      -0.5,
-      0.35,
-      -0.55
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.85,
-      0.7,
-      0.9
-     ],
-     "pos": [
-      0.5,
-      0.35,
-      -0.55
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.85,
-      0.7,
-      0.9
-     ],
-     "pos": [
-      -0.5,
-      0.35,
-      0.55
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.85,
-      0.7,
-      0.9
-     ],
-     "pos": [
-      0.5,
-      0.35,
-      0.55
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.5,
-      0.04,
-      0.02
-     ],
-     "pos": [
-      -0.5,
-      0.45,
-      1.01
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.5,
-      0.04,
-      0.02
-     ],
-     "pos": [
-      0.5,
-      0.45,
-      1.01
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1.9,
-      0.06,
-      0.06
-     ],
-     "pos": [
-      0,
-      0.78,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 360,
+   "verts": 240
   },
   {
    "type": "cloud",
@@ -4925,84 +1962,9 @@
     0.6
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "sph",
-     "args": [
-      0.6,
-      12,
-      8
-     ],
-     "pos": [
-      -0.65,
-      0.75,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "sph",
-     "args": [
-      0.8,
-      12,
-      8
-     ],
-     "pos": [
-      0.1,
-      1,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "sph",
-     "args": [
-      0.55,
-      12,
-      8
-     ],
-     "pos": [
-      0.85,
-      0.7,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      2.4,
-      0.1,
-      0.9
-     ],
-     "pos": [
-      0,
-      0.1,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 4,
+   "tris": 552,
+   "verts": 296
   },
   {
    "type": "container",
@@ -5028,88 +1990,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cyl",
-     "args": [
-      0.55,
-      0.55,
-      0.6,
-      6
-     ],
-     "pos": [
-      -0.55,
-      0.3,
-      0.3
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.55,
-      0.55,
-      0.6,
-      6
-     ],
-     "pos": [
-      0.55,
-      0.3,
-      0.3
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.55,
-      0.55,
-      0.6,
-      6
-     ],
-     "pos": [
-      0,
-      0.3,
-      -0.6
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.55,
-      0.55,
-      0.6,
-      6
-     ],
-     "pos": [
-      0,
-      0.9,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 4,
+   "tris": 264,
+   "verts": 160
   },
   {
    "type": "mailsrv",
@@ -5136,87 +2019,9 @@
     0.5
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.3,
-      0.8,
-      0.9
-     ],
-     "pos": [
-      0,
-      0.4,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.65,
-      0.65,
-      0.9,
-      12,
-      true
-     ],
-     "pos": [
-      0,
-      0.8,
-      0
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.03,
-      0.03,
-      1,
-      4
-     ],
-     "pos": [
-      0.8,
-      0.75,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.35,
-      0.2,
-      0.03
-     ],
-     "pos": [
-      0.95,
-      1.15,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 144,
+   "verts": 88
   },
   {
    "type": "ipcam",
@@ -5243,85 +2048,9 @@
     0.95
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      0.4,
-      1.2,
-      0.15
-     ],
-     "pos": [
-      0,
-      0.6,
-      -0.6
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.1,
-      0.1,
-      0.5
-     ],
-     "pos": [
-      0,
-      1.15,
-      -0.35
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.3,
-      0.3,
-      1.2,
-      12
-     ],
-     "pos": [
-      0,
-      1.15,
-      0.3
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.7,
-      0.04,
-      0.5
-     ],
-     "pos": [
-      0,
-      1.47,
-      0.55
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 576,
+   "verts": 328
   },
   {
    "type": "plc",
@@ -5347,122 +2076,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      2.4,
-      0.08,
-      0.3
-     ],
-     "pos": [
-      0,
-      0.5,
-      -0.3
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.38,
-      0.9,
-      0.6
-     ],
-     "pos": [
-      -0.9,
-      0.5,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.38,
-      0.7,
-      0.6
-     ],
-     "pos": [
-      -0.45,
-      0.39999999999999997,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.38,
-      0.7,
-      0.6
-     ],
-     "pos": [
-      0,
-      0.39999999999999997,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.38,
-      0.7,
-      0.6
-     ],
-     "pos": [
-      0.45000000000000007,
-      0.39999999999999997,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.38,
-      0.5,
-      0.6
-     ],
-     "pos": [
-      0.9,
-      0.3,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 312,
+   "verts": 208
   },
   {
    "type": "sensor",
@@ -5489,83 +2105,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cyl",
-     "args": [
-      0.06,
-      0.06,
-      0.6,
-      6
-     ],
-     "pos": [
-      0,
-      0.3,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "hemi",
-     "args": [
-      0.45
-     ],
-     "pos": [
-      0,
-      0.6,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.7,
-      0.02,
-      1.5707963267948966
-     ],
-     "pos": [
-      0,
-      0.75,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0.7853981633974483
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.7,
-      0.02,
-      1.5707963267948966
-     ],
-     "pos": [
-      0,
-      0.75,
-      0
-     ],
-     "rotRad": [
-      0,
-      3.141592653589793,
-      0.7853981633974483
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 656,
+   "verts": 350
   },
   {
    "type": "hmi",
@@ -5591,106 +2133,9 @@
     0.5
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.3,
-      1.2,
-      0.8
-     ],
-     "pos": [
-      0,
-      0.6,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      1.3,
-      0.8,
-      0.08
-     ],
-     "pos": [
-      0,
-      1.45,
-      0.2
-     ],
-     "rotRad": [
-      -0.6,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.08,
-      0.08,
-      0.05,
-      10
-     ],
-     "pos": [
-      -0.35,
-      0.9,
-      0.42
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.08,
-      0.08,
-      0.05,
-      10
-     ],
-     "pos": [
-      0,
-      0.9,
-      0.42
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.08,
-      0.08,
-      0.05,
-      10
-     ],
-     "pos": [
-      0.35,
-      0.9,
-      0.42
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 156,
+   "verts": 104
   },
   {
    "type": "pos",
@@ -5716,66 +2161,9 @@
     0.45
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "box",
-     "args": [
-      1.2,
-      0.3,
-      1
-     ],
-     "pos": [
-      0,
-      0.15,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cyl",
-     "args": [
-      0.25,
-      0.25,
-      0.9,
-      12
-     ],
-     "pos": [
-      0,
-      0.55,
-      -0.3
-     ],
-     "rotRad": [
-      0,
-      0,
-      1.5707963267948966
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.8,
-      0.5,
-      0.05
-     ],
-     "pos": [
-      0,
-      0.6,
-      0.25
-     ],
-     "rotRad": [
-      -0.5,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 188,
+   "verts": 116
   },
   {
    "type": "attacker",
@@ -5801,84 +2189,9 @@
     0.3
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cone",
-     "args": [
-      0.75,
-      1.4,
-      10
-     ],
-     "pos": [
-      0,
-      0.7,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "sph",
-     "args": [
-      0.32,
-      10,
-      8
-     ],
-     "pos": [
-      0,
-      1.55,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "cone",
-     "args": [
-      0.42,
-      0.45,
-      10
-     ],
-     "pos": [
-      0,
-      1.82,
-      -0.05
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.7,
-      0.45,
-      0.05
-     ],
-     "pos": [
-      0,
-      0.7,
-      0.7
-     ],
-     "rotRad": [
-      -0.3,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 622,
+   "verts": 334
   },
   {
    "type": "botnet",
@@ -5904,148 +2217,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "oct",
-     "args": [
-      0.25
-     ],
-     "pos": [
-      1.15,
-      0.6,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "oct",
-     "args": [
-      0.25
-     ],
-     "pos": [
-      0.5750000000000001,
-      0.95,
-      0.9959292143521044
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "oct",
-     "args": [
-      0.25
-     ],
-     "pos": [
-      -0.5749999999999997,
-      0.6,
-      0.9959292143521045
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "oct",
-     "args": [
-      0.25
-     ],
-     "pos": [
-      -1.15,
-      0.95,
-      1.408343819019456e-16
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "oct",
-     "args": [
-      0.25
-     ],
-     "pos": [
-      -0.5750000000000005,
-      0.6,
-      -0.9959292143521041
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "oct",
-     "args": [
-      0.25
-     ],
-     "pos": [
-      0.5750000000000001,
-      0.95,
-      -0.9959292143521044
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "sph",
-     "args": [
-      0.35,
-      10,
-      8
-     ],
-     "pos": [
-      0,
-      1,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      1.15,
-      0.02,
-      6.283185307179586
-     ],
-     "pos": [
-      0,
-      0.75,
-      0
-     ],
-     "rotRad": [
-      1.5707963267948966,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 536,
+   "verts": 298
   },
   {
    "type": "c2",
@@ -6071,103 +2245,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cone",
-     "args": [
-      0.75,
-      2,
-      4
-     ],
-     "pos": [
-      0,
-      1,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.9,
-      0.04,
-      0.04
-     ],
-     "pos": [
-      0,
-      0.6,
-      0
-     ],
-     "rotRad": [
-      0,
-      0.7853981633974483,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "sph",
-     "args": [
-      0.18,
-      8,
-      6
-     ],
-     "pos": [
-      0,
-      2.15,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.45,
-      0.025,
-      1.8849555921538759
-     ],
-     "pos": [
-      0,
-      2.15,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0.6283185307179586
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      0.75,
-      0.025,
-      1.8849555921538759
-     ],
-     "pos": [
-      0,
-      2.15,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0.6283185307179586
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 684,
+   "verts": 376
   },
   {
    "type": "internet",
@@ -6194,65 +2274,9 @@
     0
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "sph",
-     "args": [
-      1.1,
-      16,
-      10
-     ],
-     "pos": [
-      0,
-      1.25,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      1.45,
-      0.03,
-      6.283185307179586
-     ],
-     "pos": [
-      0,
-      1.25,
-      0
-     ],
-     "rotRad": [
-      1.1707963267948966,
-      0,
-      0.3
-     ],
-     "tone": null
-    },
-    {
-     "shape": "tor",
-     "args": [
-      1.15,
-      0.025,
-      6.283185307179586
-     ],
-     "pos": [
-      0,
-      1.25,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 5,
+   "tris": 728,
+   "verts": 368
   },
   {
    "type": "insider",
@@ -6278,85 +2302,9 @@
     0.35
    ],
    "squash": null,
-   "parts": [
-    {
-     "shape": "cyl",
-     "args": [
-      0.4,
-      0.5,
-      1.2,
-      12
-     ],
-     "pos": [
-      0,
-      0.6,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "sph",
-     "args": [
-      0.33,
-      10,
-      8
-     ],
-     "pos": [
-      0,
-      1.55,
-      0
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.3,
-      0.38,
-      0.04
-     ],
-     "pos": [
-      0.15,
-      0.85,
-      0.48
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    },
-    {
-     "shape": "box",
-     "args": [
-      0.04,
-      0.25,
-      0.02
-     ],
-     "pos": [
-      0.15,
-      1.12,
-      0.48
-     ],
-     "rotRad": [
-      0,
-      0,
-      0
-     ],
-     "tone": null
-    }
-   ]
+   "parts": 6,
+   "tris": 316,
+   "verts": 174
   },
   {
    "type": "aggswitch",
@@ -6378,7 +2326,9 @@
    "look": "2U 双层机身,两排端口 + 上联光口,顶部散热格。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 588,
+   "verts": 352
   },
   {
    "type": "nta",
@@ -6400,7 +2350,9 @@
    "look": "1U 机身 + 前面板长指示条 + 顶部立杆探测球。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 508,
+   "verts": 282
   },
   {
    "type": "hids",
@@ -6423,7 +2375,9 @@
    "look": "塔式机身,正面三条状态灯 + 顶部环形审计圈。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 576,
+   "verts": 316
   },
   {
    "type": "appsrv",
@@ -6445,7 +2399,9 @@
    "look": "刀片机箱,两排竖插刀片 + 顶部风扇。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 492,
+   "verts": 296
   },
   {
    "type": "cache",
@@ -6467,7 +2423,9 @@
    "look": "短圆柱 + 闪电面板 + 顶部方块。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 400,
+   "verts": 220
   },
   {
    "type": "objstore",
@@ -6489,7 +2447,9 @@
    "look": "上宽下窄的桶形 + 箍圈 + 顶盖。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 312,
+   "verts": 172
   },
   {
    "type": "mq",
@@ -6512,7 +2472,9 @@
    "look": "扁平机身 + 顶部三段并排队列筒。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 720,
+   "verts": 404
   },
   {
    "type": "k8smaster",
@@ -6534,7 +2496,9 @@
    "look": "六棱柱机身 + 顶部舵轮。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 5,
+   "tris": 524,
+   "verts": 298
   },
   {
    "type": "k8snode",
@@ -6556,7 +2520,9 @@
    "look": "高六棱柱 + 侧面三块 Pod 槽。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 192,
+   "verts": 118
   },
   {
    "type": "registry",
@@ -6579,7 +2545,9 @@
    "look": "机身上错落堆叠的镜像箱。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 240,
+   "verts": 160
   },
   {
    "type": "cnapp",
@@ -6601,7 +2569,9 @@
    "look": "集装箱棱纹箱体 + 端门。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 312,
+   "verts": 208
   },
   {
    "type": "workstation",
@@ -6624,7 +2594,9 @@
    "look": "大塔式主机 + 双显示器。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 224,
+   "verts": 146
   },
   {
    "type": "opsterm",
@@ -6646,7 +2618,9 @@
    "look": "笔记本 + 侧立扩展坞 + 外接小屏。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 5,
+   "tris": 216,
+   "verts": 142
   },
   {
    "type": "kiosk",
@@ -6668,7 +2642,9 @@
    "look": "立式机柜 + 前倾大屏 + 刷卡口 + 出票口。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 132,
+   "verts": 88
   },
   {
    "type": "term3p",
@@ -6690,7 +2666,9 @@
    "look": "立式支架上的平板 + 访客标牌。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 5,
+   "tris": 184,
+   "verts": 108
   },
   {
    "type": "iotgw",
@@ -6712,7 +2690,9 @@
    "look": "小机盒 + 两根天线 + 侧面接线端子排。",
    "core": null,
    "squash": null,
-   "parts": []
+   "parts": 6,
+   "tris": 388,
+   "verts": 232
   }
  ],
  "coverage": {
@@ -6721,5 +2701,31 @@
   "approx": 11,
   "missing": 5,
   "doc": "docs/nodes-coverage-topology.md"
+ },
+ "trisSummary": {
+  "before": {
+   "sum": 37170,
+   "avg": 701.3,
+   "max": 2072
+  },
+  "after": {
+   "sum": 20426,
+   "avg": 385.4,
+   "max": 728
+  },
+  "frameMs": {
+   "before": {
+    "med": 39.7,
+    "p90": 41,
+    "avg": 39.9,
+    "nodes": 65
+   },
+   "after": {
+    "med": 40.4,
+    "p90": 43.9,
+    "avg": 41.04,
+    "n": 35
+   }
+  }
  }
 }

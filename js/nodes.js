@@ -94,7 +94,8 @@ function buildGallery() {
   $('ghead').textContent = (ST.cat === 'all' ? '全部类别' : L.CATS[ST.cat].name) + ' · ' + list.length + ' 种节点 · 点击放大预览';
   list.forEach(type => {
     const sp = L.SPEC[type], c = L.CATS[sp.cat][ST.theme];
-    const d = document.createElement('div'); d.className = 'cell' + (ST.sel === type ? ' on' : ''); d.dataset.t = type; d.title = sp.name + ' / ' + sp.en;
+    const d = document.createElement('div'); d.className = 'cell' + (ST.sel === type ? ' on' : ''); d.dataset.t = type; const st0 = (()=>{ try { return L.buildModel(T, type).tris; } catch (e) { return '?'; } })();
+    d.title = sp.name + ' / ' + sp.en + ' · ' + st0 + ' 三角面';
     const cv = document.createElement('canvas'); cv.width = TW; cv.height = TH; d.appendChild(cv);
     const nm = document.createElement('div'); nm.className = 'nm'; nm.innerHTML = '<i style="background:' + c + '"></i>' + sp.name; d.appendChild(nm);
     d.onclick = () => openPreview(type);
@@ -136,6 +137,7 @@ function loop(now) {
   pr.setScissorTest(true);
   pv.items.forEach((it, i) => {
     it.node.update(t);
+    if (ST.spin) it.node.group.rotation.y = t * .35; else it.node.group.rotation.y = 0;
     const cam = frameFor(it.node, cw / h);
     L.fitLabels(it.scene, cam, h, 14); pr.setViewport(i * cw, 0, cw, h); pr.setScissor(i * cw, 0, cw, h); pr.render(it.scene, cam);
   });
@@ -158,7 +160,8 @@ function detail() {
   }
   const sp = L.SPEC[ST.sel], c = L.CATS[sp.cat];
   D.innerHTML = '<h2>' + esc(sp.name) + '</h2><div class="en">' + esc(sp.en) + ' · <code>' + sp.type + '</code></div>' +
-    '<div class="kv"><b>类别</b><span><span class="sw" style="background:' + c[ST.theme] + '"></span>' + c.name + '</span><b>尺寸</b><span>1×1×1 立方体</span><b>缩写</b><span>' + sp.abbr + '</span><b>色值</b><span>夜 ' + c.dark + ' / 日 ' + c.light + '</span></div>' +
+    (function(){ const st = (()=>{ try { const m = L.buildModel(T, ST.sel); return { tris: Math.round(m.tris), verts: m.verts, parts: m.parts.length }; } catch(e){ return { tris:'—', verts:'—', parts:'—' }; } })();
+    return '<div class="kv"><b>类别</b><span><span class="sw" style="background:' + c[ST.theme] + '"></span>' + c.name + '</span><b>尺寸</b><span>1×1×1 立方体</span><b>缩写</b><span>' + sp.abbr + '</span><b>色值</b><span>夜 ' + c.dark + ' / 日 ' + c.light + '</span><b>三角面</b><span>' + st.tris + '</span><b>顶点</b><span>' + st.verts + '</span><b>部件/材质</b><span>' + st.parts + ' / ' + st.parts + '</span></div>'; })() +
     '<h3>用途</h3><p>' + esc(sp.use) + '</p><h3>造型要点</h3><p>' + esc(sp.look) + '</p>' +
     '<h3>事件中的角色</h3><div>' + sp.role.map(r => '<span class="role">' + r + '</span>').join('') + '</div>' +
     '<h3>状态</h3><div class="sts">' + Object.keys(L.STATES).map(s => '<button class="stbtn' + (!ST.quad && ST.state === s ? ' on' : '') + '" data-s="' + s + '">' + L.STATES[s].name + '</button>').join('') + '</div><p style="margin-top:6px">' + esc(L.STATES[ST.quad ? 'normal' : ST.state].desc) + '</p>';
@@ -271,6 +274,7 @@ $('bView').onclick = () => setCombo(!CB.on);
 function applyTheme() { ST.theme = curTheme(); L.setTheme(ST.theme); buildCats(); if (CB.on) buildCombo(); else buildGallery(); if (ST.sel && $('pv').classList.contains('show')) buildPv(); detail(); }
 document.querySelectorAll('#pvbar .stbtn').forEach(b => b.onclick = () => setState(b.dataset.s));
 $('pvQuad').onclick = () => { ST.quad = !ST.quad; buildPv(); syncStateBtns(); detail(); };
+if ($('pvSpin')) $('pvSpin').onclick = () => { ST.spin = !ST.spin; $('pvSpin').classList.toggle('on', ST.spin); };
 $('pvBack').onclick = closePreview;
 addEventListener('keydown', e => { if (e.key === 'Escape') closePreview(); });
 addEventListener('sec-theme', applyTheme);

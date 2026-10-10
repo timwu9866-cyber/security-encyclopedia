@@ -1,4 +1,4 @@
-/* nodelib.js v6 — 通用网络安全节点模型库(实心低多边形 + 统一立方体归一化 + 分区底板;概念造型,程序化生成,无外部模型/商标)
+/* nodelib.js v8 — 通用网络安全节点模型库(实心低多边形 + 统一立方体归一化 + 分区底板;概念造型,程序化生成,无外部模型/商标)
    用法: NODELIB.addLights(scene, theme); const n = NODELIB.createNode('firewall', { theme:'dark', size:1 });
          const z = NODELIB.createZone({ title:'安全管理区', w:8, d:6, color:'violet' }); NODELIB.createLink(p1, p2);
          scene.add(n.group); n.setState('attacked'); 每帧 n.update(t);  n.dispose()
@@ -236,7 +236,10 @@ function prepareRenderer(renderer) {
     if (T.ColorManagement) T.ColorManagement.enabled = false;
     if (T.LinearSRGBColorSpace) renderer.outputColorSpace = T.LinearSRGBColorSpace;
     else if (renderer.outputEncoding != null && T.LinearEncoding != null) renderer.outputEncoding = T.LinearEncoding;
-    if (renderer.toneMapping != null) renderer.toneMapping = T.NoToneMapping;
+    if (renderer.toneMapping != null && T.ACESFilmicToneMapping != null) {
+      renderer.toneMapping = T.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.05;
+    }
   } catch (e) {}
   return renderer;
 }
@@ -313,11 +316,12 @@ function markBloom(obj, on) {
 const ROLES = ['base', 'body', 'face', 'port', 'led', 'detail'];
 const A = (s, r, o) => Object.assign({ s, r }, o);
 const B = (r, x, y, z, w, h, d, rot) => A('box', r, { x, y, z, w, h, d, rot });
-const C = (r, x, y, z, rt, h, seg, rb, rot) => A('cyl', r, { x, y, z, rt, rb: rb == null ? rt : rb, h, seg: seg || 14, rot });
+const C = (r, x, y, z, rt, h, seg, rb, rot) => A('cyl', r, { x, y, z, rt, rb: rb == null ? rt : rb, h, seg: seg || 10, rot });
 const S = (r, x, y, z, rad, rot) => A('sph', r, { x, y, z, rad, rot });
-const K = (r, x, y, z, rad, h, seg, rot) => A('cone', r, { x, y, z, rad, h, seg: seg || 12, rot });
+const K = (r, x, y, z, rad, h, seg, rot) => A('cone', r, { x, y, z, rad, h, seg: seg || 10, rot });
 const TO = (r, x, y, z, R, t, arc, rot) => A('tor', r, { x, y, z, R, t, arc: arc == null ? 2 * PI : arc, rot });
 const O = (r, x, y, z, rad, rot) => A('oct', r, { x, y, z, rad, rot });
+const RB = (r, x, y, z, w, h, d, b, rot) => A('rbox', r, { x, y, z, w, h, d, b: b == null ? .02 : b, rot });
 /* n 个等距排列 */
 const ROW = (n, x0, x1, f) => Array.from({ length: n }, (_, i) => f(n === 1 ? (x0 + x1) / 2 : x0 + (x1 - x0) * i / (n - 1), i));
 /* 机架通用:底座 + 机身 + 面板 */
@@ -332,19 +336,19 @@ const RSPEC = {
     C('detail', -.36, .27, -.22, .018, .55, 6), C('detail', .36, .27, -.22, .018, .55, 6), S('led', -.36, .83, -.22, .03), S('led', .36, .83, -.22, .03)],
   switch: [...rack(1, .14, .5, .1), ...ROW(12, -.42, .2, x => B('port', x, .1, .265, .04, .03, .02)), ...ROW(12, -.42, .2, x => B('port', x, .06, .265, .04, .03, .02)),
     ...ROW(4, .28, .42, x => B('port', x, .08, .265, .03, .05, .02)), ...leds(6, -.42, -.1, .14, .265, .016), B('detail', 0, .19, 0, .8, .012, .4)],
-  coreswitch: [...rack(.86, .78, .66, .7), ...ROW(6, -.32, .32, x => B('detail', x, .14, .345, .1, .56, .02)),
+  coreswitch: [B('base', 0, 0, 0, .9, .05, .7), RB('body', 0, .05, 0, .86, .78, .66, .025), B('face', 0, .08, .345, .8, .72, .02), ...ROW(6, -.32, .32, x => B('detail', x, .14, .345, .1, .56, .02)),
     ...ROW(6, -.32, .32, x => B('port', x, .3, .36, .06, .2, .015)), ...ROW(6, -.32, .32, x => B('led', x, .62, .36, .03, .025, .015)),
     B('detail', 0, .83, 0, .6, .04, .5), ...ROW(3, -.2, .2, x => C('port', x, .87, 0, .07, .01, 14))],
-  ap: [C('base', 0, 0, 0, .14, .04, 12), C('detail', 0, .04, 0, .03, .44, 8), C('body', 0, .48, 0, .44, .1, 24, .48), C('face', 0, .58, 0, .36, .03, 24),
+  ap: [C('base', 0, 0, 0, .14, .04, 12), C('detail', 0, .04, 0, .03, .44, 8), C('body', 0, .48, 0, .44, .1, 12, .48), C('face', 0, .58, 0, .36, .03, 12),
     S('led', 0, .62, 0, .05), TO('detail', 0, .72, 0, .2, .015, PI, [0, 0, 0]), TO('detail', 0, .72, 0, .32, .015, PI, [0, 0, 0]), ...leds(3, -.1, .1, .52, .47, .025)],
   lb: [C('base', -.2, 0, 0, .2, .04, 16), C('body', -.2, .04, 0, .15, .55, 12), C('face', -.2, .3, 0, .155, .04, 12), C('face', -.2, .45, 0, .155, .04, 12), S('led', -.2, .64, 0, .05),
     ...[-1, 0, 1].flatMap(k => [B('detail', .08, .3, k * .14, .4, .04, .04, [0, -k * .55, 0]), B('body', .34, .2, k * .3, .14, .22, .14), B('face', .34, .25, k * .3 + .072, .1, .1, .01), B('led', .34, .44, k * .3, .04, .03, .04)])],
   dns: [B('base', 0, 0, 0, .44, .05, .44), B('body', 0, .05, 0, .3, .16, .3), B('face', 0, .08, .155, .24, .1, .02), ...leds(3, -.08, .08, .17, .165, .025),
     C('detail', 0, .21, 0, .03, .26, 8), S('body', 0, .72, 0, .25), TO('face', 0, .72, 0, .26, .012, 2 * PI, [PI / 2, 0, 0]), TO('face', 0, .72, 0, .26, .012, 2 * PI, [0, 0, 0]), TO('face', 0, .72, 0, .26, .012, 2 * PI, [0, PI / 2, 0])],
   /* ===== 办公(蓝) ===== */
-  pc: [B('base', -.3, 0, .05, .3, .03, .22), B('body', -.3, .03, 0, .26, .62, .5), B('face', -.3, .45, .255, .2, .16, .015), ...vents(4, -.39, -.21, .2, .255, .03, .012),
+  pc: [B('base', -.3, 0, .05, .3, .03, .22), RB('body', -.3, .03, 0, .26, .62, .5, .02), B('face', -.3, .45, .255, .2, .16, .015), ...vents(4, -.39, -.21, .2, .255, .03, .012),
     B('led', -.3, .52, .262, .03, .03, .01), B('base', .2, 0, .02, .34, .025, .2), C('detail', .2, .025, .02, .025, .22, 8),
-    B('body', .2, .24, 0, .56, .38, .05), B('face', .2, .265, .03, .5, .32, .015), B('led', .43, .255, .036, .02, .015, .01), B('port', .2, .025, .22, .4, .02, .1)],
+    RB('body', .2, .24, 0, .56, .38, .05, .012), B('face', .2, .265, .03, .5, .32, .015), B('led', .43, .255, .036, .02, .015, .01), B('port', .2, .025, .22, .4, .02, .1)],
   laptop: [B('body', 0, 0, .1, .9, .05, .6), B('face', 0, .05, .14, .76, .008, .32), ...ROW(6, -.3, .3, x => B('port', x, .056, .02, .1, .006, .06)), B('port', 0, .05, .36, .24, .006, .14),
     B('body', 0, .05, -.22, .9, .62, .04, [-.32, 0, 0]), B('face', 0, .09, -.195, .8, .52, .01, [-.32, 0, 0]), B('led', 0, .64, -.37, .03, .02, .01)],
   printer: [B('base', 0, 0, 0, .9, .05, .7), B('body', 0, .05, 0, .84, .4, .64), B('face', 0, .3, .325, .78, .1, .02), B('port', 0, .14, .33, .6, .05, .02),
@@ -359,7 +363,7 @@ const RSPEC = {
     ...[0, 1, 2].flatMap(r => ROW(3, -.34, -.14, x => B('port', x, .12 + r * .065, .18 - r * .06, .05, .035, .015, [-.25, 0, 0]))),
     B('detail', 0, .38, -.1, .62, .07, .14), C('body', -.31, .36, -.1, .08, .12, 12), C('body', .31, .36, -.1, .08, .12, 12), B('led', .34, .33, .26, .03, .03, .01)],
   /* ===== 安全(黄) ===== */
-  firewall: [B('base', 0, 0, 0, 1, .05, .5),
+  firewall: [B('base', 0, 0, 0, 1, .05, .5), /* bricks */
     ...[0, 1, 2, 3].flatMap(r => ROW(r % 2 ? 4 : 3, r % 2 ? -.36 : -.3, r % 2 ? .36 : .3, x => B(r % 2 ? 'face' : 'body', x, .05 + r * .2, 0, r % 2 ? .22 : .3, .18, .4))),
     ...leds(3, -.3, .3, .9, .205, .03), B('detail', 0, .86, -.21, .9, .02, .02)],
   waf: [B('base', 0, 0, .05, .7, .05, .5), C('body', 0, .05, -.05, .44, .9, 6, null, [PI / 2, 0, 0]).y === 0 ? null : null,
@@ -378,8 +382,8 @@ const RSPEC = {
     ...ROW(3, -.32, .32, x => C('detail', x, .28, -.08, .015, .06, 6)), ...leds(5, -.3, .3, .2, .336, .025)],
   vpngw: [...rack(1, .2, .6, .14), ...ROW(4, -.38, -.08, x => B('port', x, .1, .315, .06, .05, .02)), ...leds(3, .2, .38, .14, .315),
     TO('body', 0, .25, 0, .3, .07, PI, [0, 0, 0]), TO('face', 0, .25, .06, .3, .02, PI, [0, 0, 0]), B('detail', 0, .25, 0, .44, .03, .3), S('led', 0, .58, 0, .04)],
-  behavior: [B('base', 0, 0, 0, .4, .05, .4), C('detail', 0, .05, 0, .05, .3, 10), C('body', 0, .35, 0, .46, .5, 24, .08), C('face', 0, .82, 0, .47, .04, 24),
-    TO('detail', 0, .6, 0, .3, .015, 2 * PI, [PI / 2, 0, 0]), ...ROW(4, -.15, .15, x => S('led', x, .75, .3, .025))],
+  behavior: [B('base', 0, 0, 0, .36, .04, .36), C('detail', 0, .04, 0, .04, .24, 8), C('body', 0, .28, 0, .42, .46, 12, .06), C('face', 0, .72, 0, .43, .04, 12),
+    TO('detail', 0, .52, 0, .26, .012, 2 * PI, [PI / 2, 0, 0]), ...ROW(3, -.12, .12, x => S('led', x, .65, .28, .022))],
   sandbox: [B('base', 0, 0, 0, 1, .05, 1), ...[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([a, b]) => B('body', a * .45, .05, b * .45, .08, .8, .08)),
     ...[-1, 1].flatMap(k => [B('body', 0, .82, k * .45, .98, .06, .08), B('body', k * .45, .82, 0, .08, .06, .98)]),
     B('face', 0, .05, 0, .8, .03, .8), S('led', 0, .45, 0, .14), TO('detail', 0, .45, 0, .22, .012, 2 * PI, [PI / 2, 0, 0]), ...leds(3, -.2, .2, .1, .495, .03)],
@@ -408,15 +412,26 @@ const RSPEC = {
   pos: [B('base', 0, 0, 0, .9, .06, .7), B('body', 0, .06, 0, .8, .18, .6), ...ROW(4, -.3, .0, x => B('port', x, .24, .1, .06, .02, .06)), C('detail', .25, .24, -.2, .1, .3, 14, null, [0, 0, PI / 2]),
     C('detail', 0, .24, -.05, .03, .2, 8), B('body', 0, .42, .02, .5, .36, .04, [-.35, 0, 0]), B('face', 0, .45, .045, .44, .3, .01, [-.35, 0, 0]), B('led', .35, .24, .3, .04, .02, .01)],
   /* ===== 外部 / 威胁(红) ===== */
-  attacker: [C('base', 0, 0, 0, .32, .04, 18), K('body', 0, .04, 0, .3, .6, 14), S('body', 0, .7, 0, .14), C('detail', 0, .64, -.02, .18, .2, 14, .16), S('port', 0, .7, .06, .1),
-    B('detail', 0, .3, .32, .34, .22, .03, [-.3, 0, 0]), B('face', 0, .32, .335, .3, .18, .01, [-.3, 0, 0]), S('led', -.05, .72, .14, .02), S('led', .05, .72, .14, .02)],
+  attacker: [C('base', 0, 0, 0, .28, .03, 10),
+    /* 兜帽斗篷:锥体 + 外扩口沿 */
+    K('body', 0, .03, 0, .34, .55, 10), C('detail', 0, .48, 0, .36, .08, 10, .3),
+    /* 头与面罩 */
+    S('body', 0, .68, .02, .13), C('face', 0, .62, .08, .12, .1, 10, .14, [PI / 2 - .2, 0, 0]),
+    B('port', 0, .64, .16, .14, .06, .02, [-.15, 0, 0]),
+    S('led', -.05, .7, .16, .02), S('led', .05, .7, .16, .02),
+    /* 肩屏 / 手持终端 */
+    B('detail', .22, .32, .12, .2, .28, .04, [0, -.4, -.2]), B('face', .22, .34, .14, .16, .22, .01, [0, -.4, -.2]),
+    B('led', .22, .42, .145, .04, .02, .01, [0, -.4, -.2]),
+    /* 腰间线缆 */
+    TO('detail', 0, .28, 0, .22, .012, PI * 1.2, [PI / 2, 0, .3])],
   botnet: [S('body', 0, .45, 0, .18), TO('detail', 0, .45, 0, .36, .01, 2 * PI, [PI / 2, 0, 0]), ...ROW(6, 0, 5, (i) => O('face', Math.cos(i * PI / 3) * .38, .38, Math.sin(i * PI / 3) * .38, .09)),
     ...ROW(6, 0, 5, (i) => B('detail', Math.cos(i * PI / 3) * .2, .44, Math.sin(i * PI / 3) * .2, .2, .01, .01, [0, -i * PI / 3, 0])), S('led', 0, .64, 0, .04), C('base', 0, 0, 0, .1, .27, 8)],
   c2: [B('base', 0, 0, 0, .6, .04, .6), ...[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([a, b]) => C('body', a * .13, .04, b * .13, .015, .78, 6, null, [b * .3, 0, -a * .3])),
     ...[.25, .5].flatMap(y => [B('detail', 0, y, .2 - y * .25, .5 - y * .5, .02, .02), B('detail', 0, y, -.2 + y * .25, .5 - y * .5, .02, .02)]), S('face', 0, .85, 0, .08), S('led', 0, .85, 0, .05),
     TO('detail', 0, .85, 0, .16, .012, PI, [0, 0, 0]), TO('detail', 0, .85, 0, .26, .012, PI, [0, 0, 0])],
-  internet: [C('base', 0, 0, 0, .2, .04, 14), C('detail', 0, .04, 0, .03, .1, 8), S('body', 0, .5, 0, .36), TO('face', 0, .5, 0, .37, .012, 2 * PI, [PI / 2, 0, 0]), TO('face', 0, .5, 0, .37, .012, 2 * PI, [0, 0, 0]),
-    TO('face', 0, .5, 0, .37, .012, 2 * PI, [0, PI / 2, 0]), TO('detail', 0, .5, 0, .48, .015, 2 * PI, [PI / 2 + .4, 0, .3]), S('led', .44, .62, .1, .03)],
+  internet: [C('base', 0, 0, 0, .18, .03, 8), C('detail', 0, .03, 0, .025, .08, 6), S('body', 0, .48, 0, .34),
+    TO('face', 0, .48, 0, .35, .012, 2 * PI, [PI / 2, 0, 0]), TO('face', 0, .48, 0, .35, .012, 2 * PI, [0, 0, 0]),
+    TO('detail', 0, .48, 0, .46, .014, 2 * PI, [PI / 2 + .35, .2, .25]), S('led', .42, .6, .08, .03)],
   insider: [C('base', 0, 0, 0, .28, .04, 18), C('body', 0, .04, 0, .18, .5, 16, .22), S('body', 0, .7, 0, .14), B('face', .06, .34, .2, .12, .14, .02), B('led', .06, .44, .21, .04, .02, .01),
     C('detail', -.24, .2, 0, .045, .3, 8), C('detail', .24, .2, 0, .045, .3, 8), B('port', 0, .54, .17, .1, .05, .02)],
 
@@ -434,8 +449,8 @@ const RSPEC = {
     B('led', .43, .3, 0, .02, .16, .1, [.5, 0, 0]), B('led', .43, .22, .02, .02, .12, .06, [-.4, 0, 0]), B('port', .3, .14, .155, .16, .04, .01), C('detail', 0, .82, 0, .1, .14, 10), S('led', 0, .98, 0, .04)],
   objstore: [C('base', 0, 0, 0, .34, .05, 20), C('body', 0, .05, 0, .46, .62, 20, .32), ...[.2, .45].map(y => C('face', 0, y, 0, .32 + y * .28, .04, 20)),
     C('detail', 0, .67, 0, .48, .05, 20), C('port', 0, .72, 0, .2, .04, 14), B('led', 0, .32, .4, .14, .03, .03), B('led', 0, .55, .44, .14, .03, .03)],
-  mq: [B('base', 0, 0, 0, 1, .05, .6), B('body', 0, .05, 0, .94, .22, .54), B('face', 0, .09, .275, .86, .14, .02), ...leds(5, -.3, .3, .16, .288, .025), ...ROW(4, -.36, .36, x => B('port', x, .1, .288, .06, .03, .01)),
-    ...ROW(3, -.3, .3, x => [C('detail', x, .27, 0, .12, .42, 14, null, [0, 0, 0]), C('face', x, .4, 0, .125, .03, 14), C('face', x, .55, 0, .125, .03, 14), S('led', x, .72, 0, .03)]).flat()],
+  mq: [B('base', 0, 0, 0, 1, .04, .55), B('body', 0, .04, 0, .92, .2, .5), B('face', 0, .08, .255, .84, .12, .02), ...leds(4, -.28, .28, .14, .268, .022), ...ROW(3, -.3, .3, x => B('port', x, .09, .268, .07, .03, .01)),
+    ...ROW(3, -.28, .28, x => [C('detail', x, .24, 0, .1, .36, 10), C('face', x, .36, 0, .105, .025, 10), C('face', x, .5, 0, .105, .025, 10), S('led', x, .62, 0, .025)]).flat()],
   k8smaster: [C('base', 0, 0, 0, .5, .05, 6), C('body', 0, .05, 0, .44, .5, 6), C('face', 0, .3, 0, .45, .05, 6), ...ROW(6, 0, 5, i => B('led', Math.sin(i * PI / 3) * .39, .18, Math.cos(i * PI / 3) * .39, .06, .04, .02, [0, i * PI / 3, 0])),
     C('detail', 0, .55, 0, .06, .16, 8), TO('face', 0, .78, 0, .22, .03, 2 * PI, [PI / 2, 0, 0]), ...ROW(7, 0, 6, i => B('detail', 0, .78, 0, .44, .025, .025, [0, i * PI / 7, 0])), S('led', 0, .78, 0, .05)],
   k8snode: [C('base', 0, 0, 0, .44, .05, 6), C('body', 0, .05, 0, .38, .86, 6), C('face', 0, .55, 0, .39, .04, 6), C('face', 0, .9, 0, .39, .04, 6),
@@ -462,15 +477,34 @@ const RSPEC = {
 
 };
 
-/* 原子 → 几何(中心构造、旋转、再平移) */
+/* 原子 → 几何(中心构造、旋转、再平移);分段数随尺寸自适应 */
+function segFor(size, prefer) {
+  const p = prefer || 10;
+  if (size < .06) return Math.min(p, 8);
+  if (size < .18) return Math.min(p, 10);
+  return Math.min(p, 12);
+}
+function roundedBoxGeo(T, w, h, d, b) {
+  b = Math.min(b || .02, Math.min(w, h, d) * .18);
+  /* 主体 + 顶面四条高光棱(低段数倒角观感),避免 12+8 全棱带来的面数膨胀 */
+  const g = new T.BoxGeometry(w, h, d);
+  const edges = [];
+  const add = (gw, gh, gd, x, y, z) => { const e = new T.BoxGeometry(gw, gh, gd); e.translate(x, y, z); edges.push(e); };
+  add(w - 2 * b, b, b, 0, h / 2 - b / 2, d / 2 - b / 2);
+  add(w - 2 * b, b, b, 0, h / 2 - b / 2, -(d / 2 - b / 2));
+  add(b, b, d - 2 * b, w / 2 - b / 2, h / 2 - b / 2, 0);
+  add(b, b, d - 2 * b, -(w / 2 - b / 2), h / 2 - b / 2, 0);
+  return mergeGeos(T, [g].concat(edges));
+}
 function atomGeo(T, a) {
   let g, cy;
   if (a.s === 'box') { g = new T.BoxGeometry(a.w, a.h, a.d); cy = a.y + a.h / 2; }
-  else if (a.s === 'cyl') { g = new T.CylinderGeometry(a.rt, a.rb, a.h, a.seg, 1); cy = a.y + a.h / 2; }
-  else if (a.s === 'cone') { g = new T.ConeGeometry(a.rad, a.h, a.seg); cy = a.y + a.h / 2; }
-  else if (a.s === 'tor') { g = new T.TorusGeometry(a.R, a.t, 6, 28, a.arc); cy = a.y; }
+  else if (a.s === 'rbox') { g = roundedBoxGeo(T, a.w, a.h, a.d, a.b); cy = a.y + a.h / 2; }
+  else if (a.s === 'cyl') { const seg = segFor(Math.max(a.rt, a.rb) * 2, a.seg); g = new T.CylinderGeometry(a.rt, a.rb, a.h, seg, 1); cy = a.y + a.h / 2; }
+  else if (a.s === 'cone') { const seg = segFor(a.rad * 2, a.seg); g = new T.ConeGeometry(a.rad, a.h, seg); cy = a.y + a.h / 2; }
+  else if (a.s === 'tor') { const rs = segFor(a.R * 2, 16), ts = segFor(a.t * 2, 6); g = new T.TorusGeometry(a.R, a.t, Math.max(4, ts), Math.max(10, rs), a.arc); cy = a.y; }
   else if (a.s === 'oct') { g = new T.OctahedronGeometry(a.rad); cy = a.y; }
-  else { g = new T.SphereGeometry(a.rad, 16, 11); cy = a.y; }
+  else { const ws = segFor(a.rad * 2, 10), hs = Math.max(6, Math.round(ws * .7)); g = new T.SphereGeometry(a.rad, ws, hs); cy = a.y; }
   if (a.rot) { const e = new T.Euler(a.rot[0], a.rot[1], a.rot[2]); g.applyMatrix4(new T.Matrix4().makeRotationFromEuler(e)); }
   g.translate(a.x, cy, a.z);
   return g.index ? g.toNonIndexed() : g;
@@ -479,7 +513,43 @@ function mergeGeos(T, list) {
   let n = 0; list.forEach(g => n += g.attributes.position.count);
   const pos = new Float32Array(n * 3), nor = new Float32Array(n * 3); let o = 0;
   list.forEach(g => { pos.set(g.attributes.position.array, o * 3); nor.set(g.attributes.normal.array, o * 3); o += g.attributes.position.count; g.dispose(); });
-  const m = new T.BufferGeometry(); m.setAttribute('position', new T.BufferAttribute(pos, 3)); m.setAttribute('normal', new T.BufferAttribute(nor, 3)); return m;
+  const m = new T.BufferGeometry(); m.setAttribute('position', new T.BufferAttribute(pos, 3)); m.setAttribute('normal', new T.BufferAttribute(nor, 3)); return weldGeo(T, m);
+}
+/** 合并重复顶点(量化到 1e-4),同步法线平均 */
+function weldGeo(T, geo, eps) {
+  eps = eps || 1e-4; const inv = 1 / eps;
+  const P = geo.attributes.position.array, N = geo.attributes.normal.array;
+  const map = new Map(), idx = new Uint32Array(P.length / 3);
+  const pos = [], nor = []; let nV = 0;
+  for (let i = 0; i < P.length; i += 3) {
+    const key = (Math.round(P[i] * inv)) + ',' + (Math.round(P[i + 1] * inv)) + ',' + (Math.round(P[i + 2] * inv));
+    let id = map.get(key);
+    if (id == null) { id = nV++; map.set(key, id); pos.push(P[i], P[i + 1], P[i + 2]); nor.push(N[i], N[i + 1], N[i + 2]); }
+    else { nor[id * 3] += N[i]; nor[id * 3 + 1] += N[i + 1]; nor[id * 3 + 2] += N[i + 2]; }
+    idx[i / 3] = id;
+  }
+  for (let i = 0; i < nor.length; i += 3) { const l = Math.hypot(nor[i], nor[i + 1], nor[i + 2]) || 1; nor[i] /= l; nor[i + 1] /= l; nor[i + 2] /= l; }
+  const m = new T.BufferGeometry();
+  m.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
+  m.setAttribute('normal', new T.Float32BufferAttribute(nor, 3));
+  m.setIndex(Array.from(idx));
+  geo.dispose(); return m;
+}
+/** 近似 AO:凹处/底面/朝下法线变暗,写入 aAo attribute */
+function bakeAO(geo, role) {
+  const P = geo.attributes.position, N = geo.attributes.normal, n = P.count;
+  const ao = new Float32Array(n);
+  let ymin = Infinity, ymax = -Infinity;
+  for (let i = 0; i < n; i++) { const y = P.getY(i); if (y < ymin) ymin = y; if (y > ymax) ymax = y; }
+  const yr = Math.max(1e-4, ymax - ymin);
+  const roleBias = { port: .55, detail: .72, base: .62, led: .95, face: .88, body: 1 }[role] || .9;
+  for (let i = 0; i < n; i++) {
+    const ny = N.getY(i), h = (P.getY(i) - ymin) / yr;
+    let a = roleBias * (0.62 + 0.28 * h + 0.18 * Math.max(0, ny));
+    if (role === 'port') a *= 0.78;
+    ao[i] = Math.max(.4, Math.min(1, a));
+  }
+  geo.setAttribute('aAo', new root.THREE.BufferAttribute(ao, 1));
 }
 const GCACHE = {};
 /* 构建并归一化到 CUBE 立方体(最长边=CUBE,底面 y=0,水平居中),按角色合并 */
@@ -491,25 +561,56 @@ function buildModel(T, type) {
   const cx = (bb.min.x + bb.max.x) / 2, cz = (bb.min.z + bb.max.z) / 2, y0 = bb.min.y;
   geos.forEach(x => { x.g.translate(-cx, -y0, -cz); x.g.scale(k, k, k); });
   const parts = [];
-  ROLES.forEach(role => { const L = geos.filter(x => x.r === role).map(x => x.g); if (!L.length) return; const g = mergeGeos(T, L); g.computeBoundingBox(); g.computeBoundingSphere(); parts.push({ role, name: role + '_' + String(parts.length).padStart(2, '0'), geo: g }); });
+  ROLES.forEach(role => {
+    const L = geos.filter(x => x.r === role).map(x => x.g); if (!L.length) return;
+    const g = mergeGeos(T, L); bakeAO(g, role); g.computeBoundingBox(); g.computeBoundingSphere();
+    const tris = g.index ? g.index.count / 3 : g.attributes.position.count / 3;
+    const verts = g.attributes.position.count;
+    parts.push({ role, name: role + '_' + String(parts.length).padStart(2, '0'), geo: g, tris, verts });
+  });
   const box = new T.Box3(); parts.forEach(p => box.union(p.geo.boundingBox));
-  return (GCACHE[type] = { parts, box, norm: k, raw: { x: +raw.x.toFixed(4), y: +raw.y.toFixed(4), z: +raw.z.toFixed(4) }, atoms: atoms.length, tris: parts.reduce((t, p) => t + p.geo.attributes.position.count / 3, 0) });
+  const tris = parts.reduce((t, p) => t + p.tris, 0), verts = parts.reduce((t, p) => t + p.verts, 0);
+  return (GCACHE[type] = { parts, box, norm: k, raw: { x: +raw.x.toFixed(4), y: +raw.y.toFixed(4), z: +raw.z.toFixed(4) }, atoms: atoms.length, tris, verts });
 }
-/* 设备着色器:朗伯近似 + 大类色边缘光(fresnel);led 不受光照。颜色按线性值直写(ColorManagement 关闭) */
-const VS_DEV = 'varying vec3 vN;void main(){vN=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}';
-const FS_DEV = 'uniform vec3 uColor,uRim;uniform float uRimK,uLam,uAmb;varying vec3 vN;void main(){vec3 N=normalize(vN);float d=max(dot(N,normalize(vec3(.35,.85,.45))),0.);float lam=mix(1.,uAmb+(1.-uAmb)*d,uLam);float fr=pow(1.-abs(N.z),2.2);gl_FragColor=vec4(uColor*lam+uRim*fr*uRimK,1.);}';
-/* 角色色:body=主色×kb,face=主色×kf,led=亮色,base/port/detail 固定灰 */
+/* 设备着色器:半球环境 + 朗伯 + 低光泽 Blinn-Phong + 收窄边缘光 + 顶点 AO;led 不受光照 */
+const VS_DEV = 'attribute float aAo;varying vec3 vN;varying vec3 vV;varying float vAo;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);vAo=aAo;gl_Position=projectionMatrix*mv;}';
+const FS_DEV = 'uniform vec3 uColor,uRim,uHemiSky,uHemiGnd;uniform float uRimK,uLam,uAmb,uSpec,uShin;varying vec3 vN;varying vec3 vV;varying float vAo;void main(){vec3 N=normalize(vN);vec3 V=normalize(vV);vec3 L=normalize(vec3(.35,.85,.45));float ndl=max(dot(N,L),0.);float hemi=.5+.5*N.y;vec3 amb=mix(uHemiGnd,uHemiSky,hemi)*uAmb;vec3 diff=uColor*(amb+(1.-uAmb)*ndl*uLam);vec3 H=normalize(L+V);float sp=pow(max(dot(N,H),0.),uShin)*uSpec*ndl;float fr=pow(1.-max(abs(dot(N,V)),0.),3.2);vec3 c=(diff+uRim*sp+uRim*fr*uRimK)*vAo;gl_FragColor=vec4(c,1.);}';
 const ROLE_FIX = { dark: { base: '#2E3742', port: '#151B24', detail: '#7C8B9E' }, light: { base: '#5a6676', port: '#1e2632', detail: '#9aa8ba' } };
-const ROLE_K = { dark: { body: .62, face: 1.0, rim: { body: .55, face: .35, base: .2, port: .1, led: 0, detail: .3 } }, light: { body: .78, face: 1.0, rim: { body: .3, face: .2, base: .1, port: .05, led: 0, detail: .15 } } };
+const ROLE_K = { dark: { body: .62, face: 1.0, rim: { body: .32, face: .2, base: .1, port: .06, led: 0, detail: .18 }, spec: { body: .18, face: .22, base: .06, port: .04, led: 0, detail: .12 }, shin: { body: 28, face: 36, base: 16, port: 20, led: 1, detail: 24 } }, light: { body: .78, face: 1.0, rim: { body: .18, face: .12, base: .06, port: .04, led: 0, detail: .1 }, spec: { body: .12, face: .14, base: .04, port: .03, led: 0, detail: .08 }, shin: { body: 32, face: 40, base: 18, port: 22, led: 1, detail: 28 } } };
 function roleColor(T, main, role, theme) {
   const F = ROLE_FIX[theme]; if (F[role]) return new T.Color(F[role]);
   if (role === 'led') return main.clone().lerp(new T.Color('#ffffff'), .55);
   return main.clone().multiplyScalar(ROLE_K[theme][role]);
 }
-function devMat(T, main, role, theme) {
-  const c = roleColor(T, main, role, theme);
-  return new T.ShaderMaterial({ uniforms: { uColor: { value: c.clone() }, uRim: { value: main.clone() }, uRimK: { value: ROLE_K[theme].rim[role] }, uLam: { value: role === 'led' ? 0 : 1 }, uAmb: { value: theme === 'light' ? .5 : .38 } }, vertexShader: VS_DEV, fragmentShader: FS_DEV });
+function hemiColors(theme) {
+  return theme === 'light' ? { sky: new root.THREE.Color('#f2f5fa'), gnd: new root.THREE.Color('#8a96a8') } : { sky: new root.THREE.Color('#b0c0d8'), gnd: new root.THREE.Color('#080c14') };
 }
+function devMat(T, main, role, theme) {
+  const c = roleColor(T, main, role, theme), H = hemiColors(theme), K = ROLE_K[theme];
+  return new T.ShaderMaterial({ uniforms: {
+    uColor: { value: c.clone() }, uRim: { value: main.clone() }, uRimK: { value: K.rim[role] },
+    uLam: { value: role === 'led' ? 0 : 1 }, uAmb: { value: theme === 'light' ? .42 : .32 },
+    uSpec: { value: K.spec[role] }, uShin: { value: K.shin[role] },
+    uHemiSky: { value: H.sky }, uHemiGnd: { value: H.gnd },
+  }, vertexShader: VS_DEV, fragmentShader: FS_DEV });
+}
+/** 脚下柔和接触阴影(径向渐变贴片,非发光底座) */
+function contactShadow(T, theme, size) {
+  const key = 'cs|' + theme + '|' + size.toFixed(2);
+  if (texCache[key]) { const geoKey = 'csg|' + size.toFixed(2); if (!texCache[geoKey]) texCache[geoKey] = new T.PlaneGeometry(size, size);
+  const m = new T.Mesh(texCache[geoKey], new T.MeshBasicMaterial({ map: texCache[key], transparent: true, depthWrite: false, opacity: 1 })); m.rotation.x = -PI / 2; m.position.y = .001; m.renderOrder = -2; m.userData.isContactShadow = true; return m; }
+  const c = document.createElement('canvas'); c.width = 64; c.height = 64; const x = c.getContext('2d');
+  const g = x.createRadialGradient(32, 32, 2, 32, 32, 30);
+  g.addColorStop(0, theme === 'light' ? 'rgba(30,40,60,.32)' : 'rgba(0,0,0,.55)');
+  g.addColorStop(.55, theme === 'light' ? 'rgba(30,40,60,.12)' : 'rgba(0,0,0,.22)');
+  g.addColorStop(1, 'rgba(0,0,0,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 64, 64);
+  const tex = new T.CanvasTexture(c); texCache[key] = tex;
+  const geoKey = 'csg|' + size.toFixed(2); if (!texCache[geoKey]) texCache[geoKey] = new T.PlaneGeometry(size, size);
+  const m = new T.Mesh(texCache[geoKey], new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, opacity: 1 }));
+  m.rotation.x = -PI / 2; m.position.y = .001; m.renderOrder = -2; m.userData.isContactShadow = true; return m;
+}
+
 /**
  * createNode(type, opts) — 接口兼容 v1/v2
  * opts: theme, size, badge/label, ring/frame, mask, color
@@ -537,8 +638,9 @@ function createNode(type, opts) {
   });
   const box = M.box.clone(); const size = box.getSize(new T.Vector3()); const norm = M.norm, raw = M.raw;
   group.scale.setScalar(scale);
+  group.add(contactShadow(T, theme, Math.max(size.x, size.z) * 1.15 + .15));
   const radius = Math.max(size.x, size.z) * .5 * scale;
-  const out = { group, type, spec: sp, cat: sp.cat, color, theme, scale, norm, rawSize: raw, roles: M.parts.map(p => p.name), tris: M.tris, bounds: { height: box.max.y * scale, radius, cube: CUBE * scale, size: { x: +(size.x * scale).toFixed(4), y: +(size.y * scale).toFixed(4), z: +(size.z * scale).toFixed(4) } }, state: 'normal' };
+  const out = { group, type, spec: sp, cat: sp.cat, color, theme, scale, norm, rawSize: raw, roles: M.parts.map(p => p.name), tris: M.tris, verts: M.verts, parts: M.parts.length, mats: M.parts.length, stats: { tris: M.tris, verts: M.verts, parts: M.parts.length, mats: M.parts.length }, bounds: { height: box.max.y * scale, radius, cube: CUBE * scale, size: { x: +(size.x * scale).toFixed(4), y: +(size.y * scale).toFixed(4), z: +(size.z * scale).toFixed(4) } }, state: 'normal' };
   if (o.mask) { out.update = () => { }; out.setState = () => { }; out.setLabel = () => { }; out.dispose = () => { mats.forEach(m => m.dispose()); }; return out; }
 
   /* 状态描边:EdgesGeometry 合集,默认隐藏;选中白 / 被攻击红 / 已防护青 */
@@ -725,7 +827,7 @@ function setupBloom(renderer, opts) {
   } catch (e) { console.error('setupBloom', e); return null; }
 }
 
-const api = { version: 6, CATS, SPEC, RSPEC, ROLES, buildModel, CUBE, SIZES, STATES, STATE_COL, FRAME, ZONE, createNode, createZone, createZoneLabel, createLink, fitLabels, addLights, setupBloom, markBloom, prepareRenderer, setTheme, get theme() { return THEME; }, types: () => Object.keys(SPEC), byCat: c => Object.keys(SPEC).filter(k => SPEC[k].cat === c) };
+const api = { version: 8, CATS, SPEC, RSPEC, ROLES, buildModel, CUBE, SIZES, STATES, STATE_COL, FRAME, ZONE, createNode, createZone, createZoneLabel, createLink, fitLabels, addLights, setupBloom, markBloom, prepareRenderer, setTheme, get theme() { return THEME; }, types: () => Object.keys(SPEC), byCat: c => Object.keys(SPEC).filter(k => SPEC[k].cat === c) };
 root.NODELIB = api;
 if (typeof module !== 'undefined') module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
