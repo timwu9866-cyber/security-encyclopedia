@@ -71,6 +71,6 @@
 
 ## 节点模型库(nodes.html)
 
-- `nodes.html`(v2 实心低多边形风格,发光方形底框表示状态,另有「组合示例」分区视图):37 种通用网络安全节点概念造型(网络=绿、办公=蓝、安全=黄、服务器/云=紫、终端/IoT/工控=品红、攻击者/外部=红),画廊 + 放大预览 + 普通/选中/被攻击/已防护四态切换与对比,支持日间/夜间。
+- `nodes.html`(v3 对齐旧图实心低多边形风格,发光方形底框表示状态,另有「组合示例」分区视图):37 种通用网络安全节点概念造型(网络=绿、办公=蓝、安全=黄、服务器/云=紫、终端/IoT/工控=品红、攻击者/外部=红),画廊 + 放大预览 + 普通/选中/被攻击/已防护四态切换与对比,支持日间/夜间。
 - `js/nodelib.js`:可复用模块,`NODELIB.createNode(type, opts)`、`createZone({title,w,d,color})`、`createZoneLabel(text)`、`createLink(a,b)`、`addLights(scene)`。
 - `docs/nodes-research.md`:调研清单与造型规范;`data/nodespec.json`:给其他引擎(如 Unity)用的规范 JSON。由 `node tools/export_nodespec.js` 重新生成。

@@ -1,6 +1,6 @@
 {
  "schema": "security-node-spec",
- "version": 2,
+ "version": 3,
  "generated": "2026-10-10",
  "note": "概念造型规范,不对应任何真实产品或商标。坐标单位与事件大全一致(1 = 地面网格 1 格),Y 轴向上;尺寸系数乘到整个节点。",
  "sizes": {
