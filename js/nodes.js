@@ -32,9 +32,9 @@ function frameFor(node, asp) {
 function newScene(theme, n) { const sc = new T.Scene(); sc.background = new T.Color(L.STATE_COL[theme].bg); sc.add(gridFor(theme, n)); L.addLights(sc, theme); return sc; }
 function thumbLights(theme) {
   const day = theme === 'light', g = new T.Group();
-  g.add(new T.HemisphereLight(day ? 0xffffff : 0xa8b8d8, day ? 0x8896a8 : 0x05080f, day ? .3 : .05));
-  const d = new T.DirectionalLight(0xffffff, day ? 1.25 : 1.1); d.position.set(4, 14, 3); g.add(d);
-  const f = new T.DirectionalLight(day ? 0x90a8d0 : 0x4060b0, day ? .3 : .5); f.position.set(-10, 2, -4); g.add(f);
+  g.add(new T.HemisphereLight(day ? 0xffffff : 0xb0c0d8, day ? 0x8896a8 : 0x080c14, day ? .5 : .2));
+  const d = new T.DirectionalLight(0xffffff, day ? 1.8 : 2.0); d.position.set(5, 14, 4); g.add(d);
+  const f = new T.DirectionalLight(day ? 0x90a8d0 : 0x5070b8, day ? .35 : .55); f.position.set(-10, 3, -5); g.add(f);
   return g;
 }
 
@@ -124,7 +124,7 @@ function detail() {
   const D = $('detail');
   if (!ST.sel) {
     const rows = Object.keys(L.CATS).map(k => { const c = L.CATS[k]; return '<div><span class="sw" style="background:' + c[ST.theme] + '"></span>' + c.name + ' <span style="color:var(--dim)">夜 ' + c.dark + ' · 日 ' + c.light + '</span></div>'; }).join('');
-    D.innerHTML = '<h2>节点模型库</h2><div class="en">Generic security node models</div><h3>说明</h3><p>每种节点是程序化生成的实心低多边形模型(轻微光泽 + 少量自发光),脚下是发光方形底框,上方是小标签牌;轮廓区分种类,颜色区分类别,底框颜色表示状态(绿=普通、亮绿+白描边=选中、红闪=被攻击、青=已防护)。全部为概念造型,不对应任何真实产品或商标。</p><h3>类别色</h3><div style="display:flex;flex-direction:column;gap:6px;font-size:13px">' + rows + '</div><h3>复用</h3><p><code>NODELIB.createNode(type, { theme, size, badge })</code> 返回 <code>{ group, setState, update, dispose }</code>;另有 <code>createZone({title,w,d,color})</code> 分区底板、<code>createZoneLabel(text)</code> 区域标签、<code>createLink(a,b)</code> 绿色虚线箭头、<code>addLights(scene)</code>。</p>';
+    D.innerHTML = '<h2>节点模型库</h2><div class="en">Generic security node models</div><h3>说明</h3><p>每种节点是程序化生成的实心低多边形(MeshStandard 明暗面 + 少量自发光),上方有小标签牌;轮廓区分种类,颜色区分类别。状态用模型描边表示:选中=白边、被攻击=闪红+红边、已防护=青边+薄护罩。无地面发光底座。全部为概念造型,不对应任何真实产品或商标。</p><h3>类别色</h3><div style="display:flex;flex-direction:column;gap:6px;font-size:13px">' + rows + '</div><h3>复用</h3><p><code>NODELIB.createNode(type, { theme, size, badge })</code> 返回 <code>{ group, setState, update, dispose }</code>;另有 <code>createZone({title,w,d,color})</code> 分区底板、<code>createZoneLabel(text)</code> 区域标签、<code>createLink(a,b)</code> 绿色虚线箭头、<code>addLights(scene)</code>。</p>';
     return;
   }
   const sp = L.SPEC[ST.sel], c = L.CATS[sp.cat];

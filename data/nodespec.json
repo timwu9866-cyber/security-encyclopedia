@@ -1,6 +1,6 @@
 {
  "schema": "security-node-spec",
- "version": 3,
+ "version": 4,
  "generated": "2026-10-10",
  "note": "概念造型规范,不对应任何真实产品或商标。坐标单位与事件大全一致(1 = 地面网格 1 格),Y 轴向上;尺寸系数乘到整个节点。",
  "sizes": {
@@ -84,22 +84,22 @@
  "states": {
   "normal": {
    "name": "普通",
-   "desc": "绿色发光方形底框,轻微呼吸"
+   "desc": "MeshStandard 无地面底座"
   },
   "selected": {
    "name": "选中",
-   "desc": "底框更亮更宽,外加白色描边(日间为深色描边),模型自发光略增"
+   "desc": "白边"
   },
   "attacked": {
    "name": "被攻击",
-   "desc": "底框变红并闪烁(约 2 Hz),模型轻微抖动"
+   "desc": "闪红+红边"
   },
   "protected": {
    "name": "已防护",
-   "desc": "底框变青色,常亮"
+   "desc": "青边+护罩"
   }
  },
- "style": "v3 实心低多边形(MeshStandard, flatShading, roughness .42, metalness .12, 少量自发光) + 发光方形底框 + 标签牌;透视俯视镜头",
+ "style": "v4: MeshStandard lit, no ground frame, EdgesGeometry states, ColorManagement off",
  "camera": {
   "projection": "perspective",
   "fovDeg": 32,
@@ -1050,7 +1050,7 @@
       0,
       0
      ],
-     "tone": null
+     "tone": "light"
     },
     {
      "shape": "cyl",
@@ -1073,6 +1073,26 @@
      "tone": null
     },
     {
+     "shape": "cyl",
+     "args": [
+      0.7,
+      0.7,
+      0.06,
+      20
+     ],
+     "pos": [
+      0,
+      0.95,
+      0
+     ],
+     "rotRad": [
+      0,
+      0,
+      0
+     ],
+     "tone": "dark"
+    },
+    {
      "shape": "tor",
      "args": [
       0.55,
@@ -1089,7 +1109,7 @@
       0,
       0
      ],
-     "tone": null
+     "tone": "light"
     },
     {
      "shape": "tor",
@@ -1108,7 +1128,7 @@
       0,
       0
      ],
-     "tone": null
+     "tone": "light"
     }
    ]
   },

@@ -1,0 +1,82 @@
+[
+  {
+    "type": "pc",
+    "lo": 44.8,
+    "hi": 106.1,
+    "delta": 61.3,
+    "relBright": 57.8,
+    "ok": true
+  },
+  {
+    "type": "laptop",
+    "lo": 12.8,
+    "hi": 106.1,
+    "delta": 93.3,
+    "relBright": 87.9,
+    "ok": true
+  },
+  {
+    "type": "firewall",
+    "lo": 66.1,
+    "hi": 156.9,
+    "delta": 90.8,
+    "relBright": 57.8,
+    "ok": true
+  },
+  {
+    "type": "websrv",
+    "lo": 60.1,
+    "hi": 141.6,
+    "delta": 81.4,
+    "relBright": 57.5,
+    "ok": true
+  },
+  {
+    "type": "router",
+    "lo": 61.1,
+    "hi": 145.5,
+    "delta": 84.4,
+    "relBright": 58,
+    "ok": true
+  },
+  {
+    "type": "dbsrv",
+    "lo": 69.1,
+    "hi": 142.4,
+    "delta": 73.3,
+    "relBright": 51.5,
+    "ok": true
+  },
+  {
+    "type": "ap",
+    "lo": 11,
+    "hi": 118.7,
+    "delta": 107.6,
+    "relBright": 90.7,
+    "ok": true
+  },
+  {
+    "type": "switch",
+    "lo": 70.2,
+    "hi": 145.5,
+    "delta": 75.3,
+    "relBright": 51.8,
+    "ok": true
+  },
+  {
+    "type": "waf",
+    "lo": 66.1,
+    "hi": 146.8,
+    "delta": 80.6,
+    "relBright": 54.9,
+    "ok": true
+  },
+  {
+    "type": "bastion",
+    "lo": 66.1,
+    "hi": 156.9,
+    "delta": 90.8,
+    "relBright": 57.8,
+    "ok": true
+  }
+]
