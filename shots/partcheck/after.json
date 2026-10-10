@@ -1,0 +1,688 @@
+{
+ "totals": {
+  "floating": 0,
+  "buried": 0,
+  "offset": 0,
+  "coplanar": 0,
+  "orient": 0,
+  "range": 0,
+  "sym": 0
+ },
+ "models": {
+  "router": {
+   "atoms": 21,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "switch": {
+   "atoms": 38,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "coreswitch": {
+   "atoms": 25,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "ap": {
+   "atoms": 10,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": [
+    {
+     "i": 5,
+     "role": "detail",
+     "s": "tor",
+     "why": "无线信号弧"
+    },
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "tor",
+     "why": "无线信号弧"
+    }
+   ]
+  },
+  "lb": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "dns": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "pc": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "laptop": {
+   "atoms": 12,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "printer": {
+   "atoms": 9,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "mobile": {
+   "atoms": 18,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "tablet": {
+   "atoms": 16,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "voip": {
+   "atoms": 16,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "firewall": {
+   "atoms": 19,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "waf": {
+   "atoms": 12,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "idsips": {
+   "atoms": 12,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "bastion": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "honeypot": {
+   "atoms": 9,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "soc": {
+   "atoms": 17,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "vpngw": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "behavior": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "sandbox": {
+   "atoms": 15,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": [
+    {
+     "i": 10,
+     "role": "led",
+     "s": "sph",
+     "why": "被隔离样本:故意悬浮在沙箱笼中央,表达\"隔离/不接触\""
+    },
+    {
+     "i": 11,
+     "role": "detail",
+     "s": "tor",
+     "why": "样本外的隔离光环"
+    }
+   ]
+  },
+  "websrv": {
+   "atoms": 23,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "dbsrv": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "storage": {
+   "atoms": 30,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "cloud": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "container": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "mailsrv": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "ipcam": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "plc": {
+   "atoms": 26,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "sensor": {
+   "atoms": 7,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "hmi": {
+   "atoms": 13,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "pos": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "attacker": {
+   "atoms": 31,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "botnet": {
+   "atoms": 23,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "c2": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": [
+    {
+     "i": 17,
+     "role": "detail",
+     "s": "tor",
+     "why": "发射弧:信号示意,故意悬在天线上方"
+    },
+    {
+     "i": 18,
+     "role": "detail",
+     "s": "tor",
+     "why": "发射弧:信号示意,故意悬在天线上方"
+    },
+    {
+     "i": 19,
+     "role": "detail",
+     "s": "tor",
+     "why": "发射弧:信号示意,故意悬在天线上方"
+    }
+   ]
+  },
+  "internet": {
+   "atoms": 9,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "insider": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "aggswitch": {
+   "atoms": 29,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "nta": {
+   "atoms": 15,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "hids": {
+   "atoms": 15,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "appsrv": {
+   "atoms": 25,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "cache": {
+   "atoms": 10,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "objstore": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "mq": {
+   "atoms": 22,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "k8smaster": {
+   "atoms": 19,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "k8snode": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "registry": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "cnapp": {
+   "atoms": 26,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "workstation": {
+   "atoms": 17,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "opsterm": {
+   "atoms": 17,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "kiosk": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "term3p": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "iotgw": {
+   "atoms": 19,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  }
+ },
+ "whitelist": {
+  "c2": {
+   "tor": "发射弧:信号示意,故意悬在天线上方"
+  },
+  "internet": {
+   "tor": "轨道环/经纬环:环绕地球,允许与球面不接触",
+   "sph:led": "轨道上的卫星指示灯,随轨道悬浮"
+  },
+  "botnet": {
+   "tor": "环形链路示意",
+   "oct": "被控节点沿环悬浮",
+   "sph:led": "节点指示灯悬浮",
+   "box:detail": "辐条连线"
+  },
+  "ap": {
+   "tor": "无线信号弧"
+  },
+  "idsips": {
+   "tor": "探测波纹"
+  },
+  "honeypot": {
+   "tor": "诱捕环"
+  },
+  "sandbox": {
+   "sph:led": "被隔离样本:故意悬浮在沙箱笼中央,表达\"隔离/不接触\"",
+   "tor": "样本外的隔离光环"
+  },
+  "nta": {
+   "tor": "探测环"
+  },
+  "hids": {
+   "tor": "主机防护环"
+  },
+  "sensor": {
+   "tor": "信号弧"
+  },
+  "ipcam": {
+   "tor": "视野/信号弧"
+  },
+  "behavior": {
+   "tor": "轨迹环"
+  },
+  "vpngw": {
+   "tor": "隧道环"
+  },
+  "c2_": {}
+ }
+}

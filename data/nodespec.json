@@ -2728,10 +2728,10 @@
    }
   },
   "current": {
-   "sum": 22140,
-   "avg": 417.7,
+   "sum": 22236,
+   "avg": 419.5,
    "max": 1144,
-   "note": "v10 threat polish procedural"
+   "note": "v11 misalignment fixes (partcheck 0/53)"
   }
  },
  "meshcheck": {
@@ -2748,6 +2748,83 @@
   "bg": {
    "dark": "#0b1020",
    "light": "#d5dee9"
+  }
+ },
+ "partcheck": {
+  "script": "tools/partcheck.py",
+  "views": "tools/viewsheet.py",
+  "before": {
+   "floating": 123,
+   "buried": 43,
+   "offset": 0,
+   "coplanar": 6,
+   "orient": 1,
+   "range": 0,
+   "sym": 0
+  },
+  "after": {
+   "floating": 0,
+   "buried": 0,
+   "offset": 0,
+   "coplanar": 0,
+   "orient": 0,
+   "range": 0,
+   "sym": 0
+  },
+  "whitelist": {
+   "c2": {
+    "tor": "发射弧:信号示意,故意悬在天线上方"
+   },
+   "internet": {
+    "tor": "轨道环/经纬环:环绕地球,允许与球面不接触",
+    "sph:led": "轨道上的卫星指示灯,随轨道悬浮"
+   },
+   "botnet": {
+    "tor": "环形链路示意",
+    "oct": "被控节点沿环悬浮",
+    "sph:led": "节点指示灯悬浮",
+    "box:detail": "辐条连线"
+   },
+   "ap": {
+    "tor": "无线信号弧"
+   },
+   "idsips": {
+    "tor": "探测波纹"
+   },
+   "honeypot": {
+    "tor": "诱捕环"
+   },
+   "sandbox": {
+    "sph:led": "被隔离样本:故意悬浮在沙箱笼中央,表达\"隔离/不接触\"",
+    "tor": "样本外的隔离光环"
+   },
+   "nta": {
+    "tor": "探测环"
+   },
+   "hids": {
+    "tor": "主机防护环"
+   },
+   "sensor": {
+    "tor": "信号弧"
+   },
+   "ipcam": {
+    "tor": "视野/信号弧"
+   },
+   "behavior": {
+    "tor": "轨迹环"
+   },
+   "vpngw": {
+    "tor": "隧道环"
+   }
+  },
+  "rules": {
+   "floating": "包围盒间距<=0.01 视为接触,与贴地部件不连通的分量记为悬空",
+   "buried": ">=80% 采样点(顶点+中心)严格在另一凸部件内",
+   "offset": "贴面薄片离最近父表面>0.02",
+   "coplanar": "贴面薄片外表面与父表面差<2e-4",
+   "orient": "face/led 大贴片贴在父部件 -Z 面;攻击者屏幕/面罩、内部威胁脸/工牌语义朝向",
+   "range": "超出 [-.5,.5]×[0,1]×[-.5,.5]",
+   "sym": "body/base/face 体积加权 x 质心 |dx|>0.03(lb、mailsrv 为刻意不对称,不列入)"
   }
  }
 }

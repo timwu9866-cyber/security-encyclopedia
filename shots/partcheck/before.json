@@ -1,0 +1,2080 @@
+{
+ "totals": {
+  "floating": 123,
+  "buried": 43,
+  "offset": 0,
+  "coplanar": 6,
+  "orient": 1,
+  "range": 0,
+  "sym": 0
+ },
+ "models": {
+  "router": {
+   "atoms": 21,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "switch": {
+   "atoms": 38,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "coreswitch": {
+   "atoms": 25,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [
+    {
+     "i": 3,
+     "role": "detail",
+     "parent": 2,
+     "parentRole": "face",
+     "axis": "+z"
+    },
+    {
+     "i": 4,
+     "role": "detail",
+     "parent": 2,
+     "parentRole": "face",
+     "axis": "+z"
+    },
+    {
+     "i": 5,
+     "role": "detail",
+     "parent": 2,
+     "parentRole": "face",
+     "axis": "+z"
+    },
+    {
+     "i": 6,
+     "role": "detail",
+     "parent": 2,
+     "parentRole": "face",
+     "axis": "+z"
+    },
+    {
+     "i": 7,
+     "role": "detail",
+     "parent": 2,
+     "parentRole": "face",
+     "axis": "+z"
+    },
+    {
+     "i": 8,
+     "role": "detail",
+     "parent": 2,
+     "parentRole": "face",
+     "axis": "+z"
+    }
+   ],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "ap": {
+   "atoms": 10,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": [
+    {
+     "i": 5,
+     "role": "detail",
+     "s": "tor",
+     "why": "无线信号弧"
+    },
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "tor",
+     "why": "无线信号弧"
+    }
+   ]
+  },
+  "lb": {
+   "atoms": 17,
+   "floating": [
+    {
+     "i": 6,
+     "role": "body",
+     "s": "box",
+     "y": 0.247,
+     "group": true
+    },
+    {
+     "i": 7,
+     "role": "face",
+     "s": "box",
+     "y": 0.309,
+     "group": true
+    },
+    {
+     "i": 8,
+     "role": "led",
+     "s": "box",
+     "y": 0.543,
+     "group": false
+    },
+    {
+     "i": 12,
+     "role": "led",
+     "s": "box",
+     "y": 0.543,
+     "group": false
+    },
+    {
+     "i": 14,
+     "role": "body",
+     "s": "box",
+     "y": 0.247,
+     "group": true
+    },
+    {
+     "i": 15,
+     "role": "face",
+     "s": "box",
+     "y": 0.309,
+     "group": true
+    },
+    {
+     "i": 16,
+     "role": "led",
+     "s": "box",
+     "y": 0.543,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "dns": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "pc": {
+   "atoms": 14,
+   "floating": [
+    {
+     "i": 13,
+     "role": "port",
+     "s": "box",
+     "y": 0.027,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "laptop": {
+   "atoms": 12,
+   "floating": [
+    {
+     "i": 9,
+     "role": "body",
+     "s": "box",
+     "y": 0.066,
+     "group": true
+    },
+    {
+     "i": 10,
+     "role": "face",
+     "s": "box",
+     "y": 0.113,
+     "group": true
+    },
+    {
+     "i": 11,
+     "role": "led",
+     "s": "box",
+     "y": 0.711,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "printer": {
+   "atoms": 9,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "mobile": {
+   "atoms": 18,
+   "floating": [
+    {
+     "i": 15,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.793,
+     "group": false
+    }
+   ],
+   "buried": [
+    {
+     "i": 17,
+     "role": "led",
+     "s": "box",
+     "in": 2,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "tablet": {
+   "atoms": 16,
+   "floating": [
+    {
+     "i": 2,
+     "role": "detail",
+     "s": "box",
+     "y": 0.055,
+     "group": true
+    },
+    {
+     "i": 3,
+     "role": "body",
+     "s": "box",
+     "y": 0.098,
+     "group": true
+    },
+    {
+     "i": 4,
+     "role": "face",
+     "s": "box",
+     "y": 0.142,
+     "group": true
+    },
+    {
+     "i": 5,
+     "role": "detail",
+     "s": "box",
+     "y": 0.225,
+     "group": true
+    },
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "box",
+     "y": 0.225,
+     "group": true
+    },
+    {
+     "i": 7,
+     "role": "detail",
+     "s": "box",
+     "y": 0.225,
+     "group": true
+    },
+    {
+     "i": 8,
+     "role": "detail",
+     "s": "box",
+     "y": 0.225,
+     "group": true
+    },
+    {
+     "i": 9,
+     "role": "detail",
+     "s": "box",
+     "y": 0.425,
+     "group": true
+    },
+    {
+     "i": 10,
+     "role": "detail",
+     "s": "box",
+     "y": 0.425,
+     "group": true
+    },
+    {
+     "i": 11,
+     "role": "detail",
+     "s": "box",
+     "y": 0.425,
+     "group": true
+    },
+    {
+     "i": 12,
+     "role": "detail",
+     "s": "box",
+     "y": 0.425,
+     "group": true
+    },
+    {
+     "i": 13,
+     "role": "port",
+     "s": "sph",
+     "y": 0.662,
+     "group": false
+    },
+    {
+     "i": 14,
+     "role": "led",
+     "s": "box",
+     "y": 0.658,
+     "group": false
+    },
+    {
+     "i": 15,
+     "role": "port",
+     "s": "box",
+     "y": 0.099,
+     "group": true
+    }
+   ],
+   "buried": [
+    {
+     "i": 5,
+     "role": "detail",
+     "s": "box",
+     "in": 3,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "box",
+     "in": 3,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 7,
+     "role": "detail",
+     "s": "box",
+     "in": 3,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 8,
+     "role": "detail",
+     "s": "box",
+     "in": 3,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 9,
+     "role": "detail",
+     "s": "box",
+     "in": 3,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 10,
+     "role": "detail",
+     "s": "box",
+     "in": 3,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 11,
+     "role": "detail",
+     "s": "box",
+     "in": 3,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 12,
+     "role": "detail",
+     "s": "box",
+     "in": 3,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "voip": {
+   "atoms": 16,
+   "floating": [],
+   "buried": [
+    {
+     "i": 3,
+     "role": "port",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 4,
+     "role": "port",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 5,
+     "role": "port",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 6,
+     "role": "port",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 7,
+     "role": "port",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 8,
+     "role": "port",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 9,
+     "role": "port",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 10,
+     "role": "port",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 11,
+     "role": "port",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 15,
+     "role": "led",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "firewall": {
+   "atoms": 19,
+   "floating": [
+    {
+     "i": 4,
+     "role": "face",
+     "s": "box",
+     "y": 0.25,
+     "group": false
+    },
+    {
+     "i": 5,
+     "role": "face",
+     "s": "box",
+     "y": 0.25,
+     "group": false
+    },
+    {
+     "i": 6,
+     "role": "face",
+     "s": "box",
+     "y": 0.25,
+     "group": false
+    },
+    {
+     "i": 7,
+     "role": "face",
+     "s": "box",
+     "y": 0.25,
+     "group": false
+    },
+    {
+     "i": 8,
+     "role": "body",
+     "s": "box",
+     "y": 0.45,
+     "group": true
+    },
+    {
+     "i": 9,
+     "role": "body",
+     "s": "box",
+     "y": 0.45,
+     "group": true
+    },
+    {
+     "i": 10,
+     "role": "body",
+     "s": "box",
+     "y": 0.45,
+     "group": true
+    },
+    {
+     "i": 11,
+     "role": "face",
+     "s": "box",
+     "y": 0.65,
+     "group": false
+    },
+    {
+     "i": 12,
+     "role": "face",
+     "s": "box",
+     "y": 0.65,
+     "group": false
+    },
+    {
+     "i": 13,
+     "role": "face",
+     "s": "box",
+     "y": 0.65,
+     "group": false
+    },
+    {
+     "i": 14,
+     "role": "face",
+     "s": "box",
+     "y": 0.65,
+     "group": false
+    },
+    {
+     "i": 15,
+     "role": "led",
+     "s": "box",
+     "y": 0.9,
+     "group": false
+    },
+    {
+     "i": 16,
+     "role": "led",
+     "s": "box",
+     "y": 0.9,
+     "group": false
+    },
+    {
+     "i": 17,
+     "role": "led",
+     "s": "box",
+     "y": 0.9,
+     "group": false
+    },
+    {
+     "i": 18,
+     "role": "detail",
+     "s": "box",
+     "y": 0.86,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "waf": {
+   "atoms": 12,
+   "floating": [
+    {
+     "i": 3,
+     "role": "detail",
+     "s": "box",
+     "y": 0.652,
+     "group": true
+    },
+    {
+     "i": 4,
+     "role": "port",
+     "s": "box",
+     "y": 0.921,
+     "group": true
+    },
+    {
+     "i": 5,
+     "role": "led",
+     "s": "box",
+     "y": 0.944,
+     "group": true
+    },
+    {
+     "i": 6,
+     "role": "led",
+     "s": "box",
+     "y": 0.944,
+     "group": true
+    },
+    {
+     "i": 7,
+     "role": "led",
+     "s": "box",
+     "y": 0.944,
+     "group": true
+    },
+    {
+     "i": 8,
+     "role": "port",
+     "s": "box",
+     "y": 0.225,
+     "group": false
+    },
+    {
+     "i": 9,
+     "role": "port",
+     "s": "box",
+     "y": 0.225,
+     "group": false
+    },
+    {
+     "i": 10,
+     "role": "port",
+     "s": "box",
+     "y": 0.225,
+     "group": false
+    },
+    {
+     "i": 11,
+     "role": "led",
+     "s": "box",
+     "y": 0.506,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "idsips": {
+   "atoms": 12,
+   "floating": [],
+   "buried": [
+    {
+     "i": 11,
+     "role": "detail",
+     "s": "tor",
+     "in": 7,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "bastion": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "honeypot": {
+   "atoms": 9,
+   "floating": [
+    {
+     "i": 4,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.592,
+     "group": true
+    },
+    {
+     "i": 5,
+     "role": "detail",
+     "s": "sph",
+     "y": 0.667,
+     "group": true
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "soc": {
+   "atoms": 17,
+   "floating": [
+    {
+     "i": 3,
+     "role": "body",
+     "s": "box",
+     "y": 0.32,
+     "group": true
+    },
+    {
+     "i": 4,
+     "role": "face",
+     "s": "box",
+     "y": 0.34,
+     "group": true
+    },
+    {
+     "i": 5,
+     "role": "body",
+     "s": "box",
+     "y": 0.32,
+     "group": true
+    },
+    {
+     "i": 6,
+     "role": "face",
+     "s": "box",
+     "y": 0.34,
+     "group": true
+    },
+    {
+     "i": 7,
+     "role": "body",
+     "s": "box",
+     "y": 0.32,
+     "group": true
+    },
+    {
+     "i": 8,
+     "role": "face",
+     "s": "box",
+     "y": 0.34,
+     "group": true
+    },
+    {
+     "i": 9,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.28,
+     "group": true
+    },
+    {
+     "i": 10,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.28,
+     "group": true
+    },
+    {
+     "i": 11,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.28,
+     "group": true
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "vpngw": {
+   "atoms": 14,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "behavior": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [
+    {
+     "i": 5,
+     "role": "led",
+     "s": "sph",
+     "in": 2,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 6,
+     "role": "led",
+     "s": "sph",
+     "in": 2,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 7,
+     "role": "led",
+     "s": "sph",
+     "in": 2,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "sandbox": {
+   "atoms": 15,
+   "floating": [
+    {
+     "i": 12,
+     "role": "led",
+     "s": "box",
+     "y": 0.1,
+     "group": false
+    },
+    {
+     "i": 13,
+     "role": "led",
+     "s": "box",
+     "y": 0.1,
+     "group": false
+    },
+    {
+     "i": 14,
+     "role": "led",
+     "s": "box",
+     "y": 0.1,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": [
+    {
+     "i": 10,
+     "role": "led",
+     "s": "sph",
+     "why": "被隔离样本:故意悬浮在沙箱笼中央,表达\"隔离/不接触\""
+    },
+    {
+     "i": 11,
+     "role": "detail",
+     "s": "tor",
+     "why": "样本外的隔离光环"
+    }
+   ]
+  },
+  "websrv": {
+   "atoms": 23,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "dbsrv": {
+   "atoms": 11,
+   "floating": [
+    {
+     "i": 1,
+     "role": "body",
+     "s": "cyl",
+     "y": 0.051,
+     "group": true
+    },
+    {
+     "i": 2,
+     "role": "face",
+     "s": "cyl",
+     "y": 0.296,
+     "group": true
+    },
+    {
+     "i": 3,
+     "role": "led",
+     "s": "box",
+     "y": 0.173,
+     "group": true
+    },
+    {
+     "i": 4,
+     "role": "body",
+     "s": "cyl",
+     "y": 0.357,
+     "group": true
+    },
+    {
+     "i": 5,
+     "role": "face",
+     "s": "cyl",
+     "y": 0.602,
+     "group": true
+    },
+    {
+     "i": 6,
+     "role": "led",
+     "s": "box",
+     "y": 0.48,
+     "group": true
+    },
+    {
+     "i": 7,
+     "role": "body",
+     "s": "cyl",
+     "y": 0.663,
+     "group": true
+    },
+    {
+     "i": 8,
+     "role": "face",
+     "s": "cyl",
+     "y": 0.908,
+     "group": true
+    },
+    {
+     "i": 9,
+     "role": "led",
+     "s": "box",
+     "y": 0.786,
+     "group": true
+    },
+    {
+     "i": 10,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.969,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "storage": {
+   "atoms": 30,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "cloud": {
+   "atoms": 10,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": [
+    {
+     "i": 2,
+     "role": "body",
+     "s": "sph",
+     "why": "云团球体彼此相交拼合"
+    },
+    {
+     "i": 3,
+     "role": "body",
+     "s": "sph",
+     "why": "云团球体彼此相交拼合"
+    },
+    {
+     "i": 4,
+     "role": "body",
+     "s": "sph",
+     "why": "云团球体彼此相交拼合"
+    },
+    {
+     "i": 5,
+     "role": "face",
+     "s": "sph",
+     "why": "云团球体彼此相交拼合"
+    }
+   ]
+  },
+  "container": {
+   "atoms": 14,
+   "floating": [
+    {
+     "i": 9,
+     "role": "body",
+     "s": "cyl",
+     "y": 0.319,
+     "group": true
+    },
+    {
+     "i": 10,
+     "role": "face",
+     "s": "cyl",
+     "y": 0.596,
+     "group": true
+    },
+    {
+     "i": 11,
+     "role": "led",
+     "s": "box",
+     "y": 0.469,
+     "group": true
+    }
+   ],
+   "buried": [
+    {
+     "i": 2,
+     "role": "led",
+     "s": "box",
+     "in": 0,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 5,
+     "role": "led",
+     "s": "box",
+     "in": 3,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 8,
+     "role": "led",
+     "s": "box",
+     "in": 6,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 11,
+     "role": "led",
+     "s": "box",
+     "in": 9,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "mailsrv": {
+   "atoms": 8,
+   "floating": [
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.048,
+     "group": true
+    },
+    {
+     "i": 7,
+     "role": "led",
+     "s": "box",
+     "y": 0.596,
+     "group": true
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "ipcam": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [
+    {
+     "i": 2,
+     "role": "port",
+     "s": "cyl",
+     "in": 3,
+     "inRole": "detail",
+     "inShape": "box",
+     "frac": 0.92
+    },
+    {
+     "i": 4,
+     "role": "detail",
+     "s": "sph",
+     "in": 5,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 12,
+     "role": "led",
+     "s": "box",
+     "in": 7,
+     "inRole": "face",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 13,
+     "role": "led",
+     "s": "box",
+     "in": 7,
+     "inRole": "face",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 16,
+     "role": "port",
+     "s": "box",
+     "in": 5,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 17,
+     "role": "port",
+     "s": "box",
+     "in": 5,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 18,
+     "role": "port",
+     "s": "box",
+     "in": 5,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    },
+    {
+     "i": 19,
+     "role": "port",
+     "s": "box",
+     "in": 5,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "plc": {
+   "atoms": 26,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "sensor": {
+   "atoms": 7,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "hmi": {
+   "atoms": 13,
+   "floating": [],
+   "buried": [
+    {
+     "i": 3,
+     "role": "face",
+     "s": "box",
+     "in": 2,
+     "inRole": "body",
+     "inShape": "box",
+     "frac": 1
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "pos": {
+   "atoms": 11,
+   "floating": [
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.322,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "attacker": {
+   "atoms": 31,
+   "floating": [],
+   "buried": [
+    {
+     "i": 10,
+     "role": "face",
+     "s": "sph",
+     "in": 9,
+     "inRole": "body",
+     "inShape": "sph",
+     "frac": 0.8
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "botnet": {
+   "atoms": 23,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "c2": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": [
+    {
+     "i": 17,
+     "role": "detail",
+     "s": "tor",
+     "why": "发射弧:信号示意,故意悬在天线上方"
+    },
+    {
+     "i": 18,
+     "role": "detail",
+     "s": "tor",
+     "why": "发射弧:信号示意,故意悬在天线上方"
+    },
+    {
+     "i": 19,
+     "role": "detail",
+     "s": "tor",
+     "why": "发射弧:信号示意,故意悬在天线上方"
+    }
+   ]
+  },
+  "internet": {
+   "atoms": 9,
+   "floating": [
+    {
+     "i": 2,
+     "role": "body",
+     "s": "sph",
+     "y": 0.158,
+     "group": true
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": [
+    {
+     "i": 3,
+     "role": "face",
+     "s": "tor",
+     "why": "轨道环/经纬环:环绕地球,允许与球面不接触"
+    },
+    {
+     "i": 4,
+     "role": "face",
+     "s": "tor",
+     "why": "轨道环/经纬环:环绕地球,允许与球面不接触"
+    },
+    {
+     "i": 5,
+     "role": "face",
+     "s": "tor",
+     "why": "轨道环/经纬环:环绕地球,允许与球面不接触"
+    },
+    {
+     "i": 6,
+     "role": "detail",
+     "s": "tor",
+     "why": "轨道环/经纬环:环绕地球,允许与球面不接触"
+    },
+    {
+     "i": 7,
+     "role": "led",
+     "s": "sph",
+     "why": "轨道上的卫星指示灯,随轨道悬浮"
+    },
+    {
+     "i": 8,
+     "role": "led",
+     "s": "sph",
+     "why": "轨道上的卫星指示灯,随轨道悬浮"
+    }
+   ]
+  },
+  "insider": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [
+    {
+     "i": 9,
+     "role": "led",
+     "note": "特征面贴在父部件背面(-Z)"
+    }
+   ],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "aggswitch": {
+   "atoms": 29,
+   "floating": [
+    {
+     "i": 1,
+     "role": "body",
+     "s": "box",
+     "y": 0.061,
+     "group": true
+    },
+    {
+     "i": 2,
+     "role": "face",
+     "s": "box",
+     "y": 0.097,
+     "group": true
+    },
+    {
+     "i": 3,
+     "role": "port",
+     "s": "box",
+     "y": 0.122,
+     "group": true
+    },
+    {
+     "i": 4,
+     "role": "port",
+     "s": "box",
+     "y": 0.122,
+     "group": true
+    },
+    {
+     "i": 5,
+     "role": "port",
+     "s": "box",
+     "y": 0.122,
+     "group": true
+    },
+    {
+     "i": 6,
+     "role": "port",
+     "s": "box",
+     "y": 0.122,
+     "group": true
+    },
+    {
+     "i": 7,
+     "role": "port",
+     "s": "box",
+     "y": 0.122,
+     "group": true
+    },
+    {
+     "i": 8,
+     "role": "port",
+     "s": "box",
+     "y": 0.122,
+     "group": true
+    },
+    {
+     "i": 9,
+     "role": "led",
+     "s": "box",
+     "y": 0.195,
+     "group": true
+    },
+    {
+     "i": 10,
+     "role": "led",
+     "s": "box",
+     "y": 0.195,
+     "group": true
+    },
+    {
+     "i": 11,
+     "role": "body",
+     "s": "box",
+     "y": 0.377,
+     "group": true
+    },
+    {
+     "i": 12,
+     "role": "face",
+     "s": "box",
+     "y": 0.414,
+     "group": true
+    },
+    {
+     "i": 13,
+     "role": "port",
+     "s": "box",
+     "y": 0.438,
+     "group": true
+    },
+    {
+     "i": 14,
+     "role": "port",
+     "s": "box",
+     "y": 0.438,
+     "group": true
+    },
+    {
+     "i": 15,
+     "role": "port",
+     "s": "box",
+     "y": 0.438,
+     "group": true
+    },
+    {
+     "i": 16,
+     "role": "port",
+     "s": "box",
+     "y": 0.438,
+     "group": true
+    },
+    {
+     "i": 17,
+     "role": "port",
+     "s": "box",
+     "y": 0.438,
+     "group": true
+    },
+    {
+     "i": 18,
+     "role": "port",
+     "s": "box",
+     "y": 0.438,
+     "group": true
+    },
+    {
+     "i": 19,
+     "role": "led",
+     "s": "box",
+     "y": 0.511,
+     "group": true
+    },
+    {
+     "i": 20,
+     "role": "led",
+     "s": "box",
+     "y": 0.511,
+     "group": true
+    },
+    {
+     "i": 21,
+     "role": "detail",
+     "s": "box",
+     "y": 0.304,
+     "group": true
+    },
+    {
+     "i": 22,
+     "role": "detail",
+     "s": "box",
+     "y": 0.304,
+     "group": true
+    },
+    {
+     "i": 23,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.636,
+     "group": false
+    },
+    {
+     "i": 24,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.636,
+     "group": false
+    },
+    {
+     "i": 25,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.636,
+     "group": false
+    },
+    {
+     "i": 26,
+     "role": "led",
+     "s": "sph",
+     "y": 0.946,
+     "group": false
+    },
+    {
+     "i": 27,
+     "role": "led",
+     "s": "sph",
+     "y": 0.946,
+     "group": false
+    },
+    {
+     "i": 28,
+     "role": "led",
+     "s": "sph",
+     "y": 0.946,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "nta": {
+   "atoms": 15,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "hids": {
+   "atoms": 15,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "appsrv": {
+   "atoms": 25,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "cache": {
+   "atoms": 10,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "objstore": {
+   "atoms": 8,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "mq": {
+   "atoms": 22,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "k8smaster": {
+   "atoms": 19,
+   "floating": [
+    {
+     "i": 10,
+     "role": "face",
+     "s": "tor",
+     "y": 0.754,
+     "group": true
+    },
+    {
+     "i": 11,
+     "role": "detail",
+     "s": "box",
+     "y": 0.78,
+     "group": true
+    },
+    {
+     "i": 12,
+     "role": "detail",
+     "s": "box",
+     "y": 0.78,
+     "group": true
+    },
+    {
+     "i": 13,
+     "role": "detail",
+     "s": "box",
+     "y": 0.78,
+     "group": true
+    },
+    {
+     "i": 14,
+     "role": "detail",
+     "s": "box",
+     "y": 0.78,
+     "group": true
+    },
+    {
+     "i": 15,
+     "role": "detail",
+     "s": "box",
+     "y": 0.78,
+     "group": true
+    },
+    {
+     "i": 16,
+     "role": "detail",
+     "s": "box",
+     "y": 0.78,
+     "group": true
+    },
+    {
+     "i": 17,
+     "role": "detail",
+     "s": "box",
+     "y": 0.78,
+     "group": true
+    },
+    {
+     "i": 18,
+     "role": "led",
+     "s": "sph",
+     "y": 0.73,
+     "group": true
+    }
+   ],
+   "buried": [
+    {
+     "i": 3,
+     "role": "led",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 4,
+     "role": "led",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 5,
+     "role": "led",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 6,
+     "role": "led",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 7,
+     "role": "led",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    },
+    {
+     "i": 8,
+     "role": "led",
+     "s": "box",
+     "in": 1,
+     "inRole": "body",
+     "inShape": "cyl",
+     "frac": 1
+    }
+   ],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "k8snode": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "registry": {
+   "atoms": 20,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "cnapp": {
+   "atoms": 26,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "workstation": {
+   "atoms": 17,
+   "floating": [
+    {
+     "i": 16,
+     "role": "port",
+     "s": "box",
+     "y": 0.023,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "opsterm": {
+   "atoms": 17,
+   "floating": [
+    {
+     "i": 14,
+     "role": "body",
+     "s": "box",
+     "y": 0.316,
+     "group": true
+    },
+    {
+     "i": 15,
+     "role": "face",
+     "s": "box",
+     "y": 0.332,
+     "group": true
+    },
+    {
+     "i": 16,
+     "role": "detail",
+     "s": "cyl",
+     "y": 0.211,
+     "group": true
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "kiosk": {
+   "atoms": 11,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "term3p": {
+   "atoms": 8,
+   "floating": [
+    {
+     "i": 5,
+     "role": "led",
+     "s": "sph",
+     "y": 0.949,
+     "group": false
+    }
+   ],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  },
+  "iotgw": {
+   "atoms": 19,
+   "floating": [],
+   "buried": [],
+   "offset": [],
+   "coplanar": [],
+   "orient": [],
+   "range": [],
+   "sym": [],
+   "whitelisted": []
+  }
+ },
+ "whitelist": {
+  "c2": {
+   "tor": "发射弧:信号示意,故意悬在天线上方"
+  },
+  "internet": {
+   "tor": "轨道环/经纬环:环绕地球,允许与球面不接触",
+   "sph:led": "轨道上的卫星指示灯,随轨道悬浮"
+  },
+  "botnet": {
+   "tor": "环形链路示意",
+   "oct": "被控节点沿环悬浮",
+   "sph:led": "节点指示灯悬浮",
+   "box:detail": "辐条连线"
+  },
+  "ap": {
+   "tor": "无线信号弧"
+  },
+  "idsips": {
+   "tor": "探测波纹"
+  },
+  "honeypot": {
+   "tor": "诱捕环"
+  },
+  "sandbox": {
+   "sph:led": "被隔离样本:故意悬浮在沙箱笼中央,表达\"隔离/不接触\"",
+   "tor": "样本外的隔离光环"
+  },
+  "cloud": {
+   "sph": "云团球体彼此相交拼合"
+  },
+  "nta": {
+   "tor": "探测环"
+  },
+  "hids": {
+   "tor": "主机防护环"
+  },
+  "sensor": {
+   "tor": "信号弧"
+  },
+  "ipcam": {
+   "tor": "视野/信号弧"
+  },
+  "behavior": {
+   "tor": "轨迹环"
+  },
+  "vpngw": {
+   "tor": "隧道环"
+  },
+  "c2_": {}
+ }
+}
