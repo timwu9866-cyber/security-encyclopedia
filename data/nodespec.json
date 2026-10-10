@@ -1,13 +1,497 @@
 {
  "schema": "security-node-spec",
- "version": 4,
+ "version": 5,
  "generated": "2026-10-10",
  "note": "概念造型规范,不对应任何真实产品或商标。坐标单位与事件大全一致(1 = 地面网格 1 格),Y 轴向上;尺寸系数乘到整个节点。",
  "sizes": {
-  "S": 0.8,
-  "M": 1,
-  "L": 1.25,
-  "XL": 1.5
+  "note": "已取消 S/M/L/XL;size 仅整体倍数默认 1"
+ },
+ "cube": {
+  "edge": 1,
+  "note": "所有模型归一化到边长 edge 的立方体(最长边=1),底贴地、水平居中;norms[type]=1/rawLongest"
+ },
+ "norms": {
+  "router": {
+   "norm": 0.454545,
+   "raw": {
+    "x": 2.2,
+    "y": 1.7,
+    "z": 1.44
+   },
+   "after": {
+    "x": 1,
+    "y": 0.7727,
+    "z": 0.6545
+   }
+  },
+  "switch": {
+   "norm": 0.344828,
+   "raw": {
+    "x": 2.9,
+    "y": 0.32,
+    "z": 1.14
+   },
+   "after": {
+    "x": 1,
+    "y": 0.1103,
+    "z": 0.3931
+   }
+  },
+  "coreswitch": {
+   "norm": 0.5,
+   "raw": {
+    "x": 2,
+    "y": 1.56,
+    "z": 1.24
+   },
+   "after": {
+    "x": 1,
+    "y": 0.78,
+    "z": 0.62
+   }
+  },
+  "ap": {
+   "norm": 0.442478,
+   "raw": {
+    "x": 1.97,
+    "y": 2.26,
+    "z": 1.9
+   },
+   "after": {
+    "x": 0.8717,
+    "y": 1,
+    "z": 0.8407
+   }
+  },
+  "lb": {
+   "norm": 0.30303,
+   "raw": {
+    "x": 3.3,
+    "y": 0.7,
+    "z": 1.7
+   },
+   "after": {
+    "x": 1,
+    "y": 0.2121,
+    "z": 0.5152
+   }
+  },
+  "dns": {
+   "norm": 0.47619,
+   "raw": {
+    "x": 1.31,
+    "y": 2.1,
+    "z": 1.31
+   },
+   "after": {
+    "x": 0.6238,
+    "y": 1,
+    "z": 0.6238
+   }
+  },
+  "pc": {
+   "norm": 0.43956,
+   "raw": {
+    "x": 2.275,
+    "y": 1.625,
+    "z": 1.1
+   },
+   "after": {
+    "x": 1,
+    "y": 0.7143,
+    "z": 0.4835
+   }
+  },
+  "laptop": {
+   "norm": 0.588235,
+   "raw": {
+    "x": 1.7,
+    "y": 1.0804,
+    "z": 1.4588
+   },
+   "after": {
+    "x": 1,
+    "y": 0.6355,
+    "z": 0.8581
+   }
+  },
+  "printer": {
+   "norm": 0.540541,
+   "raw": {
+    "x": 1.6,
+    "y": 1.4779,
+    "z": 1.85
+   },
+   "after": {
+    "x": 0.8649,
+    "y": 0.7988,
+    "z": 1
+   }
+  },
+  "mobile": {
+   "norm": 0.646482,
+   "raw": {
+    "x": 0.9,
+    "y": 1.5468,
+    "z": 0.5335
+   },
+   "after": {
+    "x": 0.5818,
+    "y": 1,
+    "z": 0.3449
+   }
+  },
+  "tablet": {
+   "norm": 0.625,
+   "raw": {
+    "x": 1.6,
+    "y": 1.1683,
+    "z": 1.0117
+   },
+   "after": {
+    "x": 1,
+    "y": 0.7302,
+    "z": 0.6323
+   }
+  },
+  "voip": {
+   "norm": 0.666667,
+   "raw": {
+    "x": 1.5,
+    "y": 0.7649,
+    "z": 1.0588
+   },
+   "after": {
+    "x": 1,
+    "y": 0.51,
+    "z": 0.7058
+   }
+  },
+  "firewall": {
+   "norm": 0.46729,
+   "raw": {
+    "x": 2.14,
+    "y": 1.34,
+    "z": 0.5
+   },
+   "after": {
+    "x": 1,
+    "y": 0.6262,
+    "z": 0.2336
+   }
+  },
+  "waf": {
+   "norm": 0.487805,
+   "raw": {
+    "x": 1.7321,
+    "y": 2.05,
+    "z": 0.52
+   },
+   "after": {
+    "x": 0.8449,
+    "y": 1,
+    "z": 0.2537
+   }
+  },
+  "idsips": {
+   "norm": 0.5,
+   "raw": {
+    "x": 1.9021,
+    "y": 1.81,
+    "z": 2
+   },
+   "after": {
+    "x": 0.9511,
+    "y": 0.905,
+    "z": 1
+   }
+  },
+  "bastion": {
+   "norm": 0.442478,
+   "raw": {
+    "x": 1.6,
+    "y": 2.26,
+    "z": 1.625
+   },
+   "after": {
+    "x": 0.708,
+    "y": 1,
+    "z": 0.719
+   }
+  },
+  "honeypot": {
+   "norm": 0.556613,
+   "raw": {
+    "x": 1.5599,
+    "y": 1.7966,
+    "z": 1.4835
+   },
+   "after": {
+    "x": 0.8683,
+    "y": 1,
+    "z": 0.8258
+   }
+  },
+  "soc": {
+   "norm": 0.354334,
+   "raw": {
+    "x": 2.8222,
+    "y": 1.625,
+    "z": 1.01
+   },
+   "after": {
+    "x": 1,
+    "y": 0.5758,
+    "z": 0.3579
+   }
+  },
+  "vpngw": {
+   "norm": 0.555556,
+   "raw": {
+    "x": 1.8,
+    "y": 1.225,
+    "z": 0.9
+   },
+   "after": {
+    "x": 1,
+    "y": 0.6806,
+    "z": 0.5
+   }
+  },
+  "behavior": {
+   "norm": 0.480769,
+   "raw": {
+    "x": 2.08,
+    "y": 1.74,
+    "z": 2.08
+   },
+   "after": {
+    "x": 1,
+    "y": 0.8365,
+    "z": 1
+   }
+  },
+  "sandbox": {
+   "norm": 0.666667,
+   "raw": {
+    "x": 1.5,
+    "y": 1.345,
+    "z": 1.5
+   },
+   "after": {
+    "x": 1,
+    "y": 0.8967,
+    "z": 1
+   }
+  },
+  "websrv": {
+   "norm": 0.47619,
+   "raw": {
+    "x": 0.95,
+    "y": 2.1,
+    "z": 1.025
+   },
+   "after": {
+    "x": 0.4524,
+    "y": 1,
+    "z": 0.4881
+   }
+  },
+  "dbsrv": {
+   "norm": 0.588235,
+   "raw": {
+    "x": 1.6168,
+    "y": 1.51,
+    "z": 1.7
+   },
+   "after": {
+    "x": 0.9511,
+    "y": 0.8882,
+    "z": 1
+   }
+  },
+  "storage": {
+   "norm": 0.49505,
+   "raw": {
+    "x": 1.9,
+    "y": 0.81,
+    "z": 2.02
+   },
+   "after": {
+    "x": 0.9406,
+    "y": 0.401,
+    "z": 1
+   }
+  },
+  "cloud": {
+   "norm": 0.381509,
+   "raw": {
+    "x": 2.6212,
+    "y": 1.75,
+    "z": 1.4835
+   },
+   "after": {
+    "x": 1,
+    "y": 0.6676,
+    "z": 0.566
+   }
+  },
+  "container": {
+   "norm": 0.48718,
+   "raw": {
+    "x": 2.0526,
+    "y": 1.2,
+    "z": 2
+   },
+   "after": {
+    "x": 1,
+    "y": 0.5846,
+    "z": 0.9744
+   }
+  },
+  "mailsrv": {
+   "norm": 0.56338,
+   "raw": {
+    "x": 1.775,
+    "y": 1.45,
+    "z": 0.9
+   },
+   "after": {
+    "x": 1,
+    "y": 0.8169,
+    "z": 0.507
+   }
+  },
+  "ipcam": {
+   "norm": 0.634921,
+   "raw": {
+    "x": 0.7,
+    "y": 1.49,
+    "z": 1.575
+   },
+   "after": {
+    "x": 0.4444,
+    "y": 0.946,
+    "z": 1
+   }
+  },
+  "plc": {
+   "norm": 0.416667,
+   "raw": {
+    "x": 2.4,
+    "y": 0.9,
+    "z": 0.75
+   },
+   "after": {
+    "x": 1,
+    "y": 0.375,
+    "z": 0.3125
+   }
+  },
+  "sensor": {
+   "norm": 0.558832,
+   "raw": {
+    "x": 1.0394,
+    "y": 1.7894,
+    "z": 0.856
+   },
+   "after": {
+    "x": 0.5809,
+    "y": 1,
+    "z": 0.4783
+   }
+  },
+  "hmi": {
+   "norm": 0.554717,
+   "raw": {
+    "x": 1.3,
+    "y": 1.8027,
+    "z": 0.8589
+   },
+   "after": {
+    "x": 0.7211,
+    "y": 1,
+    "z": 0.4764
+   }
+  },
+  "pos": {
+   "norm": 0.833333,
+   "raw": {
+    "x": 1.2,
+    "y": 0.8314,
+    "z": 1.05
+   },
+   "after": {
+    "x": 1,
+    "y": 0.6928,
+    "z": 0.875
+   }
+  },
+  "attacker": {
+   "norm": 0.488998,
+   "raw": {
+    "x": 1.4266,
+    "y": 2.045,
+    "z": 1.5404
+   },
+   "after": {
+    "x": 0.6976,
+    "y": 1,
+    "z": 0.7532
+   }
+  },
+  "botnet": {
+   "norm": 0.357143,
+   "raw": {
+    "x": 2.8,
+    "y": 1,
+    "z": 2.4919
+   },
+   "after": {
+    "x": 1,
+    "y": 0.3571,
+    "z": 0.8899
+   }
+  },
+  "c2": {
+   "norm": 0.308055,
+   "raw": {
+    "x": 1.5,
+    "y": 3.2462,
+    "z": 1.5
+   },
+   "after": {
+    "x": 0.4621,
+    "y": 1,
+    "z": 0.4621
+   }
+  },
+  "internet": {
+   "norm": 0.269176,
+   "raw": {
+    "x": 3.715,
+    "y": 2.37,
+    "z": 3.449
+   },
+   "after": {
+    "x": 1,
+    "y": 0.6379,
+    "z": 0.9284
+   }
+  },
+  "insider": {
+   "norm": 0.531915,
+   "raw": {
+    "x": 0.9511,
+    "y": 1.88,
+    "z": 1
+   },
+   "after": {
+    "x": 0.5059,
+    "y": 1,
+    "z": 0.5319
+   }
+  }
  },
  "categories": {
   "net": {
@@ -99,7 +583,7 @@
    "desc": "青色细描边 + 薄半透明护罩"
   }
  },
- "style": "v4 无地面发光底座;MeshStandard 明暗;状态=EdgesGeometry 描边;ColorManagement 关闭;标签牌;透视俯视镜头",
+ "style": "v5 统一立方体归一化;MeshStandard;无地面底座;EdgesGeometry 状态;ColorManagement off",
  "camera": {
   "projection": "perspective",
   "fovDeg": 32,
@@ -791,7 +1275,7 @@
    "en": "Core Switch",
    "category": "net",
    "size": "L",
-   "scale": 1.25,
+   "scale": 1,
    "abbr": "CS",
    "color": {
     "dark": "#1fd65a",
@@ -1011,7 +1495,7 @@
    "en": "Wireless AP",
    "category": "net",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "AP",
    "color": {
     "dark": "#1fd65a",
@@ -1333,7 +1817,7 @@
    "en": "DNS",
    "category": "net",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "DNS",
    "color": {
     "dark": "#1fd65a",
@@ -1523,7 +2007,7 @@
    "en": "Laptop",
    "category": "office",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "NB",
    "color": {
     "dark": "#2f8fff",
@@ -1692,7 +2176,7 @@
    "en": "Mobile Phone",
    "category": "office",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "MB",
    "color": {
     "dark": "#2f8fff",
@@ -1777,7 +2261,7 @@
    "en": "Tablet",
    "category": "office",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "TB",
    "color": {
     "dark": "#2f8fff",
@@ -1861,7 +2345,7 @@
    "en": "IP Phone",
    "category": "office",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "VP",
    "color": {
     "dark": "#2f8fff",
@@ -1965,7 +2449,7 @@
    "en": "Firewall",
    "category": "sec",
    "size": "L",
-   "scale": 1.25,
+   "scale": 1,
    "abbr": "FW",
    "color": {
     "dark": "#f5c518",
@@ -2551,7 +3035,7 @@
    "en": "Honeypot",
    "category": "sec",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "HP",
    "color": {
     "dark": "#f5c518",
@@ -2641,7 +3125,7 @@
    "en": "SOC / Situational Awareness",
    "category": "sec",
    "size": "XL",
-   "scale": 1.5,
+   "scale": 1,
    "abbr": "SOC",
    "color": {
     "dark": "#f5c518",
@@ -3131,7 +3615,7 @@
    "en": "Web / App Server",
    "category": "srv",
    "size": "L",
-   "scale": 1.25,
+   "scale": 1,
    "abbr": "WEB",
    "color": {
     "dark": "#c9a0ff",
@@ -3291,7 +3775,7 @@
    "en": "Database",
    "category": "srv",
    "size": "L",
-   "scale": 1.25,
+   "scale": 1,
    "abbr": "DB",
    "color": {
     "dark": "#c9a0ff",
@@ -3378,7 +3862,7 @@
    "en": "Storage Array",
    "category": "srv",
    "size": "L",
-   "scale": 1.25,
+   "scale": 1,
    "abbr": "NAS",
    "color": {
     "dark": "#c9a0ff",
@@ -3538,7 +4022,7 @@
    "en": "Cloud Platform",
    "category": "srv",
    "size": "XL",
-   "scale": 1.5,
+   "scale": 1,
    "abbr": "CLD",
    "color": {
     "dark": "#c9a0ff",
@@ -3642,7 +4126,7 @@
    "en": "Container Cluster",
    "category": "srv",
    "size": "L",
-   "scale": 1.25,
+   "scale": 1,
    "abbr": "K8",
    "color": {
     "dark": "#c9a0ff",
@@ -3856,7 +4340,7 @@
    "en": "IP Camera",
    "category": "iot",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "CAM",
    "color": {
     "dark": "#ff6bcb",
@@ -4102,7 +4586,7 @@
    "en": "Sensor",
    "category": "iot",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "SN",
    "color": {
     "dark": "#ff6bcb",
@@ -4205,7 +4689,7 @@
    "en": "HMI Console",
    "category": "iot",
    "size": "L",
-   "scale": 1.25,
+   "scale": 1,
    "abbr": "HMI",
    "color": {
     "dark": "#ff6bcb",
@@ -4330,7 +4814,7 @@
    "en": "POS Terminal",
    "category": "iot",
    "size": "S",
-   "scale": 0.8,
+   "scale": 1,
    "abbr": "POS",
    "color": {
     "dark": "#ff6bcb",
@@ -4518,7 +5002,7 @@
    "en": "Botnet",
    "category": "ext",
    "size": "L",
-   "scale": 1.25,
+   "scale": 1,
    "abbr": "BOT",
    "color": {
     "dark": "#ff3b4e",
@@ -4807,7 +5291,7 @@
    "en": "Internet",
    "category": "ext",
    "size": "XL",
-   "scale": 1.5,
+   "scale": 1,
    "abbr": "NET",
    "color": {
     "dark": "#ff3b4e",

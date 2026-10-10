@@ -45,7 +45,7 @@ L.prepareRenderer(off); off.setPixelRatio(1); off.setSize(TW, TH, false);
 function renderThumb(type, cv, theme, state, t) {
   const sc = new T.Scene(); sc.background = new T.Color(L.STATE_COL[theme].bg); sc.add(gridFor(theme, 5)); sc.add(thumbLights(theme));
   const n = L.createNode(type, { theme }); n.setState(state || 'normal'); n.update(t == null ? 1.3 : t); sc.add(n.group);
-  off.render(sc, frameFor(n, TW / TH));
+  { const cam = frameFor(n, TW / TH); L.fitLabels(sc, cam, TH, 17); off.render(sc, cam); }
   const x = cv.getContext('2d'); x.drawImage(off.domElement, 0, 0, cv.width, cv.height);
   n.dispose();
 }
@@ -113,7 +113,7 @@ function loop(now) {
   pv.items.forEach((it, i) => {
     it.node.update(t);
     const cam = frameFor(it.node, cw / h);
-    pr.setViewport(i * cw, 0, cw, h); pr.setScissor(i * cw, 0, cw, h); pr.render(it.scene, cam);
+    L.fitLabels(it.scene, cam, h, 14); pr.setViewport(i * cw, 0, cw, h); pr.setScissor(i * cw, 0, cw, h); pr.render(it.scene, cam);
   });
   pr.setScissorTest(false);
 }
@@ -139,8 +139,10 @@ function detail() {
 
 /* ---------- 组合示例:2 大区套子区,约 60 节点,选择性辉光 ---------- */
 const cbcv = $('cbcv'); let cr = null; try { cr = new T.WebGLRenderer({ canvas: cbcv, antialias: true, preserveDrawingBuffer: true }); L.prepareRenderer(cr); cr.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); } catch (e) { console.error(e); }
-const CB = { on: false, scene: null, nodes: [], links: [], zones: [], tgt: new T.Vector3(3.5, 0, 0.2), dist: 19, pick: [], bloom: null };
+window.NODES_TUNE = (lk, nk, fk) => { LK = lk; NODE_K = nk; if (fk) FIT_K = fk; buildCombo(); };
+const CB = { on: false, scene: null, nodes: [], links: [], zones: [], tgt: new T.Vector3(1.5, 0, 0.8), dist: 62, pick: [], bloom: null };
 /* 2 个大区,每区 5~6 子区,合计约 60 节点 */
+let LK = 2.0, NODE_K = 1.0, FIT_K = 0.5; /* 统一立方体后:布局拉开 + 默认框住大部;前景约 6–8% */ /* 布局放大系数(间距) / 节点缩放 */
 const MAJOR = [
   { title: '办公与研发区', cx: -7.5, cz: 0, w: 16.5, d: 14.5, color: 'violet',
     subs: [
@@ -156,7 +158,7 @@ const MAJOR = [
       { title: '安全管理子区', ox: 1.2, oz: -4.5, w: 5.2, d: 4.4, cols: 3, items: [['firewall', '边界防火墙', 'protected'], ['waf', 'WAF'], ['idsips', '入侵防御'], ['bastion', '堡垒机'], ['soc', '态势感知'], ['honeypot', '蜜罐'], ['vpngw', 'VPN网关'], ['sandbox', '沙箱']] },
       { title: '业务服务子区', ox: -5.0, oz: .8, w: 5.0, d: 5.0, cols: 3, items: [['websrv', 'Web服务器1'], ['websrv', 'Web服务器2'], ['mailsrv', '邮件服务器'], ['container', '容器集群'], ['cloud', '云平台']] },
       { title: '数据存储子区', ox: 1.2, oz: .8, w: 5.2, d: 5.0, cols: 3, items: [['dbsrv', '核心数据库', 'attacked'], ['dbsrv', '业务库'], ['storage', '备份存储'], ['storage', '文件存储'], ['dbsrv', '缓存库']] },
-      { title: '外部', ox: 5.8, oz: -1.5, w: 3.4, d: 8.5, cols: 1, items: [['internet', '互联网'], ['attacker', '外部攻击者'], ['c2', 'C2节点'], ['botnet', '僵尸网络']] },
+      { title: '外部', ox: 5.8, oz: -1.5, w: 3.4, d: 8.5, cols: 2, items: [['internet', '互联网'], ['attacker', '外部攻击者'], ['c2', 'C2节点'], ['botnet', '僵尸网络']] },
     ] },
 ];
 const LINK_PAIRS = [
@@ -169,26 +171,37 @@ const LINK_PAIRS = [
 function buildCombo() {
   if (CB.scene) { CB.nodes.forEach(n => n.dispose()); CB.links.forEach(l => l.dispose()); CB.zones.forEach(z => z.dispose()); if (CB.bloom) { try { CB.bloom.dispose(); } catch (e) {} CB.bloom = null; } }
   const th = ST.theme, sc = new T.Scene(); sc.background = new T.Color(L.STATE_COL[th].bg); L.addLights(sc, th);
-  const gh = gridFor(th, 28); gh.material.opacity = th === 'light' ? .28 : .18; sc.add(gh);
+  const gh = gridFor(th, 48); gh.material.opacity = th === 'light' ? .28 : .18; sc.add(gh);
   CB.nodes = []; CB.links = []; CB.zones = []; CB.pick = []; const byName = {};
   MAJOR.forEach(maj => {
-    const big = L.createZone({ title: maj.title, w: maj.w, d: maj.d, color: maj.color, theme: th, titleSize: 1.2, nested: false });
-    big.group.position.set(maj.cx, 0, maj.cz); sc.add(big.group); CB.zones.push(big);
+    const big = L.createZone({ title: maj.title, w: maj.w * LK, d: maj.d * LK, color: maj.color, theme: th, titleSize: 1.2 * LK, nested: false });
+    big.group.position.set(maj.cx * LK, 0, maj.cz * LK); sc.add(big.group); CB.zones.push(big);
     maj.subs.forEach(sub => {
-      const z = L.createZone({ title: sub.title, w: sub.w, d: sub.d, color: 'violet', theme: th, titleSize: .62, nested: true });
-      z.group.position.set(maj.cx + sub.ox, 0.02, maj.cz + sub.oz); sc.add(z.group); CB.zones.push(z);
+      const z = L.createZone({ title: sub.title, w: sub.w * LK, d: sub.d * LK, color: 'violet', theme: th, titleSize: .62 * LK, nested: true, pad: .55 * LK });
+      z.group.position.set((maj.cx + sub.ox) * LK, 0.02, (maj.cz + sub.oz) * LK); sc.add(z.group); CB.zones.push(z);
       sub.items.forEach((it, i) => {
         const type = it[0], name = it[1], st = it[2];
-        const n = L.createNode(type, { theme: th, size: (L.SIZES[L.SPEC[type].size] || 1) * 0.92, label: name });
+        const n = L.createNode(type, { theme: th, size: NODE_K, label: name });
         const p = z.slot(i, sub.items.length, sub.cols);
-        n.group.position.set(maj.cx + sub.ox + p.x, 0.02, maj.cz + sub.oz + p.z);
+        n.group.position.set((maj.cx + sub.ox) * LK + p.x, 0.02, (maj.cz + sub.oz) * LK + p.z);
         if (st) n.setState(st); sc.add(n.group); CB.nodes.push(n); byName[name] = n; CB.pick.push(n);
       });
     });
   });
   LINK_PAIRS.forEach(([a, b]) => { const A = byName[a], B = byName[b]; if (!A || !B) return; const l = L.createLink(A.group.position, B.group.position, { theme: th }); sc.add(l.group); CB.links.push(l); });
-  CB.scene = sc;
+  CB.scene = sc; fitCombo();
   CB.bloom = null; /* v3.1: UnrealBloom 易发白;底框/连线靠 AdditiveBlending 出辉光,模型不进 bloom 层 */
+}
+/* 默认镜头:自动框住全部分区(含 4% 边距) */
+function fitCombo() {
+  const w = cbcv.clientWidth || 1280, h = cbcv.clientHeight || 800, bb = new T.Box3();
+  CB.zones.forEach(z => { if (!z.nested) bb.expandByObject(z.group); });
+  const c = bb.getCenter(new T.Vector3()); CB.tgt.set(c.x, 0, c.z);
+  const pts = []; [bb.min.x, bb.max.x].forEach(x => [bb.min.z, bb.max.z].forEach(z => pts.push(new T.Vector3(x, 0, z))));
+  let lo = 5, hi = 300;
+  for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2, cam = persp(w / h, m, c.x, .2, c.z); cam.updateMatrixWorld();
+    const ok = pts.every(p => { const q = p.clone().project(cam); return Math.abs(q.x) < .96 && Math.abs(q.y) < .94; }); if (ok) hi = m; else lo = m; }
+  CB.dist = hi * FIT_K;
 }
 function comboCam() { const w = cbcv.clientWidth, h = cbcv.clientHeight; return persp(w / Math.max(1, h), CB.dist, CB.tgt.x, .2, CB.tgt.z); }
 function setCombo(on) {
@@ -200,7 +213,7 @@ function setCombo(on) {
   cbcv.addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.m += Math.abs(dx) + Math.abs(dy); drag.x = e.clientX; drag.y = e.clientY; const k = CB.dist / cbcv.clientHeight * .85;
     const fx = -Math.sin(PAZ), fz = -Math.cos(PAZ), rx = Math.cos(PAZ), rz = -Math.sin(PAZ); CB.tgt.x += -dx * k * rx + dy * k * fx * -1.2; CB.tgt.z += -dx * k * rz + dy * k * fz * -1.2; });
   cbcv.addEventListener('pointerup', e => { const was = drag; drag = null; if (was && was.m < 5) comboPick(e); });
-  cbcv.addEventListener('wheel', e => { e.preventDefault(); CB.dist = Math.min(55, Math.max(8, CB.dist * Math.exp(e.deltaY * .0012))); }, { passive: false });
+  cbcv.addEventListener('wheel', e => { e.preventDefault(); CB.dist = Math.min(110, Math.max(8, CB.dist * Math.exp(e.deltaY * .0012))); }, { passive: false });
 }
 function comboPick(e) {
   const r = cbcv.getBoundingClientRect(), v = new T.Vector2((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1);
@@ -214,6 +227,7 @@ function comboLoop(now) {
   const dpr = cr.getPixelRatio(); if (cbcv.width !== Math.round(w * dpr) || cbcv.height !== Math.round(h * dpr)) { cr.setSize(w, h, false); if (CB.bloom) CB.bloom.setSize(w, h); }
   const t = now / 1000; CB.nodes.forEach(n => n.update(t)); CB.links.forEach(l => l.update(t));
   const cam = comboCam();
+  L.fitLabels(CB.scene, cam, h, 12);
   if (CB.bloom) CB.bloom.render(CB.scene, cam); else cr.render(CB.scene, cam);
 }
 $('bView').onclick = () => setCombo(!CB.on);

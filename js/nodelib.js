@@ -1,8 +1,8 @@
-/* nodelib.js v4 — 通用网络安全节点模型库(实心低多边形 + 发光方形底框 + 分区底板;概念造型,程序化生成,无外部模型/商标)
+/* nodelib.js v5 — 通用网络安全节点模型库(实心低多边形 + 统一立方体归一化 + 分区底板;概念造型,程序化生成,无外部模型/商标)
    用法: NODELIB.addLights(scene, theme); const n = NODELIB.createNode('firewall', { theme:'dark', size:1 });
          const z = NODELIB.createZone({ title:'安全管理区', w:8, d:6, color:'violet' }); NODELIB.createLink(p1, p2);
          scene.add(n.group); n.setState('attacked'); 每帧 n.update(t);  n.dispose()
-   规范数据: NODELIB.SPEC / NODELIB.CATS / NODELIB.SIZES / NODELIB.STATES
+   规范数据: NODELIB.SPEC / NODELIB.CATS / NODELIB.CUBE / NODELIB.STATES
    依赖: window.THREE(仅在 createNode 时需要;SPEC 可在无 THREE 的环境读取,用于导出 JSON) */
 (function (root) {
 'use strict';
@@ -22,7 +22,9 @@ const STATE_COL = {
   dark:  { sel: '#ffffff', atk: '#ff2a3c', def: '#22e6ff', bg: '#07090f', grid: '#1a2438' },
   light: { sel: '#0d1626', atk: '#c4001c', def: '#007f9e', bg: '#d5dee9', grid: '#7a8799' },
 };
-const SIZES = { S: 0.8, M: 1.0, L: 1.25, XL: 1.5 };
+/* 统一承载立方体:所有模型归一化到边长 CUBE 的包围盒(最长边=1),底面贴地、水平居中。size 仅作整体倍数。 */
+const CUBE = 1;
+const SIZES = { S: 1, M: 1, L: 1, XL: 1 }; /* 兼容旧调用;实际一律按 1,不再分档 */
 const STATES = {
   normal:    { name: '普通',   desc: 'MeshStandard 主体 + 细部(屏幕/支架/刻线),无地面底座' },
   selected:  { name: '选中',   desc: '模型叠加白色细描边(EdgesGeometry)' },
@@ -265,7 +267,12 @@ function labelPlate(T, text, theme, accent) {
     x.fillStyle = fr.labelTxt; x.font = 'bold ' + fs + 'px "Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, w / 2, h / 2 + 1);
   });
   const m = new T.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, depthTest: false }); const s = new T.Sprite(m);
-  const sh = .42; s.scale.set(sh * w / h, sh, 1); s.renderOrder = 20; return s;
+  const sh = .42; s.scale.set(sh * w / h, sh, 1); s.renderOrder = 20; s.center.set(.5, 0); s.userData.isLabel = true; s.userData.aspect = w / h; return s;
+}
+/** fitLabels(scene, camera, viewHeightPx, px) — 标签按屏幕像素固定高度(默认 13px),不随距离放大 */
+function fitLabels(scene, cam, viewH, px) {
+  const k = (px || 13) * 2 / (Math.max(1, viewH) * cam.projectionMatrix.elements[5]);
+  scene.traverse(o => { if (o.userData && o.userData.isLabel) { o.material.sizeAttenuation = false; o.scale.set(k * o.userData.aspect, k, 1); } });
 }
 /* 场景灯光:强平行光打出亮面/暗面 + 半球 + 冷色边缘光 */
 function addLights(scene, theme) {
@@ -292,10 +299,10 @@ function createNode(type, opts) {
   const theme = o.theme === 'light' || o.theme === 'dark' ? o.theme : THEME, day = theme === 'light';
   const cat = CATS[sp.cat], fr = FRAME[theme];
   const color = new T.Color(o.color || cat[theme]);
-  const scale = (o.size != null ? o.size : SIZES[sp.size]) || 1;
+  const scale = (o.size != null ? o.size : 1) || 1; /* 整体倍数,默认 1;不再用 S/M/L/XL */
   const group = new T.Group(); group.name = 'node:' + type;
-  const body = new T.Group(); body.scale.setScalar(scale); group.add(body);
-  if (sp.squash) body.scale.set(scale * sp.squash[0], scale * sp.squash[1], scale * sp.squash[2]);
+  const body = new T.Group(); group.add(body);
+  if (sp.squash) body.scale.set(sp.squash[0], sp.squash[1], sp.squash[2]);
   const mats = [], disp = []; const mk = m => { mats.push(m); return m; };
   const bodyC = new T.Color(day ? cat.light : cat.dark);
   const lightC = new T.Color(day ? '#f4f7fb' : '#eef2f8'), darkC = new T.Color(day ? '#1a2438' : '#0e1422');
@@ -316,9 +323,20 @@ function createNode(type, opts) {
     m.position.set(pt[2][0], pt[2][1], pt[2][2]); m.rotation.set(pt[3][0], pt[3][1], pt[3][2]); body.add(m);
     if (!o.mask && (tone === 'body' || tone === 'glow')) bodyMeshes.push(m);
   });
-  const box = new T.Box3().setFromObject(body); const size = new T.Vector3(); box.getSize(size);
-  const radius = Math.max(size.x, size.z) * .5;
-  const out = { group, type, spec: sp, cat: sp.cat, color, theme, scale, state: 'normal', bounds: { height: box.max.y, radius } };
+  /* 归一化到 CUBE×CUBE×CUBE:按最长边等比缩放,底面贴 y=0,水平居中 */
+  body.updateMatrixWorld(true);
+  let box = new T.Box3().setFromObject(body); const raw = new T.Vector3(); box.getSize(raw);
+  const longest = Math.max(raw.x, raw.y, raw.z) || 1;
+  const norm = CUBE / longest;
+  const cx = (box.min.x + box.max.x) / 2, cz = (box.min.z + box.max.z) / 2;
+  body.position.set(-cx * norm, -box.min.y * norm, -cz * norm);
+  body.scale.multiplyScalar(norm);
+  body.updateMatrixWorld(true);
+  box = new T.Box3().setFromObject(body); const size = new T.Vector3(); box.getSize(size);
+  /* 整体 size 倍数作用在 group 上,归一化后的 body 保持单位立方体内 */
+  group.scale.setScalar(scale);
+  const radius = Math.max(size.x, size.z) * .5 * scale;
+  const out = { group, type, spec: sp, cat: sp.cat, color, theme, scale, norm, rawSize: { x: +raw.x.toFixed(4), y: +raw.y.toFixed(4), z: +raw.z.toFixed(4) }, bounds: { height: box.max.y * scale, radius, cube: CUBE * scale, size: { x: +(size.x * scale).toFixed(4), y: +(size.y * scale).toFixed(4), z: +(size.z * scale).toFixed(4) } }, state: 'normal' };
   if (o.mask) { out.update = () => { }; out.setState = () => { }; out.setLabel = () => { }; out.dispose = () => { disp.forEach(g => g.dispose()); mats.forEach(m => m.dispose()); }; return out; }
 
   /* 状态描边:EdgesGeometry 合集,默认隐藏;选中白 / 被攻击红 / 已防护青 */
@@ -331,14 +349,14 @@ function createNode(type, opts) {
     edgeGroup.add(ls);
   });
   /* 已防护:薄半透明护罩(普通混合,不加色外扩) */
-  const domeR = Math.max(radius / scale + .35, (box.max.y - box.min.y) / scale * .55);
+  const domeR = Math.max(CUBE * .55 + .2, (box.max.y - box.min.y) * .55 + .15);
   const domeGeo = new T.SphereGeometry(domeR, 16, 10, 0, PI * 2, 0, PI * .55); disp.push(domeGeo);
   const domeMat = mk(new T.MeshStandardMaterial({ color: new T.Color(fr.protected), transparent: true, opacity: 0, roughness: .55, metalness: .05, flatShading: true, depthWrite: false, side: T.DoubleSide, emissive: new T.Color(fr.protected), emissiveIntensity: .08 }));
-  const dome = new T.Mesh(domeGeo, domeMat); dome.position.y = (box.max.y + box.min.y) / (2 * scale); dome.visible = false; body.add(dome);
+  const dome = new T.Mesh(domeGeo, domeMat); dome.position.y = (box.max.y + box.min.y) / 2; dome.visible = false; body.add(dome);
 
   let tag = null; const tagText = typeof o.label === 'string' ? o.label : (typeof o.badge === 'string' ? o.badge : sp.abbr);
   const showTag = o.badge !== false && o.label !== false;
-  out.setLabel = text => { if (tag) { group.remove(tag); tag.material.dispose(); } tag = text ? labelPlate(T, text, theme, '#' + new T.Color(cat[theme]).getHexString()) : null; if (tag) { tag.position.set(0, box.max.y + .48, 0); group.add(tag); } };
+  out.setLabel = text => { if (tag) { group.remove(tag); tag.material.dispose(); } tag = text ? labelPlate(T, text, theme, '#' + new T.Color(cat[theme]).getHexString()) : null; if (tag) { tag.position.set(0, box.max.y + .12, 0); group.add(tag); } };
   if (showTag) out.setLabel(tagText);
 
   const cSel = new T.Color(fr.outline), cAtk = new T.Color(fr.attacked), cDef = new T.Color(fr.protected);
@@ -509,7 +527,7 @@ function setupBloom(renderer, opts) {
   } catch (e) { console.error('setupBloom', e); return null; }
 }
 
-const api = { version: 4, CATS, SPEC, SIZES, STATES, STATE_COL, FRAME, ZONE, createNode, createZone, createZoneLabel, createLink, addLights, setupBloom, markBloom, prepareRenderer, setTheme, get theme() { return THEME; }, types: () => Object.keys(SPEC), byCat: c => Object.keys(SPEC).filter(k => SPEC[k].cat === c) };
+const api = { version: 5, CATS, SPEC, CUBE, SIZES, STATES, STATE_COL, FRAME, ZONE, createNode, createZone, createZoneLabel, createLink, fitLabels, addLights, setupBloom, markBloom, prepareRenderer, setTheme, get theme() { return THEME; }, types: () => Object.keys(SPEC), byCat: c => Object.keys(SPEC).filter(k => SPEC[k].cat === c) };
 root.NODELIB = api;
 if (typeof module !== 'undefined') module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
