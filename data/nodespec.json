@@ -84,22 +84,22 @@
  "states": {
   "normal": {
    "name": "普通",
-   "desc": "MeshStandard 无地面底座"
+   "desc": "MeshStandard 主体 + 细部(屏幕/支架/刻线),无地面底座"
   },
   "selected": {
    "name": "选中",
-   "desc": "白边 EdgesGeometry"
+   "desc": "模型叠加白色细描边(EdgesGeometry)"
   },
   "attacked": {
    "name": "被攻击",
-   "desc": "闪红+红边"
+   "desc": "模型闪红 + 红色细描边,轻微抖动"
   },
   "protected": {
    "name": "已防护",
-   "desc": "青边+护罩"
+   "desc": "青色细描边 + 薄半透明护罩"
   }
  },
- "style": "v4: MeshStandard lit, no ground frame, EdgesGeometry states, ColorManagement off",
+ "style": "v4 无地面发光底座;MeshStandard 明暗;状态=EdgesGeometry 描边;ColorManagement 关闭;标签牌;透视俯视镜头",
  "camera": {
   "projection": "perspective",
   "fovDeg": 32,
@@ -120,8 +120,7 @@
   "selectedMultiplier": 2.2
  },
  "frame": {
-  "desc": "方形底框:实线外框(宽 0.11)+ 外侧辉光带(宽 0.42)+ 内部淡填充;选中时外加白色(日间深色)描边",
-  "halfSize": "max(1, 节点半宽+0.35)",
+  "desc": "v4 已取消地面方形底框;状态色仍用于描边(选中白/攻击红/防护青)",
   "colors": {
    "dark": {
     "normal": "#1aff60",
