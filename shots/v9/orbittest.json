@@ -1,0 +1,22 @@
+{
+ "listenersOpen": 7,
+ "spinOn": true,
+ "azChanged": true,
+ "spinPausedByDrag": true,
+ "elMaxDeg": 85,
+ "elMinDeg": 5,
+ "zoomMax": 2.4,
+ "zoomMin": 0.45,
+ "resetBtn": true,
+ "dblclickReset": true,
+ "quadSharedOrbit": true,
+ "touchRotate": true,
+ "pinchZoom": [
+  1,
+  0.45
+ ],
+ "listenersAfterClose": 0,
+ "listenersInCombo": 0,
+ "errors": [],
+ "PASS": true
+}

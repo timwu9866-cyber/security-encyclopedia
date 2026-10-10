@@ -19,9 +19,49 @@ function persp(asp, dist, tx, ty, tz) {
   cam.position.set(tx + Math.sin(PAZ) * Math.cos(PEL) * dist, ty + Math.sin(PEL) * dist, tz + Math.cos(PAZ) * Math.cos(PEL) * dist);
   cam.lookAt(tx, ty, tz); cam.updateProjectionMatrix(); return cam;
 }
-function gridFor(theme, n = 8) {
-  const c = L.STATE_COL[theme].grid, g = new T.GridHelper(n * 2, n * 2, c, c);
-  g.material.transparent = true; g.material.opacity = theme === 'light' ? .4 : .3; g.material.depthWrite = false; return g;
+/* 地面:与事件大全同一份实现(js/ground.js,90×60 着色器网格) */
+const G = window.SECGROUND;
+function gridFor(theme) { const g = G.makeGrid(T); G.setDay(T, g, theme === 'light'); return g; }
+const bgOf = theme => G.BG[theme];
+/* ---------- 预览轨道控制(自写小控制器,详情/四态共用一份视角 → 四态同步) ---------- */
+const ORB_DEF = { az: PAZ, el: 42 * Math.PI / 180, zoom: 1 };
+const ORB = { az: ORB_DEF.az, el: ORB_DEF.el, zoom: 1, zoomT: 1, vAz: 0, vEl: 0, EL_MIN: 5 * Math.PI / 180, EL_MAX: 85 * Math.PI / 180, Z_MIN: .45, Z_MAX: 2.4, offs: [] };
+function orbReset() { ORB.az = ORB_DEF.az; ORB.el = ORB_DEF.el; ORB.zoom = ORB.zoomT = 1; ORB.vAz = ORB.vEl = 0; }
+function orbRotate(dx, dy) {
+  const k = 2 * Math.PI / Math.max(300, pcv.clientWidth * .9);
+  ORB.vAz = -dx * k; ORB.vEl = dy * k;
+  ORB.az -= dx * k; ORB.el = Math.min(ORB.EL_MAX, Math.max(ORB.EL_MIN, ORB.el + dy * k));
+}
+function orbZoom(f) { ORB.zoomT = Math.min(ORB.Z_MAX, Math.max(ORB.Z_MIN, ORB.zoomT * f)); }
+function orbStep() { /* 阻尼 */
+  if (!ORB.drag) { ORB.az += ORB.vAz; ORB.el = Math.min(ORB.EL_MAX, Math.max(ORB.EL_MIN, ORB.el + ORB.vEl)); ORB.vAz *= .9; ORB.vEl *= .9; if (Math.abs(ORB.vAz) < 1e-5) ORB.vAz = 0; if (Math.abs(ORB.vEl) < 1e-5) ORB.vEl = 0; }
+  ORB.zoom += (ORB.zoomT - ORB.zoom) * .2;
+  ORB.az = ((ORB.az % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+}
+function pauseSpin() { if (ST.spin) { ST.spin = false; const b = $('pvSpin'); if (b) b.classList.remove('on'); } }
+function orbAttach() {
+  if (ORB.offs.length) return;
+  const el = pcv, pts = new Map(); let pinch = 0;
+  const on = (t, ev, fn, o) => { t.addEventListener(ev, fn, o); ORB.offs.push(() => t.removeEventListener(ev, fn, o)); };
+  on(el, 'pointerdown', e => { el.setPointerCapture && el.setPointerCapture(e.pointerId); pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); ORB.drag = true; ORB.vAz = ORB.vEl = 0; pauseSpin();
+    if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = Math.hypot(a.x - b.x, a.y - b.y); } });
+  on(el, 'pointermove', e => { const p = pts.get(e.pointerId); if (!p) return; const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+    if (pts.size === 1) orbRotate(dx, dy);
+    else if (pts.size === 2) { const [a, b] = [...pts.values()], d = Math.hypot(a.x - b.x, a.y - b.y); if (pinch > 0 && d > 0) orbZoom(pinch / d); pinch = d; } });
+  const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = 0; if (!pts.size) ORB.drag = false; };
+  on(el, 'pointerup', up); on(el, 'pointercancel', up); on(el, 'lostpointercapture', up);
+  on(el, 'wheel', e => { e.preventDefault(); pauseSpin(); orbZoom(Math.exp(e.deltaY * .0015)); }, { passive: false });
+  on(el, 'dblclick', e => { e.preventDefault(); orbReset(); });
+  el.style.touchAction = 'none'; el.style.cursor = 'grab';
+}
+function orbDetach() { ORB.offs.splice(0).forEach(f => f()); ORB.drag = false; }
+function orbitCam(node, asp) {
+  const r = node.bounds.radius + .3, h = node.bounds.height + .35;
+  const need = Math.max(h * 1.25, (r * 2.2) / Math.min(asp, 1.6), 1.5);
+  const dist = need / (2 * Math.tan(FOV * Math.PI / 360)) * 1.05 * ORB.zoom, ty = h * .38;
+  const cam = new T.PerspectiveCamera(FOV, asp, .05, 400);
+  cam.position.set(Math.sin(ORB.az) * Math.cos(ORB.el) * dist, ty + Math.sin(ORB.el) * dist, Math.cos(ORB.az) * Math.cos(ORB.el) * dist);
+  cam.lookAt(0, ty, 0); cam.updateProjectionMatrix(); return cam;
 }
 function frameFor(node, asp) {
   const r = node.bounds.radius + .3, h = node.bounds.height + .35;
@@ -29,7 +69,7 @@ function frameFor(node, asp) {
   const dist = need / (2 * Math.tan(FOV * Math.PI / 360)) * 1.05;
   return persp(asp, dist, 0, h * .38, 0);
 }
-function newScene(theme, n) { const sc = new T.Scene(); sc.background = new T.Color(L.STATE_COL[theme].bg); sc.add(gridFor(theme, n)); L.addLights(sc, theme); return sc; }
+function newScene(theme, n) { const sc = new T.Scene(); sc.background = new T.Color(bgOf(theme)); sc.add(gridFor(theme)); L.addLights(sc, theme); return sc; }
 function thumbLights(theme) {
   const day = theme === 'light', g = new T.Group();
   g.add(new T.HemisphereLight(day ? 0xffffff : 0xb0c0d8, day ? 0x8896a8 : 0x080c14, day ? .5 : .2));
@@ -43,7 +83,7 @@ const TW = 300, TH = 250;
 const off = new T.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
 L.prepareRenderer(off); off.setPixelRatio(1); off.setSize(TW, TH, false);
 function renderThumb(type, cv, theme, state, t) {
-  const sc = new T.Scene(); sc.background = new T.Color(L.STATE_COL[theme].bg); sc.add(gridFor(theme, 5)); sc.add(thumbLights(theme));
+  const sc = new T.Scene(); sc.background = new T.Color(bgOf(theme)); sc.add(gridFor(theme)); sc.add(thumbLights(theme));
   const n = L.createNode(type, { theme }); n.setState(state || 'normal'); n.update(t == null ? 1.3 : t); sc.add(n.group);
   { const cam = frameFor(n, TW / TH); L.fitLabels(sc, cam, TH, 17); off.render(sc, cam); }
   const x = cv.getContext('2d'); x.drawImage(off.domElement, 0, 0, cv.width, cv.height);
@@ -108,16 +148,16 @@ function buildGallery() {
 const pcv = $('pvcv');
 let pr = null; try { pr = new T.WebGLRenderer({ canvas: pcv, antialias: true, preserveDrawingBuffer: true }); L.prepareRenderer(pr); pr.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); } catch (e) { console.error(e); }
 let pv = null; // { scenes:[{scene,node,cam}] }
-function disposePv() { if (pv) pv.items.forEach(it => it.node.dispose()); pv = null; }
+function disposePv() { if (pv) pv.items.forEach(it => it.node.dispose()); pv = null; orbDetach(); }
 function buildPv() {
   disposePv(); if (!ST.sel || !pr) return;
   const states = ST.quad ? ['normal', 'selected', 'attacked', 'protected'] : [ST.state];
   pv = { items: states.map(s => { const sc = newScene(ST.theme, 8); const n = L.createNode(ST.sel, { theme: ST.theme, label: L.SPEC[ST.sel].name }); n.setState(s); sc.add(n.group); return { scene: sc, node: n, state: s }; }) };
-  $('pvlabels').classList.toggle('show', ST.quad);
+  $('pvlabels').classList.toggle('show', ST.quad); orbAttach();
 }
 function openPreview(type, fromRoute) {
   if (CB.on) setCombo(false, true);
-  ST.sel = type; $('pv').classList.add('show'); $('pvTitle').textContent = L.SPEC[type].name + ' · ' + L.SPEC[type].en;
+  if (ST.sel !== type) orbReset(); ST.sel = type; $('pv').classList.add('show'); $('pvTitle').textContent = L.SPEC[type].name + ' · ' + L.SPEC[type].en;
   document.querySelectorAll('.cell').forEach(c => c.classList.toggle('on', c.dataset.t === type));
   buildPv(); detail(); syncStateBtns(); if (!fromRoute && location.hash !== '#' + type) location.hash = type;
 }
@@ -134,11 +174,13 @@ function loop(now) {
   const w = pcv.clientWidth, h = pcv.clientHeight; if (w < 10 || h < 10) return;
   const dpr = pr.getPixelRatio(); if (pcv.width !== Math.round(w * dpr) || pcv.height !== Math.round(h * dpr)) pr.setSize(w, h, false);
   const t = (now - t0) / 1000, n = pv.items.length, cw = w / n;
+  const dt = Math.min(.05, (now - (loop.last || now)) / 1000); loop.last = now;
+  if (ST.spin && !ORB.drag) ORB.az += dt * .35;
+  orbStep();
   pr.setScissorTest(true);
   pv.items.forEach((it, i) => {
-    it.node.update(t);
-    if (ST.spin) it.node.group.rotation.y = t * .35; else it.node.group.rotation.y = 0;
-    const cam = frameFor(it.node, cw / h);
+    it.node.update(t); it.node.group.rotation.y = 0;
+    const cam = orbitCam(it.node, cw / h);
     L.fitLabels(it.scene, cam, h, 14); pr.setViewport(i * cw, 0, cw, h); pr.setScissor(i * cw, 0, cw, h); pr.render(it.scene, cam);
   });
   pr.setScissorTest(false);
@@ -206,8 +248,8 @@ function disposeCombo() {
 }
 function buildCombo() {
   if (CB.scene) { CB.nodes.forEach(n => n.dispose()); CB.links.forEach(l => l.dispose()); CB.zones.forEach(z => z.dispose()); if (CB.bloom) { try { CB.bloom.dispose(); } catch (e) {} CB.bloom = null; } }
-  const th = ST.theme, sc = new T.Scene(); sc.background = new T.Color(L.STATE_COL[th].bg); L.addLights(sc, th);
-  const gh = gridFor(th, 48); gh.material.opacity = th === 'light' ? .28 : .18; sc.add(gh);
+  const th = ST.theme, sc = new T.Scene(); sc.background = new T.Color(bgOf(th)); L.addLights(sc, th);
+  sc.add(gridFor(th));
   CB.nodes = []; CB.links = []; CB.zones = []; CB.pick = []; const byName = {};
   MAJOR.forEach(maj => {
     const big = L.createZone({ title: maj.title, w: maj.w * LK, d: maj.d * LK, color: maj.color, theme: th, titleSize: 1.2 * LK, nested: false });
@@ -271,11 +313,13 @@ function comboLoop(now) {
 $('bView').onclick = () => setCombo(!CB.on);
 
 /* ---------- 主题 / 启动 ---------- */
-function applyTheme() { ST.theme = curTheme(); L.setTheme(ST.theme); buildCats(); if (CB.on) buildCombo(); else buildGallery(); if (ST.sel && $('pv').classList.contains('show')) buildPv(); detail(); }
+function applyVig() { const v = G.vignetteCSS(ST.theme === 'light'); document.documentElement.style.setProperty('--sec-vig', v); }
+function applyTheme() { ST.theme = curTheme(); applyVig(); L.setTheme(ST.theme); buildCats(); if (CB.on) buildCombo(); else buildGallery(); if (ST.sel && $('pv').classList.contains('show')) buildPv(); detail(); }
 document.querySelectorAll('#pvbar .stbtn').forEach(b => b.onclick = () => setState(b.dataset.s));
 $('pvQuad').onclick = () => { ST.quad = !ST.quad; buildPv(); syncStateBtns(); detail(); };
 if ($('pvSpin')) $('pvSpin').onclick = () => { ST.spin = !ST.spin; $('pvSpin').classList.toggle('on', ST.spin); };
 $('pvBack').onclick = closePreview;
+if ($('pvReset')) $('pvReset').onclick = orbReset;
 addEventListener('keydown', e => { if (e.key === 'Escape') closePreview(); });
 addEventListener('sec-theme', applyTheme);
 $('total').textContent = '共 ' + L.types().length + ' 种节点 · ' + Object.keys(L.CATS).length + ' 个类别';
@@ -285,7 +329,7 @@ requestAnimationFrame(loop);
 
 /* 测试/复用接口 */
 window.NODES_PAGE = {
-  ST, CB, setCombo, selectCat, openPreview, closePreview, setState, setQuad(on) { ST.quad = !!on; buildPv(); syncStateBtns(); detail(); },
+  ST, CB, ORB, orbReset, orbListeners: () => ORB.offs.length, setCombo, selectCat, openPreview, closePreview, setState, setQuad(on) { ST.quad = !!on; buildPv(); syncStateBtns(); detail(); },
   /* 纯白剪影掩码,用于判断轮廓是否重复 */
   mask(type, size = 96) {
     const sc = new T.Scene(); sc.background = new T.Color('#000');

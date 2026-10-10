@@ -19,13 +19,8 @@ function Stage(canvas, host) {
     const d = 60; cam.position.set(target.x + Math.sin(AZ) * Math.cos(EL) * d, target.y + Math.sin(EL) * d, target.z + Math.cos(AZ) * Math.cos(EL) * d); cam.lookAt(target);
     cam.zoom = zoom; cam.updateProjectionMatrix(); cam.updateMatrixWorld(); U.uPPU.value = (renderer.domElement.height) / ((cam.top - cam.bottom) / zoom);
   }
-  // 地面网格
-  const grid = new T.Mesh(new T.PlaneGeometry(90, 60), new T.ShaderMaterial({
-    uniforms: { uTime: U.uTime, uDay: { value: 0 } }, transparent: true, depthWrite: false, blending: T.AdditiveBlending,
-    vertexShader: 'varying vec3 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}',
-    fragmentShader: 'varying vec3 vW;uniform float uTime,uDay;void main(){vec2 p=vW.xz;vec2 g=abs(fract(p-.5)-.5)/fwidth(p);float l=1.-min(min(g.x,g.y),1.);vec2 g2=abs(fract(p/5.-.5)-.5)/fwidth(p/5.);float l2=1.-min(min(g2.x,g2.y),1.);float d=length(p*vec2(.05,.08));float f=exp(-d*d*2.2);if(uDay>0.5){float a=clamp((l*.7+l2*.95)*f,0.,.82);gl_FragColor=vec4(vec3(.27,.32,.39),a);}else{gl_FragColor=vec4(vec3(.12,.36,.5)*(l*.22+l2*.45)*f+vec3(0.,.1,.14)*f*.04,1.);}}',
-  }));
-  grid.rotation.x = -Math.PI / 2; grid.position.y = -0.01; scene.add(grid);
+  // 地面网格(共享实现 js/ground.js)
+  const grid = window.SECGROUND.makeGrid(T, U.uTime); grid.renderOrder = 0; scene.add(grid);
   const glow = new Glow(14000); scene.add(glow.points);
   const ambient = []; { const r = rng(99); for (let i = 0; i < 90; i++) ambient.push([(r() - .5) * 38, r() * 8, (r() - .5) * 18, r() * 6.28, 0.4 + r() * 0.8]); }
   // 常驻两个节点(源 / 目标)
@@ -44,8 +39,7 @@ function Stage(canvas, host) {
   self.applyTheme = function (theme) {
     const day = theme === 'light'; S.day = day; const pal = S.paintPalette(day ? 'light' : 'dark');
     scene.background.set(pal.bg); renderer.setClearColor(pal.bg, 1);
-    grid.material.uniforms.uDay.value = day ? 1 : 0;
-    grid.material.blending = day ? T.NormalBlending : T.AdditiveBlending; grid.material.needsUpdate = true;
+    window.SECGROUND.setDay(T, grid, day);
     glow.points.material.uniforms.uDay.value = day ? 1 : 0;
     glow.points.material.blending = day ? T.NormalBlending : T.AdditiveBlending; glow.points.material.needsUpdate = true;
     if (fin && fin.uniforms && fin.uniforms.uDay) fin.uniforms.uDay.value = day ? 1 : 0;

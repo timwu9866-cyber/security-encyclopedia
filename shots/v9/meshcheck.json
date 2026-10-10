@@ -1,0 +1,426 @@
+{
+ "router": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 492,
+  "total": 0
+ },
+ "switch": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 456,
+  "total": 0
+ },
+ "coreswitch": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 384,
+  "total": 0
+ },
+ "ap": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 620,
+  "total": 0
+ },
+ "lb": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 456,
+  "total": 0
+ },
+ "dns": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 656,
+  "total": 0
+ },
+ "pc": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 188,
+  "total": 0
+ },
+ "laptop": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 144,
+  "total": 0
+ },
+ "printer": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 108,
+  "total": 0
+ },
+ "mobile": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 312,
+  "total": 0
+ },
+ "tablet": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 260,
+  "total": 0
+ },
+ "voip": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 248,
+  "total": 0
+ },
+ "firewall": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 228,
+  "total": 0
+ },
+ "waf": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 144,
+  "total": 0
+ },
+ "idsips": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 488,
+  "total": 0
+ },
+ "bastion": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 168,
+  "total": 0
+ },
+ "honeypot": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 468,
+  "total": 0
+ },
+ "soc": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 240,
+  "total": 0
+ },
+ "vpngw": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 540,
+  "total": 0
+ },
+ "behavior": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 524,
+  "total": 0
+ },
+ "sandbox": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 420,
+  "total": 0
+ },
+ "websrv": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 276,
+  "total": 0
+ },
+ "dbsrv": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 420,
+  "total": 0
+ },
+ "storage": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 360,
+  "total": 0
+ },
+ "cloud": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 552,
+  "total": 0
+ },
+ "container": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 264,
+  "total": 0
+ },
+ "mailsrv": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 144,
+  "total": 0
+ },
+ "ipcam": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 576,
+  "total": 0
+ },
+ "plc": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 312,
+  "total": 0
+ },
+ "sensor": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 656,
+  "total": 0
+ },
+ "hmi": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 156,
+  "total": 0
+ },
+ "pos": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 188,
+  "total": 0
+ },
+ "attacker": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 768,
+  "total": 0
+ },
+ "botnet": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 536,
+  "total": 0
+ },
+ "c2": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 596,
+  "total": 0
+ },
+ "internet": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 728,
+  "total": 0
+ },
+ "insider": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 720,
+  "total": 0
+ },
+ "aggswitch": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 588,
+  "total": 0
+ },
+ "nta": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 508,
+  "total": 0
+ },
+ "hids": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 576,
+  "total": 0
+ },
+ "appsrv": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 492,
+  "total": 0
+ },
+ "cache": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 400,
+  "total": 0
+ },
+ "objstore": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 312,
+  "total": 0
+ },
+ "mq": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 720,
+  "total": 0
+ },
+ "k8smaster": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 524,
+  "total": 0
+ },
+ "k8snode": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 192,
+  "total": 0
+ },
+ "registry": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 240,
+  "total": 0
+ },
+ "cnapp": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 312,
+  "total": 0
+ },
+ "workstation": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 224,
+  "total": 0
+ },
+ "opsterm": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 216,
+  "total": 0
+ },
+ "kiosk": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 132,
+  "total": 0
+ },
+ "term3p": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 184,
+  "total": 0
+ },
+ "iotgw": {
+  "degenerate": 0,
+  "longEdge": 0,
+  "outside": 0,
+  "normal": 0,
+  "tris": 388,
+  "total": 0
+ }
+}
