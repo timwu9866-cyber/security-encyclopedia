@@ -2182,7 +2182,7 @@
     "源"
    ],
    "use": "外部恶意行为者的抽象,事件中的发起方。",
-   "look": "坐姿兜帽黑客(收紧头身比):细臂+掌指 stub、卫衣褶皱块面、干净面罩线与双眼点;略小笔记本屏幕朝人发红光。",
+   "look": "坐姿兜帽黑客:八棱台躯干+圆肩、细臂与掌指搭在键盘上、兜帽深色内腔里两点红眼;笔记本屏幕朝人发红光。",
    "core": [
     0,
     1.55,
@@ -2728,10 +2728,10 @@
    }
   },
   "current": {
-   "sum": 22236,
-   "avg": 419.5,
-   "max": 1144,
-   "note": "v11 misalignment fixes (partcheck 0/53)"
+   "sum": 21980,
+   "avg": 414.7,
+   "max": 1040,
+   "note": "v12 detached/pierce fixes"
   }
  },
  "meshcheck": {
@@ -2825,6 +2825,84 @@
    "orient": "face/led 大贴片贴在父部件 -Z 面;攻击者屏幕/面罩、内部威胁脸/工牌语义朝向",
    "range": "超出 [-.5,.5]×[0,1]×[-.5,.5]",
    "sym": "body/base/face 体积加权 x 质心 |dx|>0.03(lb、mailsrv 为刻意不对称,不列入)"
+  },
+  "v12": {
+   "newChecks": {
+    "detached": "细部/小部件 >30% 体积采样点既不在其他部件内,也不在其表面容差内(容差=max(0.01,自身厚度+0.005));两端都接触的支杆跳过",
+    "pierce": "细长部件贯穿主体两端伸出,或同时插入两个互不接触的主体"
+   },
+   "before": {
+    "detached": 9,
+    "pierce": 2
+   },
+   "after": {
+    "floating": 0,
+    "buried": 0,
+    "offset": 0,
+    "coplanar": 0,
+    "orient": 0,
+    "range": 0,
+    "sym": 0,
+    "detached": 0,
+    "pierce": 0
+   },
+   "whitelist": {
+    "c2": {
+     "tor": "发射弧:信号示意,故意悬在天线上方"
+    },
+    "internet": {
+     "tor": "轨道环/经纬环:环绕地球,允许与球面不接触",
+     "sph:led": "轨道上的卫星指示灯,随轨道悬浮"
+    },
+    "botnet": {
+     "tor": "环形链路示意",
+     "oct": "被控节点沿环悬浮",
+     "sph:led": "节点指示灯悬浮",
+     "box:detail": "辐条连线"
+    },
+    "ap": {
+     "tor": "无线信号弧"
+    },
+    "idsips": {
+     "tor": "探测波纹"
+    },
+    "honeypot": {
+     "tor": "诱捕环"
+    },
+    "sandbox": {
+     "sph:led": "被隔离样本:故意悬浮在沙箱笼中央,表达\"隔离/不接触\"",
+     "tor": "样本外的隔离光环"
+    },
+    "nta": {
+     "tor": "探测环"
+    },
+    "hids": {
+     "tor": "主机防护环"
+    },
+    "sensor": {
+     "tor": "信号弧"
+    },
+    "ipcam": {
+     "tor": "视野/信号弧"
+    },
+    "behavior": {
+     "tor": "轨迹环"
+    },
+    "vpngw": {
+     "tor": "隧道环"
+    }
+   },
+   "detachedWL": {
+    "aggswitch": "天线",
+    "router": "天线",
+    "iotgw": "天线",
+    "c2": "天线桅杆",
+    "printer": "出纸托盘",
+    "mailsrv": "信箱旗"
+   },
+   "pierceWL": {
+    "plc": "DIN 导轨"
+   }
   }
  }
 }

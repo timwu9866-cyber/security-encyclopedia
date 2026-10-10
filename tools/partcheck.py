@@ -23,7 +23,16 @@ WL = {
 }
 # lb(左负载均衡体+右服务器组)、mailsrv(侧边信旗)为刻意不对称,不列入
 SYM = ['switch','coreswitch','aggswitch','router','websrv','dbsrv','appsrv','storage','firewall','waf','idsips','bastion','attacker','insider','nta','hids','registry','k8snode','printer']
-JS = r"""([WL,SYM])=>{
+DWL = {
+ 'aggswitch': {'cyl:detail': '天线:单端固定在机身顶部,向外伸出是设计'},
+ 'printer': {'4': '出纸托盘:悬臂结构,一边插入机身前面板'},
+ 'mailsrv': {'box:led': '信箱旗:只有一边与旗杆相连'},
+ 'router': {'cyl:detail': '天线'}, 'iotgw': {'cyl:detail': '天线'}, 'c2': {'cyl:detail': '天线桅杆:单端固定'},
+}  # 脱离父表面白名单 {type:{'shape:role' 或 原子索引:理由}}
+PWL = {
+ 'plc': {'1': 'DIN 导轨:横贯各模块背部,两端伸出属设计'},
+}  # 外凸穿插白名单
+JS = r"""([WL,SYM,DWL,PWL])=>{
  const L=NODELIB,T=THREE,D=L._debug,out={};
  const vol=b=>{const s=b.getSize(new T.Vector3());return Math.max(0,s.x)*Math.max(0,s.y)*Math.max(0,s.z);};
  const gap=(a,b)=>{const dx=Math.max(0,a.min.x-b.max.x,b.min.x-a.max.x),dy=Math.max(0,a.min.y-b.max.y,b.min.y-a.max.y),dz=Math.max(0,a.min.z-b.max.z,b.min.z-a.max.z);return Math.hypot(dx,dy,dz);};
@@ -45,7 +54,8 @@ JS = r"""([WL,SYM])=>{
   const samples=p=>{const A=p.g.attributes.position,pts=[];for(let t=0;t<A.count;t++)pts.push(new T.Vector3().fromBufferAttribute(A,t));pts.push(p.c.clone());return pts;};
   const wl=WL[type]||{};
   const isWL=p=>wl[p.s]||wl[p.s+':'+p.role]||null;
-  const R={floating:[],buried:[],offset:[],coplanar:[],orient:[],range:[],sym:[],whitelisted:[]};
+  const R={floating:[],buried:[],offset:[],coplanar:[],orient:[],range:[],sym:[],detached:[],pierce:[],whitelisted:[]};
+  const dwl=DWL[type]||{}, pwl=PWL[type]||{}; const isDWL=p=>dwl[p.i]||dwl[p.s+':'+p.role]||dwl[p.role]||null, isPWL=p=>pwl[p.i]||pwl[p.s+':'+p.role]||pwl[p.role]||null;
   // 1) 悬空:按"包围盒间距<=0.01 即接触"建连通图,不与任何贴地部件连通的分量全部记为悬空
   const adj=P.map(p=>P.filter(q=>q!==p&&gap(p.b,q.b)<=0.01));
   const grounded=new Set(),st=P.filter(p=>p.b.min.y<=0.01); st.forEach(p=>grounded.add(p));
@@ -57,6 +67,36 @@ JS = r"""([WL,SYM])=>{
     for(const q of P){ if(q===p||!q.planes||q.v<=p.v*0.9||!q.b.intersectsBox(p.b)) continue;
       const f=pts.filter(v=>inside(q,v)).length/pts.length;
       if(f>=0.8){R.buried.push({i:p.i,role:p.role,s:p.s,in:q.i,inRole:q.role,inShape:q.s,frac:+f.toFixed(2)});break;}}});
+  const mainAxis=p=>{const A=p.g.attributes.position,v=[];for(let t=0;t<A.count;t+=Math.max(1,(A.count/60)|0))v.push(new T.Vector3().fromBufferAttribute(A,t));let best=0,u=new T.Vector3(1,0,0);for(let i=0;i<v.length;i++)for(let j=i+1;j<v.length;j++){const d=v[i].distanceToSquared(v[j]);if(d>best){best=d;u=new T.Vector3().subVectors(v[j],v[i]).normalize();}}return u;};
+  // 8) 脱离父表面:细部角色或小部件,>30% 体积采样点既不在其他部件内部、也不在其表面 0.01 内
+  const sdist=(q,v)=>{ if(!q.planes){ // tor: 用包围盒距离近似
+      const c=q.b.clampPoint(v,new T.Vector3()); return c.distanceTo(v);} let m=-1e9; for(const [n,d] of q.planes){const x=n.dot(v)-d; if(x>m)m=x;} return m; };
+  const volSamples=p=>{const pts=[],N=5,sz=p.size;for(let a=0;a<N;a++)for(let b=0;b<N;b++)for(let c=0;c<N;c++){const v=new T.Vector3(p.b.min.x+sz.x*(a+.5)/N,p.b.min.y+sz.y*(b+.5)/N,p.b.min.z+sz.z*(c+.5)/N);
+      if(!p.planes||p.planes.every(([n,d])=>n.dot(v)-d<=1e-6)) pts.push(v);} if(!pts.length) pts.push(p.c.clone()); return pts;};
+  P.forEach(p=>{ const dims=[p.size.x,p.size.y,p.size.z].sort((a,b)=>a-b), small=dims[2]<0.08, thin=dims[0]<0.05;
+    if(!(small||(['face','port','led','detail'].includes(p.role)&&thin))) return;
+    // 支杆:两端分别接触两个不同部件的细长件(结构件)跳过;允许贴片按自身厚度外凸
+    const tol=Math.max(0.01,dims[0]+0.005);
+    if(p.s==='cyl'||p.s==='box'){ const A=p.g.attributes.position; const u=mainAxis(p); const vs=[];for(let t=0;t<A.count;t++)vs.push(new T.Vector3().fromBufferAttribute(A,t));
+      const ds=vs.map(v=>v.dot(u)), lo=Math.min(...ds), hi=Math.max(...ds);
+      if(hi-lo>4*dims[0]&&hi-lo>0.12){
+      const endC=(t)=>{const sel=vs.filter((v,k)=>Math.abs(ds[k]-t)<0.004);return sel.reduce((a,v)=>a.add(v),new T.Vector3()).multiplyScalar(1/sel.length);};
+      const touch=v=>v.y<=0.01||P.some(q=>q!==p&&sdist(q,v)<0.015); if(touch(endC(lo))&&touch(endC(hi))) return; } }
+    const pts=volSamples(p); let bad=0;
+    for(const v of pts){ let ok=v.y<=tol; if(!ok) for(const q of P){ if(q===p) continue; if(sdist(q,v)<tol){ok=true;break;} } if(!ok) bad++; }
+    const f=bad/pts.length; if(f>0.3){ const w=isWL(p)||isDWL(p); if(w) R.whitelisted.push({i:p.i,role:p.role,s:p.s,why:w,check:'detached'}); else R.detached.push({i:p.i,role:p.role,s:p.s,frac:+f.toFixed(2)});}});
+  // 9) 外凸穿插:部件 p 穿过主体 q,并在 p 主轴两端都从 q 伸出(贯穿),或同时插入两个互不接触的主体
+  P.forEach(p=>{ if(p.role==='base'||!p.planes&&p.s!=='tor') return; const pts=volSamples(p), u=mainAxis(p);
+    const hits=[];
+    for(const q of P){ if(q===p||!q.planes||!['body','base'].includes(q.role)||q.v<=p.v) continue; if(!q.b.intersectsBox(p.b)) continue;
+      const ins=pts.filter(v=>sdist(q,v)<-1e-3); if(ins.length<Math.max(1,pts.length*.08)) continue; hits.push(q);
+      const outs=pts.filter(v=>sdist(q,v)>0.01); if(!outs.length) continue;
+      const pi=ins.map(v=>v.dot(u)), lo=Math.min(...pi), hi=Math.max(...pi);
+      const pr=outs.map(v=>v.dot(u)); const plus=pr.filter(x=>x>hi+0.02).length, minus=pr.filter(x=>x<lo-0.02).length;
+      const ds=[p.size.x,p.size.y,p.size.z].sort((a,b)=>a-b); if(ds[2]<ds[1]*2) continue;
+      if(plus>=1&&minus>=1){ const w=isPWL(p); if(w) R.whitelisted.push({i:p.i,role:p.role,s:p.s,why:w,check:'pierce'}); else R.pierce.push({i:p.i,role:p.role,s:p.s,through:q.i,throughRole:q.role,note:'贯穿主体两端伸出'}); return; } }
+    if(hits.length>=2){ for(let i=0;i<hits.length;i++)for(let j=i+1;j<hits.length;j++) if(gap(hits[i].b,hits[j].b)>0.01){ const w=isPWL(p); if(w) R.whitelisted.push({i:p.i,role:p.role,s:p.s,why:w,check:'pierce'}); else R.pierce.push({i:p.i,role:p.role,s:p.s,through:[hits[i].i,hits[j].i],note:'同时插入两个互不接触的主体'}); return; } }
+  });
   // 3) 贴面偏差 / 共面 / 沉没:face/port/led/detail 的薄片(最薄轴<最厚轴*0.35)
   const att=['face','port','led','detail'];
   P.forEach(p=>{ if(!att.includes(p.role)||p.rot||p.s!=='box') return;
@@ -83,8 +123,8 @@ JS = r"""([WL,SYM])=>{
     const head=P.filter(p=>p.s==='sph'&&p.role==='body').sort((a,b)=>b.c.y-a.c.y)[0];
     const scr=P.filter(p=>p.role==='led').sort((a,b)=>b.v-a.v)[0];
     if(!(head&&scr&&scr.c.z>head.c.z)) R.orient.push({note:'笔记本屏幕不在人物前方'});
-    const visor=P.filter(p=>p.role==='led'&&p.size.x>p.size.y*3&&p.c.y>0.4)[0];
-    if(!visor||visor.c.z<head.c.z) R.orient.push({note:'面罩线不在头部前侧(+Z)'});}
+    const eyes=P.filter(p=>p.role==='led'&&p.s==='sph'&&p.c.y>0.4);
+    if(eyes.length<2||eyes.some(e=>e.c.z<head.c.z)) R.orient.push({note:'红眼不在兜帽前侧(+Z)'});}
   if(type==='insider'){ const face=P.filter(p=>p.s==='sph'&&p.role==='face')[0], hair=P.filter(p=>p.s==='sph'&&p.role==='port')[0];
     if(!face||!hair||face.c.z<=hair.c.z) R.orient.push({note:'脸不朝 +Z'});
     const badge=P.filter(p=>p.role==='led').sort((a,b)=>b.v-a.v); if(!badge.length||badge.every(b=>b.c.z<0)) R.orient.push({note:'工牌/标签不在正面'});}
@@ -100,8 +140,8 @@ JS = r"""([WL,SYM])=>{
 with sync_playwright() as p:
     br=p.chromium.launch(executable_path='/usr/bin/google-chrome',args=ARGS); pg=br.new_page()
     pg.goto('http://127.0.0.1:8876/nodes.html'); pg.wait_for_function('window.NODES_PAGE')
-    res=pg.evaluate(JS,[WL,SYM]); br.close()
-CATS=['floating','buried','offset','coplanar','orient','range','sym']
+    res=pg.evaluate(JS,[WL,SYM,DWL,PWL]); br.close()
+CATS=['floating','buried','offset','coplanar','orient','range','sym','detached','pierce']
 tot={c:0 for c in CATS}; bad=0
 print(f"{'type':12}"+''.join(f'{c[:7]:>8}' for c in CATS)+'   wl')
 for t,r in res.items():
