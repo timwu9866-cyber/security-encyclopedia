@@ -236,9 +236,10 @@ function prepareRenderer(renderer) {
     if (T.ColorManagement) T.ColorManagement.enabled = false;
     if (T.LinearSRGBColorSpace) renderer.outputColorSpace = T.LinearSRGBColorSpace;
     else if (renderer.outputEncoding != null && T.LinearEncoding != null) renderer.outputEncoding = T.LinearEncoding;
-    if (renderer.toneMapping != null && T.ACESFilmicToneMapping != null) {
-      renderer.toneMapping = T.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.05;
+    /* ACES 压暗暗部并拉低饱和度;改用 Linear + 略提曝光,主色更清楚 */
+    if (renderer.toneMapping != null) {
+      renderer.toneMapping = T.NoToneMapping;
+      if (renderer.toneMappingExposure != null) renderer.toneMappingExposure = 1.0;
     }
   } catch (e) {}
   return renderer;
@@ -542,12 +543,11 @@ function bakeAO(geo, role) {
   let ymin = Infinity, ymax = -Infinity;
   for (let i = 0; i < n; i++) { const y = P.getY(i); if (y < ymin) ymin = y; if (y > ymax) ymax = y; }
   const yr = Math.max(1e-4, ymax - ymin);
-  const roleBias = { port: .55, detail: .72, base: .62, led: .95, face: .88, body: 1 }[role] || .9;
+  const roleBias = { port: .9, detail: .94, base: .92, led: 1, face: .97, body: 1 }[role] || .95;
   for (let i = 0; i < n; i++) {
     const ny = N.getY(i), h = (P.getY(i) - ymin) / yr;
-    let a = roleBias * (0.62 + 0.28 * h + 0.18 * Math.max(0, ny));
-    if (role === 'port') a *= 0.78;
-    ao[i] = Math.max(.4, Math.min(1, a));
+    let a = roleBias * (0.9 + 0.07 * h + 0.04 * Math.max(0, ny));
+    ao[i] = Math.max(.85, Math.min(1, a));
   }
   geo.setAttribute('aAo', new root.THREE.BufferAttribute(ao, 1));
 }
@@ -574,23 +574,25 @@ function buildModel(T, type) {
 }
 /* 设备着色器:半球环境 + 朗伯 + 低光泽 Blinn-Phong + 收窄边缘光 + 顶点 AO;led 不受光照 */
 const VS_DEV = 'attribute float aAo;varying vec3 vN;varying vec3 vV;varying float vAo;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);vAo=aAo;gl_Position=projectionMatrix*mv;}';
-const FS_DEV = 'uniform vec3 uColor,uRim,uHemiSky,uHemiGnd;uniform float uRimK,uLam,uAmb,uSpec,uShin;varying vec3 vN;varying vec3 vV;varying float vAo;void main(){vec3 N=normalize(vN);vec3 V=normalize(vV);vec3 L=normalize(vec3(.35,.85,.45));float ndl=max(dot(N,L),0.);float hemi=.5+.5*N.y;vec3 amb=mix(uHemiGnd,uHemiSky,hemi)*uAmb;vec3 diff=uColor*(amb+(1.-uAmb)*ndl*uLam);vec3 H=normalize(L+V);float sp=pow(max(dot(N,H),0.),uShin)*uSpec*ndl;float fr=pow(1.-max(abs(dot(N,V)),0.),3.2);vec3 c=(diff+uRim*sp+uRim*fr*uRimK)*vAo;gl_FragColor=vec4(c,1.);}';
-const ROLE_FIX = { dark: { base: '#2E3742', port: '#151B24', detail: '#7C8B9E' }, light: { base: '#5a6676', port: '#1e2632', detail: '#9aa8ba' } };
-const ROLE_K = { dark: { body: .62, face: 1.0, rim: { body: .32, face: .2, base: .1, port: .06, led: 0, detail: .18 }, spec: { body: .18, face: .22, base: .06, port: .04, led: 0, detail: .12 }, shin: { body: 28, face: 36, base: 16, port: 20, led: 1, detail: 24 } }, light: { body: .78, face: 1.0, rim: { body: .18, face: .12, base: .06, port: .04, led: 0, detail: .1 }, spec: { body: .12, face: .14, base: .04, port: .03, led: 0, detail: .08 }, shin: { body: 32, face: 40, base: 18, port: 22, led: 1, detail: 28 } } };
+const FS_DEV = 'uniform vec3 uColor,uRim,uHemiSky,uHemiGnd;uniform float uRimK,uLam,uAmb,uSpec,uShin,uFill;varying vec3 vN;varying vec3 vV;varying float vAo;void main(){vec3 N=normalize(vN);vec3 V=normalize(vV);vec3 Ldir=normalize(vec3(.35,.85,.45));float ndl=max(dot(N,Ldir),0.);float hemi=.5+.5*N.y;vec3 ambCol=mix(uHemiGnd,uHemiSky,hemi);float ambL=dot(ambCol,vec3(.2126,.7152,.0722));float shade=mix(uFill,1.,smoothstep(0.,1.,ndl)*.85);float lit=shade*(.55+uAmb*ambL*.9);vec3 diff=uColor*lit;vec3 H=normalize(Ldir+V);float sp=pow(max(dot(N,H),0.),uShin)*uSpec*ndl;float fr=pow(1.-max(abs(dot(N,V)),0.),3.6);vec3 c=(diff+uRim*sp*.55+uRim*fr*uRimK*.85)*vAo;gl_FragColor=vec4(c,1.);}';
+const ROLE_FIX = { dark: { base: '#556578', port: '#3a4860', detail: '#a8b6c8' }, light: { base: '#7a8a9c', port: '#4a586c', detail: '#b0bec8' } };
+const ROLE_K = { dark: { body: .78, face: 1.0, rim: { body: .22, face: .14, base: .08, port: .04, led: 0, detail: .12 }, spec: { body: .18, face: .22, base: .06, port: .04, led: 0, detail: .12 }, shin: { body: 28, face: 36, base: 16, port: 20, led: 1, detail: 24 } }, light: { body: .88, face: 1.0, rim: { body: .12, face: .08, base: .04, port: .03, led: 0, detail: .07 }, spec: { body: .12, face: .14, base: .04, port: .03, led: 0, detail: .08 }, shin: { body: 32, face: 40, base: 18, port: 22, led: 1, detail: 28 } } };
 function roleColor(T, main, role, theme) {
   const F = ROLE_FIX[theme]; if (F[role]) return new T.Color(F[role]);
   if (role === 'led') return main.clone().lerp(new T.Color('#ffffff'), .55);
   return main.clone().multiplyScalar(ROLE_K[theme][role]);
 }
 function hemiColors(theme) {
-  return theme === 'light' ? { sky: new root.THREE.Color('#f2f5fa'), gnd: new root.THREE.Color('#8a96a8') } : { sky: new root.THREE.Color('#b0c0d8'), gnd: new root.THREE.Color('#080c14') };
+  return theme === 'light' ? { sky: new root.THREE.Color('#ffffff'), gnd: new root.THREE.Color('#d8dee8') } : { sky: new root.THREE.Color('#e2eaf5'), gnd: new root.THREE.Color('#5a6880') };
 }
 function devMat(T, main, role, theme) {
   const c = roleColor(T, main, role, theme), H = hemiColors(theme), K = ROLE_K[theme];
   return new T.ShaderMaterial({ uniforms: {
     uColor: { value: c.clone() }, uRim: { value: main.clone() }, uRimK: { value: K.rim[role] },
-    uLam: { value: role === 'led' ? 0 : 1 }, uAmb: { value: theme === 'light' ? .42 : .32 },
-    uSpec: { value: K.spec[role] }, uShin: { value: K.shin[role] },
+    uLam: { value: role === 'led' ? 0 : 1 },
+    uAmb: { value: theme === 'light' ? .45 : .4 },
+    uFill: { value: theme === 'light' ? .78 : .80 },
+    uSpec: { value: K.spec[role] * .75 }, uShin: { value: K.shin[role] },
     uHemiSky: { value: H.sky }, uHemiGnd: { value: H.gnd },
   }, vertexShader: VS_DEV, fragmentShader: FS_DEV });
 }
@@ -601,8 +603,8 @@ function contactShadow(T, theme, size) {
   const m = new T.Mesh(texCache[geoKey], new T.MeshBasicMaterial({ map: texCache[key], transparent: true, depthWrite: false, opacity: 1 })); m.rotation.x = -PI / 2; m.position.y = .001; m.renderOrder = -2; m.userData.isContactShadow = true; return m; }
   const c = document.createElement('canvas'); c.width = 64; c.height = 64; const x = c.getContext('2d');
   const g = x.createRadialGradient(32, 32, 2, 32, 32, 30);
-  g.addColorStop(0, theme === 'light' ? 'rgba(30,40,60,.32)' : 'rgba(0,0,0,.55)');
-  g.addColorStop(.55, theme === 'light' ? 'rgba(30,40,60,.12)' : 'rgba(0,0,0,.22)');
+  g.addColorStop(0, theme === 'light' ? 'rgba(30,40,60,.22)' : 'rgba(0,0,0,.25)');
+  g.addColorStop(.5, theme === 'light' ? 'rgba(30,40,60,.08)' : 'rgba(0,0,0,.1)');
   g.addColorStop(1, 'rgba(0,0,0,0)');
   x.fillStyle = g; x.fillRect(0, 0, 64, 64);
   const tex = new T.CanvasTexture(c); texCache[key] = tex;
@@ -638,7 +640,7 @@ function createNode(type, opts) {
   });
   const box = M.box.clone(); const size = box.getSize(new T.Vector3()); const norm = M.norm, raw = M.raw;
   group.scale.setScalar(scale);
-  group.add(contactShadow(T, theme, Math.max(size.x, size.z) * 1.15 + .15));
+  group.add(contactShadow(T, theme, Math.max(size.x, size.z) * 0.85 + .08));
   const radius = Math.max(size.x, size.z) * .5 * scale;
   const out = { group, type, spec: sp, cat: sp.cat, color, theme, scale, norm, rawSize: raw, roles: M.parts.map(p => p.name), tris: M.tris, verts: M.verts, parts: M.parts.length, mats: M.parts.length, stats: { tris: M.tris, verts: M.verts, parts: M.parts.length, mats: M.parts.length }, bounds: { height: box.max.y * scale, radius, cube: CUBE * scale, size: { x: +(size.x * scale).toFixed(4), y: +(size.y * scale).toFixed(4), z: +(size.z * scale).toFixed(4) } }, state: 'normal' };
   if (o.mask) { out.update = () => { }; out.setState = () => { }; out.setLabel = () => { }; out.dispose = () => { mats.forEach(m => m.dispose()); }; return out; }
